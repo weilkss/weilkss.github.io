@@ -9,7 +9,7 @@ class Search extends React.Component {
     return (
       <Fragment>
         <Header />
-        <main className="search">
+        <main className="search enter">
           <div className="search-box">
             <input className="search-input" type="text" placeholder="输入搜索内容" />
             <i className="xwb iconmagnifyingglass"></i>

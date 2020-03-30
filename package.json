@@ -1,8 +1,8 @@
 {
-  "name": "xwb007.github.io",
+  "name": "weilkss.github.io",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://www.buttr.cn",
+  "homepage": "https://www.weilkss.cn",
   "scripts": {
     "start": "PORT=8080 react-app-rewired start",
     "build": "react-app-rewired build",

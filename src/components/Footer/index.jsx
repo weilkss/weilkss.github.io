@@ -9,9 +9,9 @@ class Footer extends React.Component {
           Copyright © 2019 - <span>{new Date().getFullYear()}</span> My WebSite. All Rights Reserved.
         </section>
         <p className="youqing">
-          <a className="footer-link footer-left" href="https://github.com/buttr" target="view_window">
+          <a className="footer-link footer-left" href="https://github.com/weilkss" target="view_window">
             <i className="xwb iconGitHub"></i>
-            <span>BUTTR</span>
+            <span>weilkss</span>
           </a>
           <span>友情链接：</span>
           <a className="footer-link" href="http://www.baixiaosheng.top" target="view_window">

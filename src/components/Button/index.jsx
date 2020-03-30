@@ -38,7 +38,7 @@ class Button extends React.Component {
           className={classnames('button-circle', { 'explode-circle': this.state.obj.cls, 'desplode-circle': !this.state.obj.cls })}
           style={{ left: this.state.obj.left, top: this.state.obj.top }}
         ></p>
-        <p className="name">BUTTR Website Blog</p>
+        <p className="name">Weilkss Website Blog</p>
       </button>
     ) : (
       <button className="xwb-button" {...this.props}>

@@ -14,13 +14,13 @@
 
 #### xwb-loading
 
-[直通车](https://github.com/xwb007/xwb-loading)
+[直通车](https://github.com/weilkss/xwb-loading)
 
 我以前自己封装的一个`loading`,适用于 react 和 vue，项目中主要是为了处理白屏
 
 #### xwb-react-markdown
 
-[直通车](https://github.com/xwb007/xwb-react-markdown)
+[直通车](https://github.com/weilkss/xwb-react-markdown)
 
 我自己封装的`markdown`，项目中主要是为了我自己编辑文章发布
 
@@ -58,7 +58,7 @@ react 时间轴
 
 [直通车](https://www.bmob.cn/)
 
-`Bmob`后端云 全方位一体化的后端服务平台提供可靠的 Serverless 云服务 轻松拥有开发中需要的各种后端能力，我的数据都是使用 bmob 存储，文档简单使用起来也方便，最主要的是请求快，比起 txy 的云服务快了很多，因为我之前做过一个[M3A](https://github.com/xwb007/M3A)的小程序，就使用了云开发，接口是真的慢。最主要的是他提供域名还支持 https，还适合小程序使用。
+`Bmob`后端云 全方位一体化的后端服务平台提供可靠的 Serverless 云服务 轻松拥有开发中需要的各种后端能力，我的数据都是使用 bmob 存储，文档简单使用起来也方便，最主要的是请求快，比起 txy 的云服务快了很多，因为我之前做过一个[M3A](https://github.com/weilkss/M3A)的小程序，就使用了云开发，接口是真的慢。最主要的是他提供域名还支持 https，还适合小程序使用。
 
 ##### Example
 
@@ -117,8 +117,8 @@ router.get('/qiniuToken', async ctx => {
   let secretKey = 'your secret key';
   let mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
   let options = {
-    scope: 'xwb007',     // 你的对象存储 名称
-    expires: 36000 * 24  // 时效
+    scope: 'weilkss',     // 你的对象存储 名称
+    expires: 36000 * 24   // 时效
   };
 
   let putPolicy = new qiniu.rs.PutPolicy(options);

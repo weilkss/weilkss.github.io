@@ -30,7 +30,7 @@ const Personal = props => (
     <p className="personal-link personal-enter">
       <span>
         <i className="xwb  iconGitHub"></i>
-        <a className="personal-link-a" href="https://github.com/xwb007" target="view_window">
+        <a className="personal-link-a" href="https://github.com/weilkss" target="view_window">
           GitHub
         </a>
       </span>

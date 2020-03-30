@@ -17,12 +17,12 @@ class Header extends React.Component {
     ]
   };
   handleClick() {
-    window.location.href = 'https://www.buttr.cn';
+    window.location.href = 'https://www.weilkss.cn';
   }
   render() {
     return (
       <header className="header">
-        <a href="https://github.com/buttr" target="view_window">
+        <a href="https://github.com/weilkss" target="view_window">
           <i className="xwb iconGitHub enter"></i>
         </a>
         <div>
