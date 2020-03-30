@@ -1,0 +1,39 @@
+.footer {
+  width: 700px;
+  height: 80px;
+  padding-top: 120px;
+  margin: auto;
+  text-align: center;
+  color: #999999;
+  font-size: 12px;
+  opacity: 0;
+  animation: footer 2s forwards;
+  &-link {
+    color: #84abbc;
+    font-size: 12px;
+    transition: all 0.3s;
+    line-height: 12px;
+    &:hover {
+      color: #333;
+    }
+    .iconGitHub{
+      font-size: 12px;
+      margin-right: 2px;
+      vertical-align: top;
+    }
+  }
+  &-left{
+    margin-right: 20px;
+  }
+  .youqing {
+    margin-top: 20px;
+  }
+  @keyframes footer {
+    99% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}

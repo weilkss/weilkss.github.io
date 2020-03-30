@@ -1,0 +1,77 @@
+.tabs {
+  width: 700px;
+  margin: auto;
+  &-title {
+    height: 50px;
+    font-size: 24px;
+    color: #333;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    animation-delay: 1s;
+  }
+  .xwb-icon {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  &-icon-box {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #333;
+  }
+  &-name {
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  &-item {
+    cursor: pointer;
+    padding: 40px 0 40px 30px;
+    border-left: 4px solid rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-bottom: 1px dashed #ccc;
+    transition: all .3s;
+    animation-delay: 1.3s;
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -5px;
+      left: -7px;
+      width: 10px;
+      height: 10px;
+      background-color: #333;
+      border-radius: 50%;
+    }
+    &:hover{
+      border-bottom: 1px dashed #333;
+    }
+  }
+  .frist-item{
+    border-top: 1px dashed #ccc;
+    &::before{
+      content: '';
+      display: block;
+      position: absolute;
+      top: -5px;
+      left: -7px;
+      width: 10px;
+      height: 10px;
+      background-color: #333;
+      border-radius: 50%;
+    }
+  }
+  &-time {
+    font-size: 12px;
+    margin-right: 10px;
+    color: #999;
+  }
+  &-text {
+    font-size: 14px;
+    color: #666;
+  }
+}

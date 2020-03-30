@@ -1,0 +1,56 @@
+.record {
+  width: 700px;
+  margin: auto;
+  animation-delay: 1.2s;
+  &-item {
+    padding: 40px 0 40px 30px;
+    border-left: 4px solid rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-bottom: 1px dashed #ccc;
+    transition: all 0.3s;
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -5px;
+      left: -7px;
+      width: 10px;
+      height: 10px;
+      background-color: #333;
+      border-radius: 50%;
+    }
+  }
+  .pointer {
+    cursor: pointer;
+    &:hover {
+      border-bottom: 1px dashed #333;
+    }
+  }
+  .frist-item {
+    border-top: 1px dashed #ccc;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -5px;
+      left: -7px;
+      width: 10px;
+      height: 10px;
+      background-color: #333;
+      border-radius: 50%;
+    }
+  }
+  &-year {
+    font-size: 24px;
+    text-align: center;
+  }
+  &-time {
+    font-size: 12px;
+    margin-right: 10px;
+    color: #999;
+  }
+  &-text {
+    font-size: 14px;
+    color: #666;
+  }
+}

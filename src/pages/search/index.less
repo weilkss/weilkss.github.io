@@ -1,0 +1,39 @@
+.search {
+  width: 700px;
+  margin: auto;
+  &-box {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #eee;
+    position: relative;
+  }
+  &-input {
+    height: 50px;
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 0 110px 0 10px;
+    box-sizing: border-box;
+  }
+  .iconmagnifyingglass {
+    position: absolute;
+    right: 0;
+    top: -1px;
+    display: block;
+    width: 100px;
+    height: 52px;
+    flex-shrink: 0;
+    font-size: 30px;
+    text-align: center;
+    line-height: 50px;
+    color: #999;
+    cursor: pointer;
+    background-color: #eee;
+    transition: all 0.5s;
+    &:hover {
+      color: #666;
+      background-color: #999;
+    }
+  }
+}

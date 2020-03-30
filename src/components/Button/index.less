@@ -1,0 +1,163 @@
+.xwb-button {
+  width: 120px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid #333;
+  outline: none;
+  background-color: #fff;
+  color: #333;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  box-sizing: border-box;
+  &-text {
+    margin-right: 30px;
+    font-size: 14px;
+  }
+  &-icon {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    font-size: 16px;
+    margin-top: -8px;
+    transition: all 0.3s ease-in-out;
+  }
+  &:hover {
+    .xwb-button-icon {
+      right: 10px;
+    }
+    .xwb-button-top {
+      left: 0;
+      opacity: 1;
+    }
+    .xwb-button-right {
+      top: -2px;
+      opacity: 1;
+    }
+    .xwb-button-bottom {
+      right: 0;
+      opacity: 1;
+    }
+    .xwb-button-left {
+      bottom: -2px;
+      opacity: 1;
+    }
+  }
+  &-top {
+    width: 100px;
+    height: 2px;
+    background-color: #333;
+    position: absolute;
+    top: -2px;
+    left: -100px;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+  &-right {
+    width: 2px;
+    height: 40px;
+    background-color: #333;
+    position: absolute;
+    top: -40px;
+    right: -2px;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+  &-bottom {
+    width: 100px;
+    height: 2px;
+    background-color: #333;
+    position: absolute;
+    bottom: -2px;
+    right: -100px;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+  &-left {
+    width: 2px;
+    height: 40px;
+    background-color: #333;
+    position: absolute;
+    bottom: -40px;
+    left: -2px;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+}
+.button-name-box {
+  border: none;
+  outline: none;
+  padding: 0;
+  width: 220px;
+  height: 40px;
+  background-color: #333;
+  margin: 10px auto 30px;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  .name {
+    font-size: 18px;
+    animation-delay: 0.3s;
+    color: #fff;
+  }
+  .button-circle {
+    background-color: #fff;
+    border-radius: 1000px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    margin-left: 0;
+    margin-top: 0;
+    pointer-events: none;
+  }
+  .explode-circle {
+    animation: explode 0.5s ease-out forwards;
+  }
+
+  .desplode-circle {
+    animation: desplode 0.5s ease-out forwards;
+  }
+  @keyframes explode {
+    0% {
+      width: 0;
+      height: 0;
+      margin-left: 0;
+      margin-top: 0;
+      bbackground-color: rgba(255, 255, 255, 0.2);
+    }
+
+    100% {
+      width: 400px;
+      height: 400px;
+      margin-left: -200px;
+      margin-top: -200px;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  @keyframes desplode {
+    0% {
+      width: 400px;
+      height: 400px;
+      margin-left: -200px;
+      margin-top: -200px;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    100% {
+      width: 0;
+      height: 0;
+      margin-left: 0;
+      margin-top: 0;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}

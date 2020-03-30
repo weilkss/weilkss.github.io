@@ -1,0 +1,86 @@
+.video {
+  width: 700px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  animation-delay: 1.2s;
+  &-item {
+    position: relative;
+    width: 220px;
+    height: 300px;
+    margin: 20px 20px 0 0;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #eee;
+    &:hover {
+      .video-name-box {
+        opacity: 1;
+      }
+      .video-mask {
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+      .video-duration {
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .iconbofang {
+        color: rgba(255, 255, 255, 1);
+      }
+    }
+  }
+  &-item:nth-child(3n) {
+    margin-right: 0;
+  }
+  &-cover {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  &-name-box {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding: 10px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+  }
+  &-name {
+    font-size: 16px;
+    color: #fff;
+  }
+  &-ename {
+    font-size: 12px;
+    color: #f5f5f5;
+  }
+  &-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0);
+    transition: all 0.5s ease-in-out;
+  }
+  .iconbofang {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -24px;
+    margin-left: -24px;
+    font-size: 48px;
+    z-index: 3;
+    color: rgba(255, 255, 255, 0);
+    transition: all 0.5s ease-in-out;
+  }
+  &-duration {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0);
+    transition: all 0.5s ease-in-out;
+  }
+}

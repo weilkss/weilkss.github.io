@@ -1,0 +1,32 @@
+.type {
+  width: 700px;
+  margin: auto;
+  animation-delay: 1s;
+  text-align: center;
+  &-box {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline-block;
+  }
+  &-item {
+    list-style: circle;
+    margin: 10px;
+    text-align: left;
+  }
+  &-link {
+    background-color: transparent;
+    outline: 0;
+  }
+  &-name {
+    color: #666;
+    transition: all .3s;
+    border-bottom: 1px solid #666;
+    &:hover {
+      color: #000;
+    }
+  }
+  &-count {
+    color: #999;
+  }
+}
