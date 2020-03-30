@@ -1,6 +1,6 @@
 # 个人博客
 
-[website](https://www.buttr.cn)
+[website](https://www.weilkss.cn)
 
 ### 简介
 
