@@ -12,12 +12,6 @@
 
 `create-react-app`大家都很熟悉，主要还是里面用到的一些技术，因为我自己没有购买服务器，所以把项目挂在 GitHub 上，只买了一个域名，而且还不用备案就能使用 https 访问，确定就是有时候访问比较慢，具体 GitHub 搭建个人站点的方式我后面会讲到。`style`样式我选择的 less，我只是个人比较喜欢 less 一点，由于项目简单我就没有用到`redux`。
 
-#### antd
-
-[直通车](https://ant.design/index-cn)
-
-阿里云团队推出的 reactui 框架，主要用到一些组件,分页、时间轴等
-
 #### xwb-loading
 
 [直通车](https://github.com/xwb007/xwb-loading)
@@ -36,6 +30,30 @@
 
 一个下拉选择器
 
+#### nprogress
+
+[直通车](https://github.com/rstacruz/nprogress)
+
+顶部加载
+
+#### rc-pagination
+
+[直通车](https://github.com/react-component/pagination)
+
+react 分页
+
+#### react-zmage
+
+[直通车](https://github.com/Caldis/react-zmage)
+
+react 图片预览
+
+#### react-vertical-timeline-component
+
+[直通车](https://github.com/stephane-monnot/react-vertical-timeline)
+
+react 时间轴
+
 #### Bmob
 
 [直通车](https://www.bmob.cn/)
@@ -49,7 +67,6 @@ import Bmob from 'hydrogen-js-sdk';
 
 // 初始化
 Bmob.initialize('your SecretKey key', 'your code key');
-
 
 /**
  *  获取首页文章列表
@@ -116,6 +133,6 @@ token:'aS1fve6zuRVODg89_JG1VM*******YjAwNyIsImRlYWRsaW5lIjoxNTg0NjczNTAwfQ==',
 
 ### `create-react-app` 搭建 GitHub 个人博客
 
-[直通车](https://www.buttr.cn/detail/0d011ca514)
+[直通车](https://www.weilkss.cn/detail/0d011ca514)
 
 感谢
