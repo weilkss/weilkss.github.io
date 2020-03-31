@@ -12,9 +12,9 @@
 
 `create-react-app`大家都很熟悉，主要还是里面用到的一些技术，因为我自己没有购买服务器，所以把项目挂在 GitHub 上，只买了一个域名，而且还不用备案就能使用 https 访问，确定就是有时候访问比较慢，具体 GitHub 搭建个人站点的方式我后面会讲到。`style`样式我选择的 less，我只是个人比较喜欢 less 一点，由于项目简单我就没有用到`redux`。
 
-#### xwb-loading
+#### react-vue-loading
 
-[直通车](https://github.com/weilkss/xwb-loading)
+[直通车](https://github.com/weilkss/react-vue-loading)
 
 我以前自己封装的一个`loading`,适用于 react 和 vue，项目中主要是为了处理白屏
 

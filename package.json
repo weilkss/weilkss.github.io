@@ -48,9 +48,9 @@
     "react-scripts": "3.4.0",
     "react-select": "^3.0.8",
     "react-vertical-timeline-component": "^2.5.0",
+    "react-vue-loading": "^1.0.2",
     "react-zmage": "^0.8.5-beta.31",
     "video-react": "^0.14.1",
-    "xwb-loading": "^1.1.7",
     "xwb-react-markdown": "^1.2.0"
   }
 }

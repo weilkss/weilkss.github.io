@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Loading from 'xwb-loading';
+import RVloading from 'react-vue-loading'
 
 const Home = React.lazy(() => import('../pages/home/index'));
 const Detail = React.lazy(() => import('../pages/detail/index'));
@@ -21,7 +21,7 @@ const Search = React.lazy(() => import('../pages/search/index'));
 
 const LoadDom = () => (
   <div className="loading-box">
-    <Loading size="64" color="#000" />
+    <RVloading size="64" color="#000" />
   </div>
 );
 

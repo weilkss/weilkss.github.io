@@ -25,6 +25,7 @@ class Home extends React.Component {
     alists: []
   };
   componentDidMount() {
+    console.log(typeof this.name)
     this.getArticleList();
   }
   getArticleList() {
