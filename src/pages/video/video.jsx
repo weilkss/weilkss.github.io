@@ -26,6 +26,8 @@ class VideoPlay extends React.Component {
         <Header />
         {this.state.playerProps ? (
           <main className="videoplay enter">
+            <p className='videoplay-name'>{this.state.playerProps.name}</p>
+            <blockquote className='videoplay-describe'>{this.state.playerProps.describe}</blockquote>
             <Player src={config.qiniu.domian + this.state.playerProps.url} poster={config.qiniu.domian + this.state.playerProps.dcover}></Player>
           </main>
         ) : null}

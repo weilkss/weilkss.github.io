@@ -167,28 +167,20 @@ export default {
   /**
    * 获取分类和文章数量
    */
-  getTypesArticleCount() {
-    return new Promise(async (resolve, reject) => {
-      const types = await this.getTypes();
-      async function func(index) {
-        const query = Bmob.Query('Article');
-        query.equalTo('tid', '==', types[index].objectId);
-        query
-          .count()
-          .then(count => {
-            types[index].count = count;
-            if (index < types.length - 1) {
-              func(index + 1);
-            } else {
-              resolve(types);
-            }
-          })
-          .catch(err => {
-            reject(err);
-          });
-      }
-      func(0);
-    });
+  async getTypesArticleCount(callback) {
+    const types = await this.getTypes();
+    function func(index) {
+      const query = Bmob.Query('Article');
+      query.equalTo('tid', '==', types[index].objectId);
+      query.count().then(count => {
+        types[index].count = count;
+        callback(types);
+        if (index < types.length - 1) {
+          func(index + 1);
+        }
+      });
+    }
+    func(0);
   },
   /**
    * 获取数量
@@ -296,6 +288,7 @@ export default {
   getVideos() {
     return new Promise((resolve, reject) => {
       const query = Bmob.Query('Video');
+      query.order('-year');
       query
         .find()
         .then(res => {
@@ -315,6 +308,26 @@ export default {
       const query = Bmob.Query('Video');
       query
         .get(id)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+  /**
+   * 访问量
+   * @param {*} param 
+   */
+  setVisits(param) {
+    return new Promise((resolve, reject) => {
+      const query = Bmob.Query('Visits');
+      for (const key in param) {
+        query.set(key, param[key]);
+      }
+      query
+        .save()
         .then(res => {
           resolve(res);
         })

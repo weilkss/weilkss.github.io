@@ -15,6 +15,8 @@ class UploadVideo extends React.Component {
     percent: 0,
     name: '',
     ename: '',
+    year: '',
+    describe: '',
     cover: '',
     url: '',
     dcover: '',
@@ -78,11 +80,13 @@ class UploadVideo extends React.Component {
     }
   }
   handleReple() {
-    const { name, ename, url, cover, dcover, duration, width, height, size } = this.state;
+    const { name, ename, describe, year, url, cover, dcover, duration, width, height, size } = this.state;
     request
       .setVideo({
         name,
         ename,
+        year,
+        describe,
         url,
         cover,
         dcover,
@@ -128,6 +132,16 @@ class UploadVideo extends React.Component {
       ename: e.target.value.trim()
     });
   };
+  handleeYear = e => {
+    this.setState({
+      year: new Date(e.target.value).getTime()
+    });
+  };
+  handletextChange = e => {
+    this.setState({
+      describe: e.target.value.trim()
+    });
+  };
   render() {
     return (
       <div className="upload">
@@ -135,10 +149,13 @@ class UploadVideo extends React.Component {
         <div className="upload-top">
           <input className="upload-name" type="text" placeholder="电影名" onChange={this.handleName} />
           <input className="upload-name" type="text" placeholder="电影英文名" onChange={this.handleeName} />
+          <input className="upload-name" type="date" onChange={this.handleeYear} />
           <button className="upload-reple" onClick={this.handleReple}>
             发布
           </button>
         </div>
+
+        <textarea className="upload-describe" placeholder="输入描述" onChange={this.handletextChange}></textarea>
 
         <div className="upload-btn">
           <input className="upload-input" type="file" multiple accept=".jpg,.jpeg,.png,.gif" onChange={e => this.handleUploadCover(e)} />

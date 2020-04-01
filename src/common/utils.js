@@ -83,5 +83,57 @@ export default {
     const m = Math.floor((t - h * 3600) / 60);
     const s = Math.floor(t - h * 3600 - m * 60);
     return [h <= 0 ? '00' : h < 10 ? '0' + h : h, m <= 0 ? '00' : m < 10 ? '0' + m : m, s <= 0 ? '00' : s < 10 ? '0' + s : s].join(':');
+  },
+  /**
+   * 获取系统信息
+   */
+  getSysInfo() {
+    const ua = navigator.userAgent.toLowerCase(),
+      isWin7 = ua.indexOf('nt 6.1') > -1,
+      isVista = ua.indexOf('nt 6.0') > -1,
+      isWin2003 = ua.indexOf('nt 5.2') > -1,
+      isWinXp = ua.indexOf('nt 5.1') > -1,
+      isWin2000 = ua.indexOf('nt 5.0') > -1,
+      isWindows = ua.indexOf('windows') !== -1 || ua.indexOf('win32') !== -1,
+      isMac = ua.indexOf('macintosh') !== -1 || ua.indexOf('mac os x') !== -1,
+      isAir = ua.indexOf('adobeair') !== -1,
+      isLinux = ua.indexOf('linux') !== -1;
+    let sys = '';
+    if (isWin7) {
+      sys = 'Windows 7';
+    } else if (isVista) {
+      sys = 'Vista';
+    } else if (isWinXp) {
+      sys = 'Windows xp';
+    } else if (isWin2003) {
+      sys = 'Windows 2003';
+    } else if (isWin2000) {
+      sys = 'Windows 2000';
+    } else if (isWindows) {
+      sys = 'Windows';
+    } else if (isMac) {
+      sys = 'Macintosh';
+    } else if (isAir) {
+      sys = 'Adobeair';
+    } else if (isLinux) {
+      sys = 'Linux';
+    } else {
+      sys = 'Unknow';
+    }
+    return sys;
+  },
+  /**
+   * 获取类型浏览器
+   */
+  getBrowserType() {
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua === null) return 'ie';
+    else if (ua.indexOf('chrome') !== -1) return 'chrome';
+    else if (ua.indexOf('opera') !== -1) return 'opera';
+    else if (ua.indexOf('msie') !== -1) return 'ie';
+    else if (ua.indexOf('safari') !== -1) return 'safari';
+    else if (ua.indexOf('firefox') !== -1) return 'firefox';
+    else if (ua.indexOf('gecko') !== -1) return 'gecko';
+    else return 'ie';
   }
 };

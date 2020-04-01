@@ -12,12 +12,12 @@ class Type extends React.Component {
     types: []
   };
   componentDidMount() {
-    request.getTypesArticleCount().then(types => {
+    request.getTypesArticleCount(types => {
       this.setState({
         types
       });
     });
-  }
+  }Í
   render() {
     return (
       <Fragment>
@@ -28,7 +28,7 @@ class Type extends React.Component {
               <li className="type-item" key={index}>
                 <Link className="type-link" to={`/tabs/${item.objectId}`}>
                   <span className="type-name">{item.name}</span>
-                  <span className="type-count">（{item.count}）</span>
+                  <span className="type-count">（{item.count || 0}）</span>
                 </Link>
               </li>
             ))}
