@@ -6,7 +6,7 @@ import './index.less';
 
 const Personal = props => (
   <div className="personal">
-    <img className="personal-headpic personal-enter" src="http://q6x8pj73c.bkt.clouddn.com/34527431.jpeg" alt="" />
+    <img className="personal-headpic personal-enter" src="http://file.weilkss.cn/WechatIMG10.jpeg" alt="" />
     <p className="personal-name personal-enter">Deng Wei</p>
     <p className="personal-work personal-enter">WEB前端开发工程师</p>
     <div className="personal-tab personal-enter">

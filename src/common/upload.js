@@ -12,7 +12,7 @@ class Upload {
     this.onProgress = () => {};
     this.onComplete = () => {};
     this.file = option.file;
-    this.type = typeof option.type === 'string' ? [option.type] : option.type;
+    this.type = option.type;
     this.upload();
   }
   progress(param) {
@@ -24,31 +24,40 @@ class Upload {
     return this;
   }
   upload() {
-    const key = new Date().getTime() + '-' + this.file.name;
     const putExtra = {
       fname: this.file.name,
       params: {},
-      mimeType: [...this.type] || null
+      mimeType: this.type === 'image' ? ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'] : ['video/mp4'],
     };
     const qinuiConfig = {
       useCdnDomain: false,
-      region: qiniu.region.z2
+      region: qiniu.region.z2,
     };
-
+    const key = new Date().getTime() + this.file.name;
     const observable = qiniu.upload(this.file, key, config.qiniu.token, putExtra, qinuiConfig);
 
     observable.subscribe(
-      next => {
+      (next) => {
         this.onProgress(Math.floor(next.total.percent * 100) / 100);
       },
-      error => {
+      (error) => {
         console.error(error);
       },
-      complete => {
+      (complete) => {
         this.onComplete(complete.key);
       }
     );
   }
 }
 
-export default Upload;
+const upload = (option, callback) => {
+  return new Promise((resolve) => {
+    new Upload(option)
+      .complete((key) => {
+        resolve(key);
+      })
+      .progress((param) => callback&&callback(param));
+  });
+};
+
+export default upload;

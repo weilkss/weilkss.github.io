@@ -1,12 +1,12 @@
 import React from 'react';
-import axios from 'axios';
 import config from '../../common/config';
 import request from '../../common/request';
 import Toast from '../../components/Toast';
+import upload from '../../common/upload';
 
 import './index.less';
 
-class Upload extends React.Component {
+class UploadImg extends React.Component {
   constructor() {
     super();
     this.uploadFunc = this.uploadFunc.bind(this);
@@ -15,16 +15,16 @@ class Upload extends React.Component {
   state = {
     title: '',
     describe: '',
-    atlas: []
+    atlas: [],
   };
-  handleTitle = e => {
+  handleTitle = (e) => {
     this.setState({
-      title: e.target.value.trim()
+      title: e.target.value.trim(),
     });
   };
-  handletextChange = e => {
+  handletextChange = (e) => {
     this.setState({
-      describe: e.target.value.trim()
+      describe: e.target.value.trim(),
     });
   };
   async uploadFunc(files, index) {
@@ -33,34 +33,21 @@ class Upload extends React.Component {
       narrow: '',
       url: '',
       width: 100,
-      height: 100
+      height: 100,
     };
-    let formData = new FormData();
-    let cformData = new FormData();
 
     let { cfile, originHeight, originWidth } = await this.compressImg(files[index]);
     uploadObj.width = originWidth;
     uploadObj.height = originHeight;
     // 上传略缩图
-    cformData.append('token', config.qiniu.token);
-    cformData.append('key', new Date().getTime() + '-' + files[index].name);
-    cformData.append('file', cfile);
-    await axios.post(config.qiniu.uploadUrl, cformData, { 'Content-Type': 'multipart/form-data' }).then(res => {
-      uploadObj.narrow = res.data.key;
-    });
-
+    uploadObj.narrow = await upload({ file: cfile, type: 'image' });
     // 上传原图
-    formData.append('token', config.qiniu.token);
-    formData.append('key', new Date().getTime() + '-' + files[index].name);
-    formData.append('file', files[index]);
-    await axios.post(config.qiniu.uploadUrl, formData, { 'Content-Type': 'multipart/form-data' }).then(res => {
-      uploadObj.url = res.data.key;
-    });
+    uploadObj.url = await upload({ file: files[index], type: 'image' });
 
     atlas = [uploadObj, ...atlas];
     this.setState(
       {
-        atlas
+        atlas,
       },
       () => {
         if (index < files.length - 1) {
@@ -78,7 +65,7 @@ class Upload extends React.Component {
    * 压缩图片
    */
   compressImg(file) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       // 压缩图片需要的一些元素和对象
       let reader = new FileReader();
       //创建一个img对象
@@ -86,12 +73,12 @@ class Upload extends React.Component {
 
       reader.readAsDataURL(file);
       // 文件base64化，以便获知图片原始尺寸
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         img.src = e.target.result;
       };
 
       // base64地址图片加载完毕后执行
-      img.onload = function() {
+      img.onload = function () {
         // 缩放图片需要的canvas（也可以在DOM中直接定义canvas标签，这样就能把压缩完的图片不转base64也能直接显示出来）
         let canvas = document.createElement('canvas');
         let context = canvas.getContext('2d');
@@ -143,13 +130,13 @@ class Upload extends React.Component {
         resolve({
           cfile: new File([u8arr], `file.${suffix}`, { type: mime }),
           originWidth,
-          originHeight
+          originHeight,
         });
       };
     });
   }
   handleReple() {
-    request.setAtlas(this.state).then(res => {
+    request.setAtlas(this.state).then((res) => {
       Toast.success('发布成功!');
       setTimeout(() => {
         this.props.history.push('/atlas');
@@ -168,7 +155,7 @@ class Upload extends React.Component {
         </div>
         <textarea className="upload-describe" placeholder="输入描述" onChange={this.handletextChange}></textarea>
         <div className="upload-btn">
-          <input className="upload-input" type="file" multiple accept=".jpg,.jpeg,.png,.gif" onChange={e => this.handleUpload(e)} />
+          <input className="upload-input" type="file" multiple accept=".jpg,.jpeg,.png,.gif" onChange={(e) => this.handleUpload(e)} />
           <i className="xwb iconshangchuan"></i>
           <p>上传图集【可多选】</p>
         </div>
@@ -182,4 +169,4 @@ class Upload extends React.Component {
   }
 }
 
-export default Upload;
+export default UploadImg;
