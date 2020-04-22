@@ -2,11 +2,6 @@ import React, { Fragment } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import request from "../../common/request";
-import config from "../../common/config";
-import { Player } from "video-react";
-
-import "../../common/style/video-react.css";
-import "./video.less";
 
 class VideoPlay extends React.Component {
 	state = {
@@ -24,13 +19,17 @@ class VideoPlay extends React.Component {
 		return (
 			<Fragment>
 				<Header />
-				{this.state.playerProps ? (
-					<main className="videoplay enter">
-						<p className="videoplay-name">{this.state.playerProps.name}</p>
-						<blockquote className="videoplay-describe">{this.state.playerProps.describe}</blockquote>
-						<Player src={config.qiniu.domian + this.state.playerProps.url}></Player>
-					</main>
-				) : null}
+				<div style={{ width: "700px", margin: "auto" }}>
+					<iframe
+						title="myiframe"
+						frameBorder="0"
+						width="700"
+						height="460"
+						src={this.state.playerProps && this.state.playerProps.url}
+						allowFullScreen={true}
+						webkitallowfullscreen="true"
+						mozallowfullscreen="true"></iframe>
+				</div>
 				<Footer />
 			</Fragment>
 		);

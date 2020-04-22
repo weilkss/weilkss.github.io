@@ -288,7 +288,7 @@ export default {
   getVideos() {
     return new Promise((resolve, reject) => {
       const query = Bmob.Query('Video');
-      query.order('-year');
+      query.order('-time');
       query
         .find()
         .then(res => {
