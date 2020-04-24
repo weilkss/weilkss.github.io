@@ -14,7 +14,6 @@ class Video extends React.Component {
 				videos: res,
 			});
 		});
-		console.log(new Date("1997-08-01").getTime());
 	}
 	handleClick(objectId) {
 		this.props.history.push("/video/" + objectId);
