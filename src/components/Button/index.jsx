@@ -36,8 +36,7 @@ class Button extends React.Component {
       <button className="button-name-box enter" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} onClick={this.props.onClick}>
         <p
           className={classnames('button-circle', { 'explode-circle': this.state.obj.cls, 'desplode-circle': !this.state.obj.cls })}
-          style={{ left: this.state.obj.left, top: this.state.obj.top }}
-        ></p>
+          style={{ left: this.state.obj.left, top: this.state.obj.top }}></p>
         <p className="name">Weilkss Website Blog</p>
       </button>
     ) : (

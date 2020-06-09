@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import request from "../../common/request";
+import Sidebar from '../../components/Sidebar';
 import "./index.less";
 
 class Video extends React.Component {
@@ -35,6 +36,7 @@ class Video extends React.Component {
 							<img className="video-cover" src={item.cover} alt="" />
 						</div>
 					))}
+					<Sidebar />
 				</main>
 				<Footer />
 			</Fragment>
