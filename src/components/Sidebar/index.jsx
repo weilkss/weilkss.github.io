@@ -65,33 +65,26 @@ const Personal = props => (
   </div>
 );
 
-const Catalog = props => {
-  function handleCatalogClick(e, id) {
-    let nodeList = [...document.querySelectorAll('dt'), ...document.querySelectorAll('dd')];
-    for (const item of nodeList) {
-      item.className = '';
-    }
-    e.currentTarget.className = 'catalog-active';
-    props.onClick(id);
-  }
-  return (
-    <div className="catalog">
-      <dl>
-        {props.tables.map(({ id, hash, tag }, index) =>
-          tag === 'h1' ? (
-            <dt key={index} className={props.active === id || (!props.active && index === 0) ? 'catalog-active' : ''} onClick={e => handleCatalogClick(e, id)}>
-              {hash}
-            </dt>
-          ) : (
-            <dd key={index} className={props.active === id || (!props.active && index === 0) ? 'catalog-active' : ''} onClick={e => handleCatalogClick(e, id)}>
-              {hash}
-            </dd>
-          )
-        )}
-      </dl>
-    </div>
-  );
-};
+const Catalog = props => (
+  <div className="catalog">
+    {props.tables.map(({ id, hash, tag }, index) => (
+      <p
+        className={classnames('catalog-text personal-enter', {
+          'catalog-active': props.active === id || (!props.active && index === 0),
+          'catalog-text-h1': tag === 'h1',
+          'catalog-text-h2': tag === 'h2',
+          'catalog-text-h3': tag === 'h3',
+          'catalog-text-h4': tag === 'h4',
+          'catalog-text-h5': tag === 'h5',
+          'catalog-text-h6': tag === 'h6'
+        })}
+        key={index}
+        onClick={() => props.onClick(id)}>
+        {hash}
+      </p>
+    ))}
+  </div>
+);
 
 class Sidebar extends React.Component {
   constructor() {
@@ -203,8 +196,7 @@ class Sidebar extends React.Component {
           className={classnames('sidebar-button', { 'sidebar-active': this.state.show, 'sidebar-mouse': this.state.mshow, 'sidebar-top': this.state.top })}
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
-          onClick={this.handleClick}
-        >
+          onClick={this.handleClick}>
           <span className="sidebar-item"></span>
           <span className="sidebar-item"></span>
           <span className="sidebar-item"></span>
