@@ -5,7 +5,15 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
+    <meta name="renderer" content="webkit" />
+    <meta name="google" value="notranslate" />
     <meta name="description" content="Web site created using create-react-app" />
+    <meta http-equiv="Content-Language" content="zh-cn" />
+    <meta name="keywords" content="weilkss,前端博客,技术分享,程序员,程序猿,周星驰电影全集,react,vue,react-vue-loading" />
+    <meta name="description" content="weilkss前端技术分享，记录生活，电影休闲" />
+    <meta property="twitter:title" content="weilkss,前端博客,技术分享,程序员,程序猿,周星驰电影全集,react,vue,react-vue-loading" />
+    <meta property="twitter:description" content="weilkss前端技术分享,记录生活,电影休闲" />
+    <meta property="twitter:url" content="https://www.weilkss.cn" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -24,18 +32,15 @@
     -->
     <title>weilkss website blog</title>
     <script type="text/javascript">
-      (function(l) {
+      (function (l) {
         if (l.search) {
           var q = {};
           l.search
             .slice(1)
             .split('&')
-            .forEach(function(v) {
+            .forEach(function (v) {
               var a = v.split('=');
-              q[a[0]] = a
-                .slice(1)
-                .join('=')
-                .replace(/~and~/g, '&');
+              q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
             });
           if (q.p !== undefined) {
             window.history.replaceState(null, null, l.pathname.slice(0, -1) + (q.p || '') + (q.q ? '?' + q.q : '') + l.hash);

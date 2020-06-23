@@ -64,6 +64,27 @@ export default {
     });
   },
   /**
+   * 获取文章内容过大的文章
+   */
+  getArticleDetailById(id) {
+    return new Promise((resolve, reject) => {
+      const query = Bmob.Query('Article');
+      query.include('tid', 'Types');
+      query.select('tid', 'title', 'describe', 'visit', 'len', 'createdAt', 'updatedAt');
+      query.equalTo('objectId', '==', id);
+      query
+        .find()
+        .then(res => {
+          res.set('visit', res[0].visit + 1);
+          res.saveAll();
+          resolve(res[0]);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+  /**
    * 获取分类
    */
   getTypes() {
@@ -318,7 +339,7 @@ export default {
   },
   /**
    * 访问量
-   * @param {*} param 
+   * @param {*} param
    */
   setVisits(param) {
     return new Promise((resolve, reject) => {

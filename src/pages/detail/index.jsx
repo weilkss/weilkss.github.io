@@ -8,10 +8,12 @@ import request from '../../common/request';
 import NProgress from 'nprogress';
 import utils from '../../common/utils';
 import scrollTo from '../../common/scrollTo';
-
+import arrayMarkDown from './Array.md';
+import ReactMarkdown from 'xwb-react-markdown';
 import 'nprogress/nprogress.css';
 import './index.less';
 import '../../common/style/highlight.less';
+
 class Detail extends React.Component {
   state = {
     detail: null,
@@ -22,21 +24,44 @@ class Detail extends React.Component {
   async componentDidMount() {
     scrollTo(0);
     NProgress.start();
-    await request.getArticleDetail(this.props.match.params.id).then(res => {
-      let tables = [];
-      res.html = res.html.replace(/<(h\d)>.*?<\/h\d>/g, (match, tag) => {
-        const hash = match.replace(/<.*?>/g, '');
-        const id = 'tag-' + tables.length;
-        tables.push({ id, hash, tag });
-        const newtag = `<${tag} id="${id}">${hash}</${tag}>`;
-        return newtag;
-      });
 
-      this.setState({
-        tables,
-        detail: res
-      });
+    let isMax = false;
+    const maxLists = ['895ff1c92f'];
+    const tid = this.props.match.params.id;
+
+    for (const itemId of maxLists) {
+      if (itemId === tid) {
+        isMax = true;
+        break;
+      } else {
+        isMax = false;
+      }
+    }
+
+    let articleDetailResult = null;
+
+    if (isMax) {
+      articleDetailResult = await request.getArticleDetailById(tid);
+      articleDetailResult.html = new ReactMarkdown().mdParser.render(arrayMarkDown);
+    } else {
+      articleDetailResult = await request.getArticleDetail(tid);
+    }
+
+    let tables = [];
+
+    articleDetailResult.html = articleDetailResult.html.replace(/<(h\d).*?>.*?<\/h\d>/g, (match, tag) => {
+      const hash = match.replace(/<.*?>/g, '');
+      const id = 'tag-' + tables.length;
+      tables.push({ id, hash, tag });
+      const newtag = `<${tag} id="${id}">${hash}</${tag}>`;
+      return newtag;
     });
+
+    this.setState({
+      tables,
+      detail: articleDetailResult
+    });
+
     await request.getTypes().then(res => {
       this.setState({
         types: utils.getRandomArrayElements(res, 3)
