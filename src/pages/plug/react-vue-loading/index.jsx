@@ -10,7 +10,6 @@ class ReactVueloading extends React.Component {
   componentDidMount() {}
   render() {
     const { tab } = this.state;
-    const URL = tab ? 'https://codesandbox.io/s/dry-cloud-0noh9?file=/src/components/HelloWorld.vue' : 'https://codesandbox.io/s/sharp-pond-y3i0f?file=/src/App.js';
     return (
       <Fragment>
         <div className="react-vue-loading">
@@ -27,14 +26,21 @@ class ReactVueloading extends React.Component {
           </div>
           <div className="react-box">
             <div className="tab">
-              <div className={classnames('tab-item', { 'tab-item-active': this.state.tab === 0 })} onClick={() => this.setState({ tab: 0 })}>
+              <div className={classnames('tab-item', { 'tab-item-active': tab === 0 })} onClick={() => this.setState({ tab: 0 })}>
                 React
               </div>
-              <div className={classnames('tab-item', { 'tab-item-active': this.state.tab === 1 })} onClick={() => this.setState({ tab: 1 })}>
+              <div className={classnames('tab-item', { 'tab-item-active': tab === 1 })} onClick={() => this.setState({ tab: 1 })}>
                 Vue
               </div>
             </div>
-            <iframe className="react-box-iframe" src={URL} frameBorder="0"></iframe>
+            <iframe
+              className={classnames('react-box-iframe', tab === 0 ? 'hidden' : 'show')}
+              src="https://codesandbox.io/s/dry-cloud-0noh9?file=/src/components/HelloWorld.vue"
+              frameBorder="0"></iframe>
+            <iframe
+              className={classnames('react-box-iframe', tab === 1 ? 'hidden' : 'show')}
+              src="https://codesandbox.io/s/sharp-pond-y3i0f?file=/src/App.js"
+              frameBorder="0"></iframe>
           </div>
         </div>
       </Fragment>
