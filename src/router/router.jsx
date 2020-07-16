@@ -17,7 +17,7 @@ const Video = React.lazy(() => import("../pages/video/index"));
 const VideoPlay = React.lazy(() => import("../pages/video/video"));
 const See = React.lazy(() => import("../pages/atlas/see"));
 const Upload = React.lazy(() => import("../pages/upload/index"));
-const Search = React.lazy(() => import("../pages/search/index"));
+const About = React.lazy(() => import("../pages/about/index"));
 const RreactVueloading = React.lazy(() => import("../pages/plug/react-vue-loading"));
 
 const LoadDom = () => (
@@ -52,7 +52,7 @@ class RouterIndex extends React.Component {
 						<Route exact path="/video" component={Video} />
 						<Route exact path="/video/:id" component={VideoPlay} />
 						<Route exact path="/upload" component={Upload} />
-						<Route exact path="/search" component={Search} />
+						<Route exact path="/about" component={About} />
 						<Route exact path="/react-vue-loading" component={RreactVueloading} />
 					</Switch>
 				</Suspense>

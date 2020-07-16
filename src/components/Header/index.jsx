@@ -13,7 +13,7 @@ class Header extends React.Component {
       { text: '归档', icon: 'iconsuitcases', path: '/record' },
       { text: '图集', icon: 'icontuji', path: '/atlas' },
       { text: '电影', icon: 'iconmovie', path: '/video' },
-      { text: '搜索', icon: 'iconmagnifyingglass', path: '/search' }
+      { text: '关于', icon: 'iconguanyu1', path: '/about' }
     ]
   };
   handleClick() {
