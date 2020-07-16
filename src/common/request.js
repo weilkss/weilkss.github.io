@@ -356,5 +356,19 @@ export default {
           reject(err);
         });
     });
+  },
+  /**
+   * 关于
+   */
+  getAbout() {
+    return new Promise((resolve, reject) => {
+      const query = Bmob.Query('About');
+      query
+        .find()
+        .then(res => resolve(res[0]))
+        .catch(err => {
+          reject(err);
+        });
+    });
   }
 };
