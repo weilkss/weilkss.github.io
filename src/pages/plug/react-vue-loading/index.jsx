@@ -7,7 +7,7 @@ class ReactVueloading extends React.Component {
   state = {
     tab: 0
   };
-  componentDidMount() {}
+  componentDidMount() { }
   render() {
     const { tab } = this.state;
     return (

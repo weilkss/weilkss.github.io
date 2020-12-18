@@ -5,6 +5,7 @@ import Sidebar from '../../components/Sidebar';
 import request from '../../common/request';
 import classnames from 'classnames';
 import TabsTypesIcon from '../../components/TabsTypesIcon';
+import { Empty } from '../../components/Empty'
 
 import './index.less';
 
@@ -31,18 +32,20 @@ class Tabs extends React.Component {
             <Fragment>
               <div className="tabs-title enter">
                 <div className="tabs-icon-box">
-                  <TabsTypesIcon type={this.state.tabs[0].tid.name} />
+                  <TabsTypesIcon type={this.state.tabs[0].tid} />
                 </div>
                 <span className="tabs-name">{this.state.tabs[0].tid.name}</span>
               </div>
-              {this.state.tabs.map((item, index) => (
-                <div className={classnames('tabs-item enter', { 'frist-item': index === 0 })} key={index} onClick={() => this.handleGoDetail(item.objectId)}>
-                  <span className="tabs-time">{item.createdAt}</span>
-                  <span className="tabs-text">{item.title}</span>
-                </div>
-              ))}
+              {
+                this.state.tabs.map((item, index) => (
+                  <div className={classnames('tabs-item enter', { 'frist-item': index === 0 })} key={index} onClick={() => this.handleGoDetail(item.objectId)}>
+                    <span className="tabs-time">{item.createdAt}</span>
+                    <span className="tabs-text">{item.title}</span>
+                  </div>
+                ))
+              }
             </Fragment>
-          ) : null}
+          ) : <Empty className='empty enter'/>}
           <Sidebar />
         </main>
         <Footer />

@@ -42,7 +42,7 @@ class Hot extends React.Component {
                     contentArrowStyle={{ borderRight: '6px solid  #eee' }}
                     date={item.createdAt}
                     iconStyle={{ background: '#eee', color: '#333', boxShadow: 'none', textAlign: 'center', lineHeight: '40px', fontWeight: 'bold' }}
-                    icon={<TabsTypesIcon type={item.tid.name} />}
+                    icon={<TabsTypesIcon type={item.tid} />}
                   >
                     <p className="hot-title">{item.title}</p>
                     <p className="hot-describe">{item.describe}</p>

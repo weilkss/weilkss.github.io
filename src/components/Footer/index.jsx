@@ -10,10 +10,6 @@ class Footer extends React.Component {
         </section>
         <p className="youqing">
           <span className="beian">蜀ICP备20010488号-1</span>
-          <span>友情链接：</span>
-          <a className="footer-link" href="http://www.baixiaosheng.top" target="view_window">
-            柏小生的博客
-          </a>
         </p>
       </footer>
     );
