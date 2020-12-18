@@ -34,10 +34,12 @@ class ReactVueloading extends React.Component {
               </div>
             </div>
             <iframe
+              title='react'
               className={classnames('react-box-iframe', tab === 0 ? 'hidden' : 'show')}
               src="https://codesandbox.io/s/dry-cloud-0noh9?file=/src/components/HelloWorld.vue"
               frameBorder="0"></iframe>
             <iframe
+              title='vue'
               className={classnames('react-box-iframe', tab === 1 ? 'hidden' : 'show')}
               src="https://codesandbox.io/s/sharp-pond-y3i0f?file=/src/App.js"
               frameBorder="0"></iframe>
