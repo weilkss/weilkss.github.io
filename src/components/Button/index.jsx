@@ -43,10 +43,6 @@ class Button extends React.Component {
       <button className="xwb-button" {...this.props}>
         <span className="xwb-button-text">{this.props.children}</span>
         <i className="xwb iconjiantou xwb-button-icon"></i>
-        <div className="xwb-button-left"></div>
-        <div className="xwb-button-right"></div>
-        <div className="xwb-button-top"></div>
-        <div className="xwb-button-bottom"></div>
       </button>
     );
   }

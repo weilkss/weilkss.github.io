@@ -217,8 +217,8 @@ class Sidebar extends React.Component {
             this.state.index === 1 && this.props.tables ? (
               <Catalog tables={this.props.tables} active={this.state.active} onClick={id => this.props.onClick(id)} />
             ) : (
-              <Personal pdata={this.state.pdata} />
-            )
+                <Personal pdata={this.state.pdata} />
+              )
           ) : null}
         </div>
       </div>
