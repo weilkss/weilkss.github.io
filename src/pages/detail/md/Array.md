@@ -1,4 +1,4 @@
-![](http://file.weilkss.cn/javasciriot111111.jpeg)
+<img style="width:100%" src="http://file.weilkss.cn/javasciriot111111.jpeg" />
 
 ### 创建 `Array` 对象的语法：
 
@@ -51,14 +51,14 @@ const ary = Array.from(arrayLike[, mapFn[, thisArg]])
 - **从 String 生成数组**
 
 ```js
-Array.from('foo');
+Array.from("foo");
 // [ "f", "o", "o" ]
 ```
 
 - **从 Set 生成数组**
 
 ```js
-const set = new Set(['foo', 'bar', 'baz', 'foo']);
+const set = new Set(["foo", "bar", "baz", "foo"]);
 Array.from(set);
 // [ "foo", "bar", "baz" ]
 ```
@@ -69,14 +69,14 @@ Array.from(set);
 const map = new Map([
   [1, 2],
   [2, 4],
-  [4, 8]
+  [4, 8],
 ]);
 Array.from(map);
 // [[1, 2], [2, 4], [4, 8]]
 
 const mapper = new Map([
-  ['1', 'a'],
-  ['2', 'b']
+  ["1", "a"],
+  ["2", "b"],
 ]);
 Array.from(mapper.values());
 // ['a', 'b'];
@@ -99,7 +99,7 @@ f(1, 2, 3);
 - **在 `Array.from`中使用箭头函数**
 
 ```js
-Array.from([1, 2, 3], x => x + x);
+Array.from([1, 2, 3], (x) => x + x);
 // [2, 4, 6]
 
 Array.from({ length: 5 }, (v, i) => i);
@@ -142,7 +142,7 @@ const isArray = Array.isArray(obj);
 Array.isArray([]);
 Array.isArray([1]);
 Array.isArray(new Array());
-Array.isArray(new Array('a', 'b', 'c', 'd'));
+Array.isArray(new Array("a", "b", "c", "d"));
 // 鲜为人知的事实：其实 Array.prototype 也是一个数组。
 Array.isArray(Array.prototype);
 
@@ -152,7 +152,7 @@ Array.isArray({});
 Array.isArray(null);
 Array.isArray(undefined);
 Array.isArray(17);
-Array.isArray('Array');
+Array.isArray("Array");
 Array.isArray(true);
 Array.isArray(false);
 Array.isArray(new Uint8Array(32));
@@ -216,7 +216,7 @@ const newArray = oldArray.concat(value1[, value2[, ...[, valueN]]])
 - **连接两个数组**
 
 ```js
-const alpha = ['a', 'b', 'c'];
+const alpha = ["a", "b", "c"];
 const numeric = [1, 2, 3];
 
 const newary = alpha.concat(numeric);
@@ -239,7 +239,7 @@ const nums = num1.concat(num2, num3);
 - **将值连接到数组**
 
 ```js
-const alpha = ['a', 'b', 'c'];
+const alpha = ["a", "b", "c"];
 
 const alphaNumeric = alpha.concat(1, [2, 3]);
 
@@ -326,7 +326,7 @@ arr.entries();
 - **Array Iterator**
 
 ```js
-const arr = ['a', 'b', 'c'];
+const arr = ["a", "b", "c"];
 const iterator = arr.entries();
 
 console.log(iterator);
@@ -341,7 +341,7 @@ console.log(iterator);
 - **iterator.next()**
 
 ```js
-const arr = ['a', 'b', 'c'];
+const arr = ["a", "b", "c"];
 const iterator = arr.entries();
 
 console.log(iterator.next());
@@ -360,7 +360,7 @@ console.log(iterator.next());
 - **iterator.next 方法运行**
 
 ```js
-const arr = ['a', 'b', 'c'];
+const arr = ["a", "b", "c"];
 const iter = arr.entries();
 const a = [];
 
@@ -402,7 +402,7 @@ const arr = [
   [1, 34],
   [456, 2, 3, 44, 234],
   [4567, 1, 4, 5, 6],
-  [34, 78, 23, 1]
+  [34, 78, 23, 1],
 ];
 sortArr(arr);
 
@@ -419,7 +419,7 @@ sortArr(arr);
 - **使用 for…of 循环**
 
 ```js
-const arr = ['a', 'b', 'c'];
+const arr = ["a", "b", "c"];
 const iterator = arr.entries();
 // undefined
 
@@ -466,8 +466,8 @@ function isBigEnough(element, index, array) {
 - **使用箭头函数**
 
 ```js
-[12, 5, 8, 130, 44].every(x => x >= 10); // false
-[12, 54, 18, 130, 44].every(x => x >= 10); // true
+[12, 5, 8, 130, 44].every((x) => x >= 10); // false
+[12, 54, 18, 130, 44].every((x) => x >= 10); // true
 ```
 
 ### Array.prototype.fill()
@@ -506,7 +506,7 @@ Array(3).fill(4); // [4, 4, 4]
 var arr = Array(3).fill({}); // [{}, {}, {}];
 // 需要注意如果fill的参数为引用类型，会导致都执行都一个引用类型
 // 如 arr[0] === arr[1] 为true
-arr[0].hi = 'hi'; // [{ hi: "hi" }, { hi: "hi" }, { hi: "hi" }]
+arr[0].hi = "hi"; // [{ hi: "hi" }, { hi: "hi" }, { hi: "hi" }]
 ```
 
 ### Array.prototype.filter()
@@ -545,12 +545,22 @@ const filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
 以下示例使用 `filter()` 创建具有非零 `id` 的元素的 `json`
 
 ```js
-var arr = [{ id: 15 }, { id: -1 }, { id: 0 }, { id: 3 }, { id: 12.2 }, {}, { id: null }, { id: NaN }, { id: 'undefined' }];
+var arr = [
+  { id: 15 },
+  { id: -1 },
+  { id: 0 },
+  { id: 3 },
+  { id: 12.2 },
+  {},
+  { id: null },
+  { id: NaN },
+  { id: "undefined" },
+];
 
 var invalidEntries = 0;
 
 function isNumber(obj) {
-  return obj !== undefined && typeof obj === 'number' && !isNaN(obj);
+  return obj !== undefined && typeof obj === "number" && !isNaN(obj);
 }
 
 function filterByID(item) {
@@ -563,11 +573,11 @@ function filterByID(item) {
 
 var arrByID = arr.filter(filterByID);
 
-console.log('Filtered Array\n', arrByID);
+console.log("Filtered Array\n", arrByID);
 // Filtered Array
 // [{ id: 15 }, { id: -1 }, { id: 3 }, { id: 12.2 }]
 
-console.log('Number of Invalid Entries = ', invalidEntries);
+console.log("Number of Invalid Entries = ", invalidEntries);
 // Number of Invalid Entries = 5
 ```
 
@@ -576,7 +586,7 @@ console.log('Number of Invalid Entries = ', invalidEntries);
 下例使用 `filter()` 根据搜索条件来过滤数组内容
 
 ```js
-var fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
+var fruits = ["apple", "banana", "grapes", "mango", "orange"];
 
 /**
  * Array filters items based on search criteria (query)
@@ -587,24 +597,26 @@ function filterItems(query) {
   });
 }
 
-console.log(filterItems('ap')); // ['apple', 'grapes']
-console.log(filterItems('an')); // ['banana', 'mango', 'orange']
+console.log(filterItems("ap")); // ['apple', 'grapes']
+console.log(filterItems("an")); // ['banana', 'mango', 'orange']
 ```
 
 - **ES2015 实现**
 
 ```js
-const fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
+const fruits = ["apple", "banana", "grapes", "mango", "orange"];
 
 /**
  * 数组根据搜索条件过滤项目（查询）
  */
-const filterItems = query => {
-  return fruits.filter(el => el.toLowerCase().indexOf(query.toLowerCase()) > -1);
+const filterItems = (query) => {
+  return fruits.filter(
+    (el) => el.toLowerCase().indexOf(query.toLowerCase()) > -1
+  );
 };
 
-console.log(filterItems('ap')); // ['apple', 'grapes']
-console.log(filterItems('an')); // ['banana', 'mango', 'orange']
+console.log(filterItems("ap")); // ['apple', 'grapes']
+console.log(filterItems("an")); // ['banana', 'mango', 'orange']
 ```
 
 ### Array.prototype.find()
@@ -630,13 +642,13 @@ arr.find(callback[, thisArg])
 
 ```js
 var inventory = [
-  { name: 'apples', quantity: 2 },
-  { name: 'bananas', quantity: 0 },
-  { name: 'cherries', quantity: 5 }
+  { name: "apples", quantity: 2 },
+  { name: "bananas", quantity: 0 },
+  { name: "cherries", quantity: 5 },
 ];
 
 function findCherries(fruit) {
-  return fruit.name === 'cherries';
+  return fruit.name === "cherries";
 }
 
 console.log(inventory.find(findCherries)); // { name: 'cherries', quantity: 5 }
@@ -770,14 +782,14 @@ var new_array = arr.flatMap(function callback(currentValue[, index[, array]]) {
 ```js
 var arr1 = [1, 2, 3, 4];
 
-arr1.map(x => [x * 2]);
+arr1.map((x) => [x * 2]);
 // [[2], [4], [6], [8]]
 
-arr1.flatMap(x => [x * 2]);
+arr1.flatMap((x) => [x * 2]);
 // [2, 4, 6, 8]
 
 // only one level is flattened
-arr1.flatMap(x => [[x * 2]]);
+arr1.flatMap((x) => [[x * 2]]);
 // [[2], [4], [6], [8]]
 ```
 
@@ -811,7 +823,7 @@ arraySparse.forEach(function (element) {
   numCallbackRuns++;
 });
 
-console.log('numCallbackRuns: ', numCallbackRuns);
+console.log("numCallbackRuns: ", numCallbackRuns);
 
 // 1
 // 3
@@ -822,7 +834,7 @@ console.log('numCallbackRuns: ', numCallbackRuns);
 - **将 for 循环转换为 forEach**
 
 ```js
-const items = ['item1', 'item2', 'item3'];
+const items = ["item1", "item2", "item3"];
 const copy = [];
 
 // before
@@ -840,7 +852,7 @@ items.forEach(function (item) {
 
 ```js
 function logArrayElements(element, index, array) {
-  console.log('a[' + index + '] = ' + element);
+  console.log("a[" + index + "] = " + element);
 }
 
 // 注意索引 2 被跳过了，因为在数组的这个位置没有项
@@ -898,10 +910,10 @@ const obj2 = copy(obj1); // 现在 obj2 看起来和 obj1 一模一样了
 - **如果数组在迭代时被修改了，则其他元素会被跳过**
 
 ```js
-var words = ['one', 'two', 'three', 'four'];
+var words = ["one", "two", "three", "four"];
 words.forEach(function (word) {
   console.log(word);
-  if (word === 'two') {
+  if (word === "two") {
     words.shift();
   }
 });
@@ -924,7 +936,7 @@ words.forEach(function (word) {
 function flatten(arr) {
   const result = [];
 
-  arr.forEach(i => {
+  arr.forEach((i) => {
     if (Array.isArray(i)) result.push(...flatten(i));
     else result.push(i);
   });
@@ -990,10 +1002,10 @@ arr.includes(valueToFind[, fromIndex])
 - **fromIndex 大于等于数组长度**
 
 ```js
-var arr = ['a', 'b', 'c'];
+var arr = ["a", "b", "c"];
 
-arr.includes('c', 3); // false
-arr.includes('c', 100); // false
+arr.includes("c", 3); // false
+arr.includes("c", 100); // false
 ```
 
 - **计算出的索引小于 0**
@@ -1003,21 +1015,21 @@ arr.includes('c', 100); // false
 // fromIndex is -100
 // computed index is 3 + (-100) = -97
 
-var arr = ['a', 'b', 'c'];
+var arr = ["a", "b", "c"];
 
-arr.includes('a', -100); // true
-arr.includes('b', -100); // true
-arr.includes('c', -100); // true
-arr.includes('a', -2); // false
+arr.includes("a", -100); // true
+arr.includes("b", -100); // true
+arr.includes("c", -100); // true
+arr.includes("a", -2); // false
 ```
 
 - **作为通用方法的 includes()**
 
 ```js
 (function () {
-  console.log([].includes.call(arguments, 'a')); // true
-  console.log([].includes.call(arguments, 'd')); // false
-})('a', 'b', 'c');
+  console.log([].includes.call(arguments, "a")); // true
+  console.log([].includes.call(arguments, "d")); // false
+})("a", "b", "c");
 ```
 
 ### Array.prototype.indexOf()
@@ -1054,8 +1066,8 @@ array.indexOf(2, -3); // 0
 
 ```js
 var indices = [];
-var array = ['a', 'b', 'a', 'c', 'a', 'd'];
-var element = 'a';
+var array = ["a", "b", "a", "c", "a", "d"];
+var element = "a";
 var idx = array.indexOf(element);
 while (idx != -1) {
   indices.push(idx);
@@ -1071,18 +1083,18 @@ console.log(indices);
 function updateVegetablesCollection(veggies, veggie) {
   if (veggies.indexOf(veggie) === -1) {
     veggies.push(veggie);
-    console.log('New veggies collection is : ' + veggies);
+    console.log("New veggies collection is : " + veggies);
   } else if (veggies.indexOf(veggie) > -1) {
-    console.log(veggie + ' already exists in the veggies collection.');
+    console.log(veggie + " already exists in the veggies collection.");
   }
 }
 
-var veggies = ['potato', 'tomato', 'chillies', 'green-pepper'];
+var veggies = ["potato", "tomato", "chillies", "green-pepper"];
 
 // New veggies collection is : potato,tomato,chillies,green-papper,spinach
-updateVegetablesCollection(veggies, 'spinach');
+updateVegetablesCollection(veggies, "spinach");
 // spinach already exists in the veggies collection.
-updateVegetablesCollection(veggies, 'spinach');
+updateVegetablesCollection(veggies, "spinach");
 ```
 
 ### Array.prototype.join()
@@ -1106,11 +1118,11 @@ arr.join([separator]);
 - **使用四种不同的分隔符连接数组元素**
 
 ```js
-var a = ['Wind', 'Rain', 'Fire'];
+var a = ["Wind", "Rain", "Fire"];
 var myVar1 = a.join(); // myVar1的值变为"Wind,Rain,Fire"
-var myVar2 = a.join(', '); // myVar2的值变为"Wind, Rain, Fire"
-var myVar3 = a.join(' + '); // myVar3的值变为"Wind + Rain + Fire"
-var myVar4 = a.join(''); // myVar4的值变为"WindRainFire"
+var myVar2 = a.join(", "); // myVar2的值变为"Wind, Rain, Fire"
+var myVar3 = a.join(" + "); // myVar3的值变为"Wind + Rain + Fire"
+var myVar4 = a.join(""); // myVar4的值变为"WindRainFire"
 ```
 
 - **连接类数组对象**
@@ -1120,7 +1132,7 @@ function f(a, b, c) {
   var s = Array.prototype.join.call(arguments);
   console.log(s); // '1,a,true'
 }
-f(1, 'a', true);
+f(1, "a", true);
 ```
 
 ### Array.prototype.keys()
@@ -1140,7 +1152,7 @@ arr.keys();
 - **索引迭代器会包含那些没有对应元素的索引**
 
 ```js
-var arr = ['a', , 'c'];
+var arr = ["a", , "c"];
 var sparseKeys = Object.keys(arr);
 var denseKeys = [...arr.keys()];
 console.log(sparseKeys); // ['0', '2']
@@ -1186,8 +1198,8 @@ index = array.lastIndexOf(2, -1);
 
 ```js
 var indices = [];
-var array = ['a', 'b', 'a', 'c', 'a', 'd'];
-var element = 'a';
+var array = ["a", "b", "a", "c", "a", "d"];
+var element = "a";
 var idx = array.lastIndexOf(element);
 
 while (idx != -1) {
@@ -1236,7 +1248,7 @@ var roots = numbers.map(Math.sqrt);
 var kvArray = [
   { key: 1, value: 10 },
   { key: 2, value: 20 },
-  { key: 3, value: 30 }
+  { key: 3, value: 30 },
 ];
 
 var reformattedArray = kvArray.map(function (obj) {
@@ -1269,7 +1281,7 @@ var doubles = numbers.map(function (num) {
 
 ```js
 var map = Array.prototype.map;
-var a = map.call('Hello World', function (x) {
+var a = map.call("Hello World", function (x) {
   return x.charCodeAt(0);
 });
 // a的值为[72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]
@@ -1278,7 +1290,7 @@ var a = map.call('Hello World', function (x) {
 - **querySelectorAll 应用**
 
 ```js
-var elems = document.querySelectorAll('select option:checked');
+var elems = document.querySelectorAll("select option:checked");
 var values = Array.prototype.map.call(elems, function (obj) {
   return obj.value;
 });
@@ -1315,7 +1327,7 @@ arr.pop();
 删除掉数组的最后一个元素
 
 ```js
-let myFish = ['angel', 'clown', 'mandarin', 'surgeon'];
+let myFish = ["angel", "clown", "mandarin", "surgeon"];
 let popped = myFish.pop();
 
 console.log(myFish);
@@ -1345,8 +1357,8 @@ arr.push(element1, ..., elementN)
 - **添加元素到数组**
 
 ```js
-var sports = ['soccer', 'baseball'];
-var total = sports.push('football', 'swimming');
+var sports = ["soccer", "baseball"];
+var total = sports.push("football", "swimming");
 
 console.log(sports);
 // ["soccer", "baseball", "football", "swimming"]
@@ -1358,8 +1370,8 @@ console.log(total);
 - **合并两个数组**
 
 ```js
-var vegetables = ['parsnip', 'potato'];
-var moreVegs = ['celery', 'beetroot'];
+var vegetables = ["parsnip", "potato"];
+var moreVegs = ["celery", "beetroot"];
 
 // 将第二个数组融合进第一个数组
 // 相当于 vegetables.push('celery', 'beetroot');
@@ -1378,7 +1390,7 @@ var obj = {
     // obj.length is automatically incremented
     // every time an element is added.
     [].push.call(this, elem);
-  }
+  },
 };
 
 // Let's add some empty objects just to illustrate.
@@ -1423,9 +1435,13 @@ var total = [0, 1, 2, 3].reduce((acc, cur) => acc + cur, 0);
 
 ```js
 var initialValue = 0;
-var sum = [{ x: 1 }, { x: 2 }, { x: 3 }].reduce(function (accumulator, currentValue) {
+var sum = [{ x: 1 }, { x: 2 }, { x: 3 }].reduce(function (
+  accumulator,
+  currentValue
+) {
   return accumulator + currentValue.x;
-}, initialValue);
+},
+initialValue);
 
 console.log(sum); // logs 6
 ```
@@ -1434,7 +1450,10 @@ console.log(sum); // logs 6
 
 ```js
 var initialValue = 0;
-var sum = [{ x: 1 }, { x: 2 }, { x: 3 }].reduce((accumulator, currentValue) => accumulator + currentValue.x, initialValue);
+var sum = [{ x: 1 }, { x: 2 }, { x: 3 }].reduce(
+  (accumulator, currentValue) => accumulator + currentValue.x,
+  initialValue
+);
 
 console.log(sum); // logs 6
 ```
@@ -1445,7 +1464,7 @@ console.log(sum); // logs 6
 var flattened = [
   [0, 1],
   [2, 3],
-  [4, 5]
+  [4, 5],
 ].reduce(function (a, b) {
   return a.concat(b);
 }, []);
@@ -1458,14 +1477,14 @@ var flattened = [
 var flattened = [
   [0, 1],
   [2, 3],
-  [4, 5]
+  [4, 5],
 ].reduce((acc, cur) => acc.concat(cur), []);
 ```
 
 - **计算数组中每个元素出现的次数**
 
 ```js
-var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+var names = ["Alice", "Bob", "Tiff", "Bruce", "Alice"];
 
 var countedNames = names.reduce(function (allNames, name) {
   if (name in allNames) {
@@ -1483,9 +1502,9 @@ var countedNames = names.reduce(function (allNames, name) {
 
 ```js
 var people = [
-  { name: 'Alice', age: 21 },
-  { name: 'Max', age: 20 },
-  { name: 'Jane', age: 20 }
+  { name: "Alice", age: 21 },
+  { name: "Max", age: 20 },
+  { name: "Jane", age: 20 },
 ];
 
 function groupBy(objectArray, property) {
@@ -1499,7 +1518,7 @@ function groupBy(objectArray, property) {
   }, {});
 }
 
-var groupedPeople = groupBy(people, 'age');
+var groupedPeople = groupBy(people, "age");
 // groupedPeople is:
 // {
 //   20: [
@@ -1517,20 +1536,20 @@ var groupedPeople = groupBy(people, 'age');
 // where object field "books" - list of favorite books
 var friends = [
   {
-    name: 'Anna',
-    books: ['Bible', 'Harry Potter'],
-    age: 21
+    name: "Anna",
+    books: ["Bible", "Harry Potter"],
+    age: 21,
   },
   {
-    name: 'Bob',
-    books: ['War and peace', 'Romeo and Juliet'],
-    age: 26
+    name: "Bob",
+    books: ["War and peace", "Romeo and Juliet"],
+    age: 26,
   },
   {
-    name: 'Alice',
-    books: ['The Lord of the Rings', 'The Shining'],
-    age: 18
-  }
+    name: "Alice",
+    books: ["The Lord of the Rings", "The Shining"],
+    age: 18,
+  },
 ];
 
 // allbooks - list which will contain all friends' books +
@@ -1539,7 +1558,7 @@ var allbooks = friends.reduce(
   function (prev, curr) {
     return [...prev, ...curr.books];
   },
-  ['Alphabet']
+  ["Alphabet"]
 );
 
 // allbooks = [
@@ -1573,7 +1592,10 @@ console.log(result); //[1,2,3,4,5]
  * @return {Object} promise object
  */
 function runPromiseInSequence(arr, input) {
-  return arr.reduce((promiseChain, currentFunction) => promiseChain.then(currentFunction), Promise.resolve(input));
+  return arr.reduce(
+    (promiseChain, currentFunction) => promiseChain.then(currentFunction),
+    Promise.resolve(input)
+  );
 }
 
 // promise function 1
@@ -1610,12 +1632,15 @@ runPromiseInSequence(promiseArr, 10).then(console.log); // 1200
 
 ```js
 // 用于合成的构建块
-const double = x => x + x;
-const triple = x => 3 * x;
-const quadruple = x => 4 * x;
+const double = (x) => x + x;
+const triple = (x) => 3 * x;
+const quadruple = (x) => 4 * x;
 
 // 通过功能组合实现管道功能
-const pipe = (...functions) => input => functions.reduce((acc, fn) => fn(acc), input);
+const pipe =
+  (...functions) =>
+  (input) =>
+    functions.reduce((acc, fn) => fn(acc), input);
 
 // 用于特定值相乘的组合函数
 const multiply6 = pipe(double, triple);
@@ -1682,7 +1707,7 @@ var sum = [0, 1, 2, 3].reduceRight(function (a, b) {
 var flattened = [
   [0, 1],
   [2, 3],
-  [4, 5]
+  [4, 5],
 ].reduceRight(function (a, b) {
   return a.concat(b);
 }, []);
@@ -1692,9 +1717,17 @@ var flattened = [
 - **运行一个带有回调每个函数将其结果传给下一个的异步函数列表**
 
 ```js
-const waterfall = (...functions) => (callback, ...args) => functions.reduceRight((composition, fn) => (...results) => fn(composition, ...results), callback)(...args);
+const waterfall =
+  (...functions) =>
+  (callback, ...args) =>
+    functions.reduceRight(
+      (composition, fn) =>
+        (...results) =>
+          fn(composition, ...results),
+      callback
+    )(...args);
 
-const randInt = max => Math.floor(Math.random() * max);
+const randInt = (max) => Math.floor(Math.random() * max);
 
 const add5 = (callback, x) => {
   setTimeout(callback, randInt(1000), x + 5);
@@ -1721,11 +1754,11 @@ computation(console.log, 5); // -> 14
 // same as:
 
 const computation2 = (input, callback) => {
-  const f6 = x => div4(callback, x);
+  const f6 = (x) => div4(callback, x);
   const f5 = (x, y) => add(f6, x, y);
-  const f4 = x => split(f5, x);
-  const f3 = x => sub2(f4, x);
-  const f2 = x => mult3(f3, x);
+  const f4 = (x) => split(f5, x);
+  const f3 = (x) => sub2(f4, x);
+  const f2 = (x) => mult3(f3, x);
   add5(f2, input);
 };
 ```
@@ -1733,7 +1766,7 @@ const computation2 = (input, callback) => {
 - **展示 reduce 与 reduceRight 之间的区别**
 
 ```js
-var a = ['1', '2', '3', '4', '5'];
+var a = ["1", "2", "3", "4", "5"];
 var left = a.reduce(function (prev, cur) {
   return prev + cur;
 });
@@ -1748,10 +1781,13 @@ console.log(right); // "54321"
 - **定义可组合函数**
 
 ```js
-const compose = (...args) => value => args.reduceRight((acc, fn) => fn(acc), value);
+const compose =
+  (...args) =>
+  (value) =>
+    args.reduceRight((acc, fn) => fn(acc), value);
 
-const inc = n => n + 1;
-const double = n => n * 2;
+const inc = (n) => n + 1;
+const double = (n) => n * 2;
 
 console.log(compose(double, inc)(2)); // 6
 console.log(compose(inc, double)(2)); // 5
@@ -1806,20 +1842,20 @@ arr.shift();
 - **移除数组中的一个元素**
 
 ```js
-let myFish = ['angel', 'clown', 'mandarin', 'surgeon'];
+let myFish = ["angel", "clown", "mandarin", "surgeon"];
 var shifted = myFish.shift();
 
-console.log('调用 shift 之后: ' + myFish);
+console.log("调用 shift 之后: " + myFish);
 // "调用 shift 之后: clown,mandarin,surgeon"
 
-console.log('被删除的元素: ' + shifted);
+console.log("被删除的元素: " + shifted);
 // "被删除的元素: angel"
 ```
 
 - **在 while 循环中使用 shift()**
 
 ```js
-var names = ['Andrew', 'Edward', 'Paul', 'Chris', 'John'];
+var names = ["Andrew", "Edward", "Paul", "Chris", "John"];
 
 while ((i = names.shift()) !== undefined) {
   console.log(i);
@@ -1849,7 +1885,7 @@ arr.slice([begin[, end]])
 - **返回现有数组的一部分**
 
 ```js
-var fruits = ['Banana', 'Orange', 'Lemon', 'Apple', 'Mango'];
+var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
 var citrus = fruits.slice(1, 3);
 
 // fruits : ['Banana', 'Orange', 'Lemon', 'Apple', 'Mango']
@@ -1860,23 +1896,23 @@ var citrus = fruits.slice(1, 3);
 
 ```js
 // 使用 slice 方法从 myCar 中创建一个 newCar。
-var myHonda = { color: 'red', wheels: 4, engine: { cylinders: 4, size: 2.2 } };
-var myCar = [myHonda, 2, 'cherry condition', 'purchased 1997'];
+var myHonda = { color: "red", wheels: 4, engine: { cylinders: 4, size: 2.2 } };
+var myCar = [myHonda, 2, "cherry condition", "purchased 1997"];
 var newCar = myCar.slice(0, 2);
 
 // 输出 myCar、newCar 以及各自的 myHonda 对象引用的 color 属性。
-console.log(' myCar = ' + JSON.stringify(myCar));
-console.log('newCar = ' + JSON.stringify(newCar));
-console.log(' myCar[0].color = ' + JSON.stringify(myCar[0].color));
-console.log('newCar[0].color = ' + JSON.stringify(newCar[0].color));
+console.log(" myCar = " + JSON.stringify(myCar));
+console.log("newCar = " + JSON.stringify(newCar));
+console.log(" myCar[0].color = " + JSON.stringify(myCar[0].color));
+console.log("newCar[0].color = " + JSON.stringify(newCar[0].color));
 
 // 改变 myHonda 对象的 color 属性.
-myHonda.color = 'purple';
-console.log('The new color of my Honda is ' + myHonda.color);
+myHonda.color = "purple";
+console.log("The new color of my Honda is " + myHonda.color);
 
 //输出 myCar、newCar 中各自的 myHonda 对象引用的 color 属性。
-console.log(' myCar[0].color = ' + myCar[0].color);
-console.log('newCar[0].color = ' + newCar[0].color);
+console.log(" myCar[0].color = " + myCar[0].color);
+console.log("newCar[0].color = " + newCar[0].color);
 ```
 
 - **类数组（Array-like）对象**
@@ -1935,14 +1971,14 @@ function isBiggerThan10(element, index, array) {
 - **使用箭头函数测试数组元素的值**
 
 ```js
-[2, 5, 8, 1, 4].some(x => x > 10); // false
-[12, 5, 8, 1, 4].some(x => x > 10); // true
+[2, 5, 8, 1, 4].some((x) => x > 10); // false
+[12, 5, 8, 1, 4].some((x) => x > 10); // true
 ```
 
 - **判断数组元素中是否存在某个值**
 
 ```js
-var fruits = ['apple', 'banana', 'mango', 'guava'];
+var fruits = ["apple", "banana", "mango", "guava"];
 
 function checkAvailability(arr, val) {
   return arr.some(function (arrVal) {
@@ -1950,32 +1986,32 @@ function checkAvailability(arr, val) {
   });
 }
 
-checkAvailability(fruits, 'kela'); // false
-checkAvailability(fruits, 'banana'); // true
+checkAvailability(fruits, "kela"); // false
+checkAvailability(fruits, "banana"); // true
 ```
 
 - **使用箭头函数判断数组元素中是否存在某个值**
 
 ```js
-var fruits = ['apple', 'banana', 'mango', 'guava'];
+var fruits = ["apple", "banana", "mango", "guava"];
 
 function checkAvailability(arr, val) {
-  return arr.some(arrVal => val === arrVal);
+  return arr.some((arrVal) => val === arrVal);
 }
 
-checkAvailability(fruits, 'kela'); // false
-checkAvailability(fruits, 'banana'); // true
+checkAvailability(fruits, "kela"); // false
+checkAvailability(fruits, "banana"); // true
 ```
 
 - **将任意值转换为布尔类型**
 
 ```js
-var TRUTHY_VALUES = [true, 'true', 1];
+var TRUTHY_VALUES = [true, "true", 1];
 
 function getBoolean(value) {
-  'use strict';
+  "use strict";
 
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     value = value.toLowerCase().trim();
   }
 
@@ -1985,9 +2021,9 @@ function getBoolean(value) {
 }
 
 getBoolean(false); // false
-getBoolean('false'); // false
+getBoolean("false"); // false
 getBoolean(1); // true
-getBoolean('true'); // true
+getBoolean("true"); // true
 ```
 
 ### Array.prototype.sort()
@@ -2026,12 +2062,12 @@ console.log(numbers);
 
 ```js
 var items = [
-  { name: 'Edward', value: 21 },
-  { name: 'Sharpe', value: 37 },
-  { name: 'And', value: 45 },
-  { name: 'The', value: -12 },
-  { name: 'Magnetic' },
-  { name: 'Zeros', value: 37 }
+  { name: "Edward", value: 21 },
+  { name: "Sharpe", value: 37 },
+  { name: "And", value: 45 },
+  { name: "The", value: -12 },
+  { name: "Magnetic" },
+  { name: "Zeros", value: 37 },
 ];
 
 // sort by value
@@ -2059,45 +2095,49 @@ items.sort(function (a, b) {
 - **创建、显示及排序数组**
 
 ```js
-var stringArray = ['Blue', 'Humpback', 'Beluga'];
-var numericStringArray = ['80', '9', '700'];
+var stringArray = ["Blue", "Humpback", "Beluga"];
+var numericStringArray = ["80", "9", "700"];
 var numberArray = [40, 1, 5, 200];
-var mixedNumericArray = ['80', '9', '700', 40, 1, 5, 200];
+var mixedNumericArray = ["80", "9", "700", 40, 1, 5, 200];
 
 function compareNumbers(a, b) {
   return a - b;
 }
-console.log('stringArray:' + stringArray.join());
+console.log("stringArray:" + stringArray.join());
 // stringArray: Blue,Humpback,Beluga
-console.log('Sorted:' + stringArray.sort());
+console.log("Sorted:" + stringArray.sort());
 // Sorted: Beluga,Blue,Humpback
 
-console.log('numberArray:' + numberArray.join());
+console.log("numberArray:" + numberArray.join());
 // numberArray: 40,1,5,200
-console.log('Sorted without a compare function:' + numberArray.sort());
+console.log("Sorted without a compare function:" + numberArray.sort());
 // Sorted without a compare function: 1,200,40,5
-console.log('Sorted with compareNumbers:' + numberArray.sort(compareNumbers));
+console.log("Sorted with compareNumbers:" + numberArray.sort(compareNumbers));
 // Sorted with compareNumbers: 1,5,40,200
 
-console.log('numericStringArray:' + numericStringArray.join());
+console.log("numericStringArray:" + numericStringArray.join());
 // numericStringArray: 80,9,700
-console.log('Sorted without a compare function:' + numericStringArray.sort());
+console.log("Sorted without a compare function:" + numericStringArray.sort());
 // Sorted without a compare function: 700,80,9
-console.log('Sorted with compareNumbers:' + numericStringArray.sort(compareNumbers));
+console.log(
+  "Sorted with compareNumbers:" + numericStringArray.sort(compareNumbers)
+);
 // Sorted with compareNumbers: 9,80,700
 
-console.log('mixedNumericArray:' + mixedNumericArray.join());
+console.log("mixedNumericArray:" + mixedNumericArray.join());
 // mixedNumericArray: 80,9,700,40,1,5,200
-console.log('Sorted without a compare function:' + mixedNumericArray.sort());
+console.log("Sorted without a compare function:" + mixedNumericArray.sort());
 // Sorted without a compare function: 1,200,40,5,700,80,9
-console.log('Sorted with compareNumbers:' + mixedNumericArray.sort(compareNumbers));
+console.log(
+  "Sorted with compareNumbers:" + mixedNumericArray.sort(compareNumbers)
+);
 // Sorted with compareNumbers: 1,5,9,40,80,200,700
 ```
 
 - **对非 ASCII 字符排序**
 
 ```js
-var items = ['réservé', 'premier', 'cliché', 'communiqué', 'café', 'adieu'];
+var items = ["réservé", "premier", "cliché", "communiqué", "café", "adieu"];
 items.sort(function (a, b) {
   return a.localeCompare(b);
 });
@@ -2109,7 +2149,7 @@ items.sort(function (a, b) {
 
 ```js
 // 需要被排序的数组
-var list = ['Delta', 'alpha', 'CHARLIE', 'bravo'];
+var list = ["Delta", "alpha", "CHARLIE", "bravo"];
 
 // 对需要排序的数字和位置的临时存储
 var mapped = list.map(function (el, i) {
@@ -2150,8 +2190,8 @@ array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
 - **从第 2 位开始删除 0 个元素，插入“drum”**
 
 ```js
-var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
-var removed = myFish.splice(2, 0, 'drum');
+var myFish = ["angel", "clown", "mandarin", "sturgeon"];
+var removed = myFish.splice(2, 0, "drum");
 
 // 运算后的 myFish: ["angel", "clown", "drum", "mandarin", "sturgeon"]
 // 被删除的元素: [], 没有元素被删除
@@ -2160,8 +2200,8 @@ var removed = myFish.splice(2, 0, 'drum');
 - **从第 2 位开始删除 0 个元素，插入“drum” 和 "guitar"**
 
 ```js
-var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
-var removed = myFish.splice(2, 0, 'drum', 'guitar');
+var myFish = ["angel", "clown", "mandarin", "sturgeon"];
+var removed = myFish.splice(2, 0, "drum", "guitar");
 
 // 运算后的 myFish: ["angel", "clown", "drum", "guitar", "mandarin", "sturgeon"]
 // 被删除的元素: [], 没有元素被删除
@@ -2170,7 +2210,7 @@ var removed = myFish.splice(2, 0, 'drum', 'guitar');
 - **从第 3 位开始删除 1 个元素**
 
 ```js
-var myFish = ['angel', 'clown', 'drum', 'mandarin', 'sturgeon'];
+var myFish = ["angel", "clown", "drum", "mandarin", "sturgeon"];
 var removed = myFish.splice(3, 1);
 
 // 运算后的 myFish: ["angel", "clown", "drum", "sturgeon"]
@@ -2180,8 +2220,8 @@ var removed = myFish.splice(3, 1);
 - **从第 2 位开始删除 1 个元素，插入“trumpet”**
 
 ```js
-var myFish = ['angel', 'clown', 'drum', 'sturgeon'];
-var removed = myFish.splice(2, 1, 'trumpet');
+var myFish = ["angel", "clown", "drum", "sturgeon"];
+var removed = myFish.splice(2, 1, "trumpet");
 
 // 运算后的 myFish: ["angel", "clown", "trumpet", "sturgeon"]
 // 被删除的元素: ["drum"]
@@ -2190,8 +2230,8 @@ var removed = myFish.splice(2, 1, 'trumpet');
 - **从第 0 位开始删除 2 个元素，插入"parrot"、"anemone"和"blue"**
 
 ```js
-var myFish = ['angel', 'clown', 'trumpet', 'sturgeon'];
-var removed = myFish.splice(0, 2, 'parrot', 'anemone', 'blue');
+var myFish = ["angel", "clown", "trumpet", "sturgeon"];
+var removed = myFish.splice(0, 2, "parrot", "anemone", "blue");
 
 // 运算后的 myFish: ["parrot", "anemone", "blue", "trumpet", "sturgeon"]
 // 被删除的元素: ["angel", "clown"]
@@ -2200,7 +2240,7 @@ var removed = myFish.splice(0, 2, 'parrot', 'anemone', 'blue');
 - **从第 2 位开始删除 2 个元素**
 
 ```js
-var myFish = ['parrot', 'anemone', 'blue', 'trumpet', 'sturgeon'];
+var myFish = ["parrot", "anemone", "blue", "trumpet", "sturgeon"];
 var removed = myFish.splice(myFish.length - 3, 2);
 
 // 运算后的 myFish: ["parrot", "anemone", "sturgeon"]
@@ -2210,7 +2250,7 @@ var removed = myFish.splice(myFish.length - 3, 2);
 - **从倒数第 2 位开始删除 1 个元素**
 
 ```js
-var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+var myFish = ["angel", "clown", "mandarin", "sturgeon"];
 var removed = myFish.splice(-2, 1);
 
 // 运算后的 myFish: ["angel", "clown", "sturgeon"]
@@ -2220,7 +2260,7 @@ var removed = myFish.splice(-2, 1);
 - **从第 2 位开始删除所有元素**
 
 ```js
-var myFish = ['angel', 'clown', 'mandarin', 'sturgeon'];
+var myFish = ["angel", "clown", "mandarin", "sturgeon"];
 var removed = myFish.splice(2);
 
 // 运算后的 myFish: ["angel", "clown"]
@@ -2249,8 +2289,8 @@ arr.toLocaleString([locales[,options]]);
 - **使用 locales 和 options**
 
 ```js
-var prices = ['￥7', 500, 8123, 12];
-prices.toLocaleString('ja-JP', { style: 'currency', currency: 'JPY' });
+var prices = ["￥7", 500, 8123, 12];
+prices.toLocaleString("ja-JP", { style: "currency", currency: "JPY" });
 
 // "￥7,￥500,￥8,123,￥12"
 ```
@@ -2270,7 +2310,7 @@ array.toSource();
 查看数组的源码
 
 ```js
-var alpha = new Array('a', 'b', 'c');
+var alpha = new Array("a", "b", "c");
 
 alpha.toSource(); //返回["a", "b", "c"]
 ```
@@ -2293,7 +2333,7 @@ arr.toString();
 [1, 2, 3].toString();
 // '1,2,3';
 
-['122', 222, { a: 11 }].toString();
+["122", 222, { a: 11 }].toString();
 // "122,222,[object Object]"
 ```
 
@@ -2348,7 +2388,7 @@ arr.values();
 - **使用 for...of 循环进行迭代**
 
 ```js
-let arr = ['w', 'y', 'k', 'o', 'p'];
+let arr = ["w", "y", "k", "o", "p"];
 let eArr = arr.values();
 
 for (let letter of eArr) {
@@ -2365,11 +2405,11 @@ Array.prototype.values === Array.prototype[Symbol.iterator]; // true
 - **使用 .next() 迭代**
 
 ```js
-var arr = ['a', 'b', 'c', 'd', 'e'];
+var arr = ["a", "b", "c", "d", "e"];
 var iterator = arr.values();
 iterator.next(); // Object { value: "a", done: false }
 iterator.next().value; // "b"
-iterator.next()['value']; // "c"
+iterator.next()["value"]; // "c"
 iterator.next(); // Object { value: "d", done: false }
 iterator.next(); // Object { value: "e", done: false }
 iterator.next(); // Object { value: undefined, done: true }
@@ -2393,7 +2433,7 @@ arr[Symbol.iterator]();
 - **使用 for...of 循环进行迭代**
 
 ```js
-var arr = ['a', 'b', 'c', 'd', 'e'];
+var arr = ["a", "b", "c", "d", "e"];
 var eArr = arr[Symbol.iterator]();
 // 浏览器必须支持 for...of 循环
 for (let letter of eArr) {
@@ -2404,7 +2444,7 @@ for (let letter of eArr) {
 - **另一种迭代方式**
 
 ```js
-var arr = ['a', 'b', 'c', 'd', 'e'];
+var arr = ["a", "b", "c", "d", "e"];
 var eArr = arr[Symbol.iterator]();
 console.log(eArr.next().value); // a
 console.log(eArr.next().value); // b
@@ -2425,13 +2465,13 @@ function logIterable(it) {
 }
 
 // Array
-logIterable(['a', 'b', 'c']);
+logIterable(["a", "b", "c"]);
 // a
 // b
 // c
 
 // string
-logIterable('abc');
+logIterable("abc");
 // a
 // b
 // c

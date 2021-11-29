@@ -1,36 +1,41 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import Sidebar from '../../components/Sidebar';
-import Totop from '../../components/Totop';
-import request from '../../common/request';
-import NProgress from 'nprogress';
-import utils from '../../common/utils';
-import scrollTo from '../../common/scrollTo';
-import arrayMarkDown from './Array.md';
-import ReactMarkdown from 'xwb-react-markdown';
-import 'nprogress/nprogress.css';
-import './index.less';
-import '../../common/style/highlight.less';
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import Sidebar from "../../components/Sidebar";
+import Totop from "../../components/Totop";
+import request from "../../common/request";
+import NProgress from "nprogress";
+import utils from "../../common/utils";
+import scrollTo from "../../common/scrollTo";
 
+import ReactMarkdown from "xwb-react-markdown";
+import "nprogress/nprogress.css";
+import "./index.less";
+import "../../common/style/highlight.less";
+
+import arrayMarkDown from "./md/Array.md";
+import specsMarkDown from "./md/Specs.md";
 class Detail extends React.Component {
   state = {
     detail: null,
     types: [],
     tables: [],
-    recommend: []
+    recommend: [],
   };
   async componentDidMount() {
     scrollTo(0);
     NProgress.start();
 
     let isMax = false;
-    const maxLists = ['895ff1c92f'];
+    const maxLists = {
+      "895ff1c92f": arrayMarkDown,
+      "9b13239e5e": specsMarkDown,
+    };
     const tid = this.props.match.params.id;
 
-    for (const itemId of maxLists) {
-      if (itemId === tid) {
+    for (const key in maxLists) {
+      if (tid === key) {
         isMax = true;
         break;
       } else {
@@ -42,42 +47,51 @@ class Detail extends React.Component {
 
     if (isMax) {
       articleDetailResult = await request.getArticleDetailById(tid);
-      articleDetailResult.html = new ReactMarkdown().mdParser.render(arrayMarkDown);
+      articleDetailResult.html = new ReactMarkdown().mdParser.render(
+        maxLists[tid]
+      );
     } else {
       articleDetailResult = await request.getArticleDetail(tid);
     }
 
     let tables = [];
 
-    articleDetailResult.html = articleDetailResult.html.replace(/<(h\d).*?>.*?<\/h\d>/g, (match, tag) => {
-      const hash = match.replace(/<.*?>/g, '');
-      const id = 'tag-' + tables.length;
-      tables.push({ id, hash, tag });
-      const newtag = `<${tag} id="${id}">${hash}</${tag}>`;
-      return newtag;
-    });
-
+    articleDetailResult.html = articleDetailResult.html.replace(
+      /<(h\d).*?>.*?<\/h\d>/g,
+      (match, tag) => {
+        const hash = match.replace(/<.*?>/g, "");
+        const id = "tag-" + tables.length;
+        tables.push({ id, hash, tag });
+        const newtag = `<${tag} id="${id}">${hash}</${tag}>`;
+        return newtag;
+      }
+    );
     this.setState({
       tables,
-      detail: articleDetailResult
+      detail: articleDetailResult,
     });
 
-    await request.getTypes().then(res => {
+    await request.getTypes().then((res) => {
       this.setState({
-        types: utils.getRandomArrayElements(res, 3)
+        types: utils.getRandomArrayElements(res, 3),
       });
     });
 
-    await request.getRecommendArticle(this.state.detail.objectId, this.state.detail.tid.objectId).then(res => {
-      this.setState({
-        recommend: res
+    await request
+      .getRecommendArticle(
+        this.state.detail.objectId,
+        this.state.detail.tid.objectId
+      )
+      .then((res) => {
+        this.setState({
+          recommend: res,
+        });
       });
-    });
 
     NProgress.done();
   }
   handleClick(id) {
-    scrollTo(document.querySelector('#' + id).offsetTop);
+    scrollTo(document.querySelector("#" + id).offsetTop);
   }
   goDetail(id) {
     this.props.history.push(`/detail/${id}`);
@@ -86,7 +100,7 @@ class Detail extends React.Component {
       this.setState(
         {
           tables: [],
-          detail: null
+          detail: null,
         },
         () => this.componentDidMount()
       );
@@ -114,7 +128,10 @@ class Detail extends React.Component {
                   <span className="detail-bao">
                     <i className="xwb meta-icon iconwenjian"></i>
                     <span className="detail-des">分类于</span>
-                    <Link className="detail-type" to={`/tabs/${detail.tid.objectId}`}>
+                    <Link
+                      className="detail-type"
+                      to={`/tabs/${detail.tid.objectId}`}
+                    >
                       {detail.tid.name}
                     </Link>
                   </span>
@@ -132,12 +149,19 @@ class Detail extends React.Component {
               <p className="detail-til">前言</p>
               <p className="describe">{detail.describe}</p>
               <p className="detail-til">正文</p>
-              <div className="detail-html" dangerouslySetInnerHTML={{ __html: detail.html }}></div>
+              <div
+                className="detail-html"
+                dangerouslySetInnerHTML={{ __html: detail.html }}
+              ></div>
               <div className="detail-end">END</div>
               <p className="detail-til">更多标签</p>
               <div className="label-box">
                 {this.state.types.map((item, index) => (
-                  <Link className="label-box-link" key={index} to={`/tabs/${item.objectId}`}>
+                  <Link
+                    className="label-box-link"
+                    key={index}
+                    to={`/tabs/${item.objectId}`}
+                  >
                     {item.name}
                   </Link>
                 ))}
@@ -145,7 +169,11 @@ class Detail extends React.Component {
               <p className="detail-til">相关推荐</p>
               <div className="recommend">
                 {this.state.recommend.map((item, index) => (
-                  <p className="recommend-link" key={index} onClick={() => this.goDetail(item.objectId)}>
+                  <p
+                    className="recommend-link"
+                    key={index}
+                    onClick={() => this.goDetail(item.objectId)}
+                  >
                     <span>{index + 1}、</span>
                     {item.title}
                   </p>
@@ -154,7 +182,12 @@ class Detail extends React.Component {
             </Fragment>
           ) : null}
           <Totop />
-          <Sidebar tables={this.state.tables} top detail onClick={id => this.handleClick(id)} />
+          <Sidebar
+            tables={this.state.tables}
+            top
+            detail
+            onClick={(id) => this.handleClick(id)}
+          />
         </main>
         <Footer />
       </Fragment>
