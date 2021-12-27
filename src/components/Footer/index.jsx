@@ -9,7 +9,7 @@ class Footer extends React.Component {
           Copyright © 2019 - <span>{new Date().getFullYear()}</span> My WebSite. All Rights Reserved.
         </section>
         <p className="youqing">
-          <span className="beian">蜀ICP备20010488号-1</span>
+          <a className="beian" target='_blank' href='https://github.com/weilkss/weilkss.github.io.git'>蜀ICP备20010488号-1</a>
         </p>
       </footer>
     );
