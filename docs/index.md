@@ -5,15 +5,18 @@ layout: home
 hero:
   name: "blog"
   text: "weilkss blog"
-  tagline: My great project tagline
+  tagline: 真正的大师永远都怀着一颗学徒的心。
   actions:
     - theme: brand
-      text: Markdown Examples
+      text: 基础
       link: /markdown-examples
-    - theme: alt
-      text: API Examples
+    - theme: brand
+      text: 升级
       link: /api-examples
-
+    - theme: alt
+      text: Vue & React
+      link: /api-examples
+      
 features:
   - title: Feature A
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
