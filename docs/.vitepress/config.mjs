@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    title: "blog",
+    title: "Weilkss",
     description: "weilkss blog",
     outDir: "../dist",
     themeConfig: {
@@ -22,15 +22,15 @@ export default defineConfig({
             "/basis/": {
                 items: [
                     {
-                        text: "css",
+                        text: "CSS",
                         link: "/basis/css",
                     },
                     {
-                        text: "html",
+                        text: "HTML",
                         link: "/basis/html",
                     },
                     {
-                        text: "javascript",
+                        text: "Javascript",
                         link: "/basis/javascript",
                     },
                 ],
