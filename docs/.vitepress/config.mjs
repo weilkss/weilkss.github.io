@@ -11,7 +11,7 @@ export default defineConfig({
             { text: "首页", link: "/" },
             { text: "基础", link: "/basis/css" },
             { text: "进阶", link: "/advanced/es6" },
-            { text: "实现", link: "/achieve/index" },
+            { text: "实现", link: "/achieve/javascript" },
             { text: "Vue", link: "/vue/index" },
             { text: "React", link: "/react/index" },
             { text: "Plugin", link: "/plugin/vue" },
@@ -46,17 +46,7 @@ export default defineConfig({
                 ],
             },
             "/achieve/": {
-                base: "/achieve/",
-                items: [
-                    {
-                        text: "实现",
-                        collapsed: false,
-                        items: [
-                            { text: "介绍", link: "/index" },
-                            { text: "promise", link: "/promise" },
-                        ],
-                    },
-                ],
+                items: [{ text: "JS手写实现", link: "/achieve/javascript" }],
             },
             "/vue/": {
                 items: [
