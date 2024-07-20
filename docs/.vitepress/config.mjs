@@ -11,13 +11,12 @@ export default defineConfig({
             { text: "首页", link: "/" },
             { text: "基础", link: "/basis/css" },
             { text: "进阶", link: "/advanced/es6" },
-            { text: "实现", link: "/achieve/javascript" },
+            { text: "实现", link: "/achieve/防抖节流" },
             { text: "Vue", link: "/vue/index" },
             { text: "React", link: "/react/index" },
             { text: "Plugin", link: "/plugin/vue" },
             { text: "Skill", link: "/skill/notes" },
         ],
-
         sidebar: {
             "/basis/": {
                 items: [
@@ -46,7 +45,12 @@ export default defineConfig({
                 ],
             },
             "/achieve/": {
-                items: [{ text: "JS手写实现", link: "/achieve/javascript" }],
+                items: [
+                    { text: "防抖节流", link: "/achieve/防抖节流" },
+                    { text: "深拷贝", link: "/achieve/深拷贝" },
+                    { text: "instanceof", link: "/achieve/instanceof" },
+                    { text: "reduce", link: "/achieve/reduce" },
+                ],
             },
             "/vue/": {
                 items: [
@@ -107,7 +111,6 @@ export default defineConfig({
                 ],
             },
         },
-
         socialLinks: [{ icon: "github", link: "https://github.com/weilkss" }],
     },
     vite: {

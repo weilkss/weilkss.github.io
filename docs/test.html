@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            Array.prototype.myReduce = function (callback, initValue) {
+                // 确保 'this' 是数组
+                if (!Array.isArray(this)) {
+                    throw new Error("数组才能调用reduce");
+                }
+
+                // 确保 callback 是一个函数
+                if (typeof callback !== "function") {
+                    throw new Error("第一个参数必须是一个函数");
+                }
+
+                const arr = this;
+                let startIndex = 0;
+
+                // 如果提供了 initValue，则从第一个元素开始迭代
+                // 否则，从第二个元素开始迭代，并设置 result 为第一个元素
+                if (initValue === undefined) {
+                    if (arr.length === 0) {
+                        throw new TypeError("Reduce of empty array with no initial value");
+                    }
+                    startIndex = 1;
+                    initValue = arr[0];
+                }
+
+                let result = initValue;
+                for (let i = startIndex; i < arr.length; i++) {
+                    result = callback(result, arr[i], i, arr);
+                }
+
+                return result;
+            };
+        </script>
+    </body>
+</html>
