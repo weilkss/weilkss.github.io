@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as a,X as o}from"./chunks/framework.6e839c56.js";const f=JSON.parse('{"title":"前端面试准备","description":"","frontmatter":{},"headers":[],"relativePath":"skill/notes.md","filePath":"skill/notes.md"}'),l={name:"skill/notes.md"},i=o("",5),s=[i];function r(n,_,c,d,h,p){return t(),a("div",null,s)}const u=e(l,[["render",r]]);export{f as __pageData,u as default};

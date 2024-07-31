@@ -1,0 +1,1 @@
+import{_ as s,o as a,c as n,X as l}from"./chunks/framework.6e839c56.js";const C=JSON.parse('{"title":"手写实现","description":"","frontmatter":{},"headers":[],"relativePath":"basis/wra.md","filePath":"basis/wra.md"}'),p={name:"basis/wra.md"},o=l("",32),t=[o];function e(c,r,F,y,D,A){return a(),n("div",null,t)}const u=s(p,[["render",e]]);export{C as __pageData,u as default};
