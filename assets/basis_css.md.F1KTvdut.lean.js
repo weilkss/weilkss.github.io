@@ -1,0 +1,1 @@
+import{_ as l,o as a,c as e,ae as r}from"./chunks/framework.RRduUuAx.js";const u=JSON.parse('{"title":"CSS","description":"","frontmatter":{},"headers":[],"relativePath":"basis/css.md","filePath":"basis/css.md"}'),t={name:"basis/css.md"};function n(o,i,s,h,g,c){return a(),e("div",null,[...i[0]||(i[0]=[r("",52)])])}const p=l(t,[["render",n]]);export{u as __pageData,p as default};
