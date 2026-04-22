@@ -7,6 +7,7 @@ export default defineConfig({
     outDir: "../dist",
     head: [["link", { rel: "icon", href: "/logo.svg" }]],
     themeConfig: {
+        logo: "/logo.svg",
         // https://vitepress.dev/reference/default-theme-config
         nav: [
             { text: "首页", link: "/" },
@@ -111,5 +112,8 @@ export default defineConfig({
             },
         },
         socialLinks: [{ icon: "github", link: "https://github.com/weilkss" }],
+    },
+    vite: {
+        publicDir: "../public",
     },
 });
