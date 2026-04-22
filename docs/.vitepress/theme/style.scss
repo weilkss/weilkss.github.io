@@ -1,0 +1,259 @@
+/* ========================================
+   Weilkss - AI 幻彩流光风 (AI Iridescent Flow Theme)
+   ======================================== */
+
+/* 1. 定义幻彩流光核心渐变色与动画 */
+:root {
+    /* 1. 亮色模式背景微调：不再是纯白，而是极淡的科技冷调，方便卡片浮现 */
+    --vp-c-bg: #f8faff;
+    --vp-c-bg-alt: #f1f4f9;
+
+    /* 2. 优化亮色渐变：提升明亮度，让流光更通透 */
+    --ai-gradient-bg: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+    --ai-gradient-text: linear-gradient(120deg, #4f46e5, #7c3aed, #ec4899);
+
+    /* 3. 增强投影：亮色模式下投影要“散”且带一点品牌色，层次才明显 */
+    --ai-glow-shadow: 0 20px 40px rgba(124, 58, 237, 0.12), 0 8px 16px rgba(0, 0, 0, 0.04);
+
+    /* 4. 优化卡片背景：增加一点不透明度，并让边框略显深色 */
+    --ai-card-bg: rgba(255, 255, 255, 0.8);
+    --ai-card-border: rgba(124, 58, 237, 0.15);
+    /* 淡淡的紫色边框代替纯白边框 */
+}
+
+.dark {
+    /* 暗色模式幻彩渐变 (更霓虹、更赛博) */
+    --ai-gradient-bg: linear-gradient(120deg, #ff00cc, #333399, #00c9ff, #92fe9d);
+    --ai-gradient-text: linear-gradient(120deg, #60a5fa, #c084fc, #f472b6, #4ade80);
+    --ai-glow-shadow: 0 0 30px rgba(192, 132, 252, 0.5);
+    --ai-card-bg: rgba(30, 30, 36, 0.6);
+    --ai-card-border: rgba(255, 255, 255, 0.1);
+
+    /* 深色模式背景替换为深空蓝/紫 */
+    --vp-c-bg: #0b0f19;
+    --vp-c-bg-alt: #111827;
+}
+
+/* 定义流光动画 */
+@keyframes ai-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes ai-breathe {
+    0% {
+        box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+    }
+
+    50% {
+        box-shadow: var(--ai-glow-shadow);
+    }
+
+    100% {
+        box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+    }
+}
+
+/* ========================================
+   2. 覆盖 VitePress 默认变量
+   ======================================== */
+:root {
+    /* 将品牌色替换为幻彩体系的主色调之一（用于链接、高亮等） */
+    --vp-c-brand-1: #7c3aed;
+    --vp-c-brand-2: #3b82f6;
+    --vp-c-brand-3: #ec4899;
+    --vp-c-brand-soft: rgba(124, 58, 237, 0.14);
+
+    /* 导航栏毛玻璃透明度 */
+    --vp-nav-bg-color: transparent;
+
+    /* 侧边栏和卡片的背景透明化，为背景流光留出空间 */
+    --vp-sidebar-bg-color: var(--ai-card-bg);
+}
+
+.dark {
+    --vp-c-brand-1: #c084fc;
+    --vp-c-brand-2: #60a5fa;
+    --vp-c-brand-3: #f472b6;
+    --vp-c-brand-soft: rgba(192, 132, 252, 0.16);
+}
+
+/* ========================================
+   3. 全局组件特效注入
+   ======================================== */
+
+/* 导航栏毛玻璃特效 */
+.VPNavBar {
+    background-color: var(--ai-card-bg) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--ai-card-border);
+}
+
+/* 左上角 Weilkss 文字幻彩渐变 */
+.VPNavBarTitle .title span {
+    background-image: var(--ai-gradient-text);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    animation: ai-flow 4s linear infinite;
+}
+
+/* 首页 Hero 大标题流光渐变文字 */
+.VPHero .name {
+    background-image: var(--ai-gradient-text);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    animation: ai-flow 4s ease infinite;
+}
+
+/* 首页大按钮幻彩流光背景 */
+.VPHero .VPButton.brand {
+    background-image: var(--ai-gradient-text);
+    background-size: 200% auto;
+    color: white;
+    border: none;
+    animation: ai-flow 3s linear infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.VPHero .VPButton.brand:hover {
+    transform: scale(1.05);
+    box-shadow: var(--ai-glow-shadow);
+}
+
+/* 首页背景光晕 (AI氛围感核心) */
+.VPHero .image-bg {
+    background-image: var(--ai-gradient-bg);
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: ai-flow 6s ease infinite, ai-breathe 4s ease-in-out infinite;
+}
+
+/* ========================================
+   4. 首页特征卡片 (Features) 高级全息重构版
+   ======================================== */
+
+.VPFeature {
+    position: relative;
+    background: var(--ai-card-bg) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--ai-card-border) !important;
+    border-radius: 14px !important;
+    /* 物理级丝滑缓动曲线 */
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    cursor: pointer;
+    overflow: hidden;
+    /* 确保镜面扫光不出界 */
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* 镜面扫光层 (默认在左侧隐藏) */
+.VPFeature::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    /* 扫光渐变白光 */
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: skewX(-25deg);
+    z-index: 2;
+    pointer-events: none;
+    transition: none;
+    /* 离开时不触发动画 */
+}
+
+/* 暗色模式下扫光稍微降低亮度 */
+.dark .VPFeature::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+}
+
+/* 鼠标悬浮时的卡片整体状态 */
+.VPFeature:hover {
+    /* 微微放大并上浮，增加失重感 */
+    transform: translateY(-8px) scale(1.015) !important;
+    border-color: var(--vp-c-brand-2) !important;
+    /* 边框亮起品牌蓝/紫 */
+
+    /* 核心：外侧弥散流光 + 内侧微光环境 */
+    box-shadow:
+        0 15px 35px -10px var(--ai-glow-shadow),
+        /* 底部流光大光晕 */
+        inset 0 0 24px var(--vp-c-brand-soft) !important;
+    /* 内部霓虹微光 */
+}
+
+/* 触发扫光动画 */
+.VPFeature:hover::before {
+    left: 200%;
+    /* 光线从左扫到右 */
+    transition: left 0.8s ease-in-out;
+    /* 扫过的时间 */
+}
+
+/* 标题文字保留幻彩渐变 */
+.VPFeature:hover .title {
+    background-image: var(--ai-gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    animation: ai-flow 3s linear infinite;
+}
+
+
+/* ========================================
+   5. 其他细节优化
+   ======================================== */
+
+/* 链接文字 Hover 流光效果 */
+.vp-doc a {
+    background-image: var(--ai-gradient-text);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.vp-doc a:hover {
+    animation: ai-flow 2s linear infinite;
+}
+
+.VPLink .title {
+    background-image: var(--ai-gradient-text);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    animation: ai-flow 4s linear infinite;
+}
+
+.VPImage {
+    width: 100%;
+    height: auto;
+}
+
+/* 选中文字颜色 */
+::selection {
+    background: var(--vp-c-brand-1);
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+}

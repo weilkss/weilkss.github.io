@@ -10,8 +10,8 @@
         "deploy": "npm run docs:build&&gh-pages -b master -d dist"
     },
     "devDependencies": {
-        "gh-pages": "^6.0.0",
-        "sass": "^1.66.1",
-        "vitepress": "^1.0.0-rc.4"
+        "gh-pages": "^6.3.0",
+        "sass": "^1.99.0",
+        "vitepress": "^1.6.4"
     }
 }

@@ -5,6 +5,7 @@ export default defineConfig({
     title: "Weilkss",
     description: "weilkss blog",
     outDir: "../dist",
+    head: [["link", { rel: "icon", href: "/logo.svg" }]],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
@@ -35,12 +36,10 @@ export default defineConfig({
                 ],
             },
             "/advanced/": {
-                base: "/advanced/",
                 items: [
                     {
-                        text: "进阶",
-                        collapsed: false,
-                        items: [{ text: "ES6", link: "/es6" }],
+                        text: "es6",
+                        link: "/advanced/es6",
                     },
                 ],
             },
@@ -112,8 +111,5 @@ export default defineConfig({
             },
         },
         socialLinks: [{ icon: "github", link: "https://github.com/weilkss" }],
-    },
-    vite: {
-        publicDir: "../public",
     },
 });

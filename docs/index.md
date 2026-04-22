@@ -6,6 +6,7 @@ hero:
     name: "Weilkss"
     text: "学习和知识储备"
     tagline: 真正的大师永远都怀着一颗学徒的心。
+    image: /logo.svg
     actions:
         - theme: brand
           text: 基础
@@ -16,10 +17,10 @@ hero:
         - theme: brand
           text: 代码实现
           link: /achieve
-        - theme: alt
+        - theme: brand
           text: Vue
           link: /achieve
-        - theme: alt
+        - theme: brand
           text: React
           link: /achieve
 
@@ -37,11 +38,3 @@ features:
     - title: 面试技巧
       details: 记录和整理一些面试技巧，让找工作变得很美好
 ---
-
-<style lang='scss'>
-    .container{
-        .text{
-            margin-top:20px
-        }
-    }
-</style>

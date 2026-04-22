@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 110" width="100%" height="100%">
+  <defs>
+    <!-- 幻彩渐变 -->
+    <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5b86e5">
+        <animate attributeName="stop-color" values="#5b86e5;#ff00cc;#5b86e5" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="50%" stop-color="#7c3aed">
+        <animate attributeName="stop-color" values="#7c3aed;#00c9ff;#7c3aed" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="#db2777">
+        <animate attributeName="stop-color" values="#db2777;#92fe9d;#db2777" dur="4s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+
+    <!-- 优化后的滤镜：扩大了作用区域 (x, y, width, height) 防止截断 -->
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <!-- 基础模糊 -->
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <!-- 增强亮度 -->
+      <feComponentTransfer in="blur" result="brightBlur">
+        <feFuncA type="linear" slope="1.2" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode in="brightBlur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- W 路径：整体下移 5 个单位 (从 28 变 33) -->
+  <path 
+    d="M 18 33 L 36 80 L 50 50 L 64 80 L 82 33" 
+    fill="none" 
+    stroke="url(#aiGradient)" 
+    stroke-width="10" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+  />
+
+  <!-- 顶部的圆：下移至 cy="25" 给上方光晕留出空间，并应用优化后的滤镜 -->
+  <circle cx="50" cy="25" r="6" fill="url(#aiGradient)" filter="url(#glow)">
+    <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite" />
+    <!-- 增加透明度呼吸感，让光晕更灵动 -->
+    <animate attributeName="fill-opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
+  </circle>
+</svg>
