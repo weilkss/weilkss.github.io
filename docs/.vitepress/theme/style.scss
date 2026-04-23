@@ -252,3 +252,34 @@
     color: #fff;
     -webkit-text-fill-color: #fff;
 }
+
+/* ========================================
+   6. 全局滚动条美化
+   ======================================== */
+
+/* 全局滚动条 - WebKit 内核浏览器 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--vp-c-bg-alt);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--vp-c-brand-soft);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+
+    &:hover {
+        background: var(--vp-c-brand-1);
+    }
+}
+
+/* Firefox 滚动条 */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--vp-c-brand-soft) var(--vp-c-bg-alt);
+}
