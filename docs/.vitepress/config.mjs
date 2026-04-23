@@ -11,12 +11,12 @@ export default defineConfig({
         // https://vitepress.dev/reference/default-theme-config
         nav: [
             { text: "首页", link: "/" },
-            { text: "基础", link: "/basis/css" },
-            { text: "进阶", link: "/advanced/es6" },
-            { text: "实现", link: "/achieve/防抖节流" },
-            { text: "Vue", link: "/vue/vue3" },
-            { text: "React", link: "/react/base" },
-            { text: "Plugin", link: "/plugin" },
+            { text: "基础", link: "/basis/css", activeMatch: "^/basis/" },
+            { text: "进阶", link: "/advanced/es6", activeMatch: "^/advanced/" },
+            { text: "实现", link: "/achieve/防抖节流", activeMatch: "^/achieve/" },
+            { text: "Vue", link: "/vue/vue3", activeMatch: "^/vue/" },
+            { text: "React", link: "/react/base", activeMatch: "^/react/" },
+            { text: "Plugin", link: "/plugin", activeMatch: "^/plugin/" },
         ],
         sidebar: {
             "/basis": {
@@ -40,135 +40,134 @@ export default defineConfig({
                 ],
             },
             "/advanced": {
-                base: "/advanced/",
                 items: [
                     {
                         text: "ES6深入",
-                        link: "/es6",
+                        link: "/advanced/es6",
                     },
                     {
                         text: "Git",
-                        link: "/git",
+                        link: "/advanced/git",
                     },
                     {
                         text: "Node.js",
-                        link: "/nodejs",
+                        link: "/advanced/nodejs",
                     },
                     {
                         text: "MySQL",
-                        link: "/mysql",
+                        link: "/advanced/mysql",
                     },
                     {
                         text: "PM2",
-                        link: "/PM2",
+                        link: "/advanced/PM2",
                     },
                     {
                         text: "NestJS",
-                        link: "/nestjs",
+                        link: "/advanced/nestjs",
                     },
                     {
                         text: "Next.js",
-                        link: "/nextjs",
+                        link: "/advanced/nextjs",
                     },
                     {
                         text: "Webpack",
-                        link: "/webpack",
+                        link: "/advanced/webpack",
                     },
                     {
                         text: "Vite",
-                        link: "/vite",
+                        link: "/advanced/vite",
                     },
                     {
                         text: "NPM",
-                        link: "/npm",
+                        link: "/advanced/npm",
                     },
                     {
                         text: "Monorepo",
-                        link: "/monorepo",
+                        link: "/advanced/monorepo",
                     },
                     {
                         text: "Docker",
-                        link: "/Docker",
+                        link: "/advanced/Docker",
                     },
                     {
                         text: "性能优化",
-                        link: "/性能优化",
+                        link: "/advanced/性能优化",
                     },
                     {
                         text: "网络安全",
-                        link: "/网络安全",
+                        link: "/advanced/网络安全",
                     },
                     {
                         text: "WebSocket",
-                        link: "/WebSocket",
+                        link: "/advanced/WebSocket",
                     },
                     {
                         text: "WebWorker",
-                        link: "/WebWorker",
+                        link: "/advanced/WebWorker",
                     },
                     {
                         text: "SVG",
-                        link: "/svg",
+                        link: "/advanced/svg",
                     },
                     {
                         text: "Canvas",
-                        link: "/canvas",
+                        link: "/advanced/canvas",
                     },
                     {
                         text: "WebGL",
-                        link: "/webGL",
+                        link: "/advanced/webGL",
                     },
                     {
                         text: "WebRTC",
-                        link: "/WebRTC",
+                        link: "/advanced/WebRTC",
                     },
                     {
                         text: "Electron",
-                        link: "/electron",
+                        link: "/advanced/electron",
                     },
                     {
                         text: "小程序",
-                        link: "/小程序",
+                        link: "/advanced/小程序",
                     },
                     {
                         text: "PWA",
-                        link: "/PWA",
+                        link: "/advanced/PWA",
                     },
                     {
                         text: "ReactNative",
-                        link: "/reactnative",
+                        link: "/advanced/reactnative",
                     },
                     {
                         text: "Taro",
-                        link: "/taro",
+                        link: "/advanced/taro",
                     },
                     {
                         text: "Qiankun",
-                        link: "/qiankun",
+                        link: "/advanced/qiankun",
                     },
                     {
                         text: "Single-SPA",
-                        link: "/single-spa",
+                        link: "/advanced/single-spa",
                     },
                     {
                         text: "Jest",
-                        link: "/jest",
+                        link: "/advanced/jest",
                     },
                     {
                         text: "Vitest",
-                        link: "/vitest",
+                        link: "/advanced/vitest",
                     },
                     {
                         text: "MobX",
-                        link: "/MobX",
+                        link: "/advanced/MobX",
                     },
                     {
                         text: "RESTful API",
-                        link: "/RESTfulAPI",
+                        link: "/advanced/RESTfulAPI",
                     },
                     {
                         text: "埋点",
-                        link: "/埋点",
+                        link: "/advanced/埋点",
                     },
                 ],
             },
@@ -182,7 +181,7 @@ export default defineConfig({
                     { text: "继承方式", link: "/achieve/继承方式" },
                     { text: "数组flat实现", link: "/achieve/数组flat实现" },
                     { text: "new实现", link: "/achieve/new实现" },
-                    { text: "call、apply和bind实现", link: "/achieve/apply、call、apply和bind实现实现" },
+                    { text: "call、apply和bind实现", link: "/achieve/bind实现" },
                     { text: "Promise实现", link: "/achieve/Promise实现" },
                     { text: "Promise方法实现", link: "/achieve/Promise方法实现" },
                     { text: "async-await实现", link: "/achieve/async-await实现" },
@@ -220,23 +219,22 @@ export default defineConfig({
                 ],
             },
             "/react": {
-                base: "/react/",
                 items: [
                     {
                         text: "基础知识",
-                        link: "/base",
+                        link: "/react/base",
                     },
                     {
                         text: "高频面试",
-                        link: "/high",
+                        link: "/react/high",
                     },
                     {
                         text: "手撕React",
-                        link: "/mini",
+                        link: "/react/mini",
                     },
                     {
                         text: "技术周边",
-                        link: "/periphery",
+                        link: "/react/periphery",
                     },
                 ],
             },
