@@ -13,16 +13,16 @@ hero:
           link: /basis/css
         - theme: brand
           text: 进阶
-          link: /advanced
+          link: /advanced/es6
         - theme: brand
           text: 代码实现
-          link: /achieve
+          link: /achieve/防抖节流
         - theme: brand
           text: Vue
-          link: /achieve
+          link: /vue/index
         - theme: brand
           text: React
-          link: /achieve
+          link: /react/index
 
 features:
     - title: 基础知识

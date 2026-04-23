@@ -1,167 +1,675 @@
 # CSS
 
-## 盒模型介绍
+## 1. 盒模型
 
-盒模型是 CSS 中一个非常重要的概念，它定义了一个 HTML 元素在页面中所占据的空间。盒模型由四个部分组成：内容区域（content）、内边距（padding）、边框（border）和外边距（margin）。这四个部分相互嵌套，形成了一个矩形的盒子，用来包裹 HTML 元素
+盒模型是 CSS 中最基础的概念，定义了元素在页面中所占据的空间。由四部分组成：content、padding、border、margin。
 
-盒模型的大小计算方式可以分为两种：标准盒模型和 IE 盒模型（怪异盒模型）。标准盒模型的大小是指内容区域的大小，不包括内边距和边框；而 IE 盒模型的大小是指内容区域、内边距和边框的总和。在 CSS 中，可以通过设置 box-sizing 属性来指定使用哪种盒模型
+**两种盒模型：**
 
--   标准盒模型：只包含 content
--   IE（替代）盒模型：content + padding + border
+| 类型 | 计算方式 |
+|------|----------|
+| 标准盒模型 | width = content |
+| IE（替代）盒模型 | width = content + padding + border |
 
-可以通过 box-sizing 来改变元素的盒模型：
+```css
+/* 标准盒模型 */
+box-sizing: content-box;
 
--   **box-sizing: content-box** ：标准盒模型（默认值）
--   **box-sizing: border-box** ：IE（替代）盒模型
+/* IE 盒模型 */
+box-sizing: border-box;
+```
 
-## BFC 理解和应用
+**推荐：** 面试时大多数公司都要求使用 `border-box`
 
-**BFC（Block Formatting Context）** 是 CSS 中的一个布局概念，它是一个独立的渲染区域（容器），其中的元素按照一定的规则进行布局和定位。BFC 可以解决许多布局问题，如 margin 重叠、清除浮动等
+## 2. BFC（块级格式化上下文）
 
-### BFC 的触发条件：
+BFC 是一个独立的渲染区域，其中的元素按一定规则布局。
 
--   根元素 html
--   float 的值不是 none
--   position 的值不是 static 或者 relative
--   overflow 的值不是 visible
--   display 的值是 inline-block,table-cell,flex,table-caption 或者 inline-flex
+### BFC 触发条件
 
-### BFC 的特性
+- 根元素 html
+- `float` 不是 none
+- `position` 不是 static 或 relative
+- `overflow` 不是 visible
+- `display` 是 inline-block、table-cell、flex、table-caption、inline-flex
 
--   内部的 Box 会在垂直方向上一个接一个放置。
--   Box 垂直方向的距离由 margin 决定，属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠。
--   每个元素的 margin box 的左边，与包含块 border box 的左边相接触。
--   BFC 的区域不会与 float box 重叠。
--   BFC 是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。
--   计算 BFC 的高度时，浮动元素也会参与计算。
+### BFC 特性
 
-### BFC 的作用：
+- Box 垂直方向依次放置
+- 同一 BFC 的相邻 Box 的 margin 会重叠
+- BFC 区域不会与 float 重叠
+- BFC 是隔离容器，子元素不影响外部
+- 计算 BFC 高度时，浮动元素参与计算
 
--   **清除浮动：** 当一个元素的子元素都是浮动元素时，父元素会发生高度塌陷，无法正常包裹子元素。在父元素上创建 BFC 可以清除浮动，使父元素能够正常包裹子元素。
--   **防止外边距重叠：** 在普通流中，相邻的两个元素的垂直外边距可能会发生重叠。在 BFC 中，垂直外边距会被限制在各自的 BFC 内部，从而避免了外边距重叠的问题。
--   **控制元素的定位和布局：** 在 BFC 中，可以使用一些 CSS 属性来控制元素的定位和布局，如 float、position、display 等。
+### BFC 作用
 
-## margin 纵向重叠问题
+```css
+/* 清除浮动 */
+.father {
+    overflow: hidden; /* 触发 BFC */
+}
 
-margin 重叠（又称 margin 塌陷）是指文档流内，块级元素与块级元素垂直方向上的 margin 合并（塌陷）为单个 margin，且只发生在垂直方向。这种情况下，相邻兄弟元素间的外边距会按照一定规则合并，而不是简单相加
+/* 防止 margin 重叠 */
+.father {
+    overflow: hidden;
+}
+.son {
+    margin-top: 20px;
+}
+```
 
-### 解决 margin 重叠的方法:
+## 3. margin 纵向重叠
 
--   **使用 BFC：** 由于 BFC 可以隔离元素，防止外边距重叠，因此可以通过触发 BFC 来解决 margin 重叠问题。例如，可以使其中一个元素的父元素触发 BFC，从而使该元素与相邻元素不属于同一个 BFC，从而避免外边距重叠。
--   **设置边框或内边距：** 为父元素或相邻元素设置边框（border）或内边距（padding），可以阻止外边距重叠。
--   **使用 Flex 布局：** 在 Flex 布局中，子元素的 margin 不会重叠。
+margin 重叠发生在垂直方向的相邻块级元素之间。
 
-## css 选择器和优先级
+### 解决方法
 
-CSS 选择器用于选择 HTML 文档中的元素，以便为其应用样式。选择器的优先级决定了当多个样式规则应用于同一个元素时，哪个规则将最终生效
+- 触发 BFC（overflow: hidden/auto）
+- 设置 border 或 padding 隔开
+- 使用 Flex 布局（flex 布局的子元素 margin 不重叠）
 
-### 选择器类型及优先级：
+## 4. 选择器优先级
 
--   ID 选择器（#id）：每个 ID 选择器计为 100。
--   类选择器（.class）、属性选择器（[attr]）和伪类选择器（:hover, :focus 等）：每个此类选择器计为 10。
--   元素选择器（p, div, span 等）和伪元素选择器（::before, ::after 等）：每个元素或伪元素选择器计为 1。
--   行内样式（通过 HTML 元素的 style 属性直接定义的样式）具有最高的优先级，除非遇到!important 规则。
--   !important 规则：当一个声明后面跟有!important 时
+### 优先级计算
 
-## 重排（reflow）和重绘（repaint）的理解
+| 选择器 | 权重 |
+|--------|------|
+| !important | 最高 |
+| 行内样式 | 1000 |
+| ID 选择器 | 100 |
+| 类/属性/伪类 | 10 |
+| 元素/伪元素 | 1 |
+| 通配符 | 0 |
 
-重排（Reflow）和重绘（Repaint）是浏览器在渲染页面时的重要概念，它们分别涉及页面布局的计算和元素外观的更新。以下是对这两个概念的理解：
+### 示例
 
-### 重排（Reflow）
+```css
+/* 优先级：100 + 10 + 1 = 111 */
+#header.nav.active { /* ... */ }
 
-**定义：**
+/* 优先级：10 + 10 = 20 */
+.nav.active { /* ... */ }
 
-重排，也称为回流或重构，是指浏览器在渲染页面时，根据 DOM 结构和 CSS 样式计算元素的布局和几何属性的过程。当页面中的元素发生变化（如添加、删除或修改元素），或者浏览器窗口大小改变时，都会触发重排操作。
+/* 如果优先级相同，后定义的生效 */
+```
 
-**触发条件：**
+### 注意
 
--   页面渲染初始化（无法避免）
--   添加或删除可见的 DOM 元素
--   元素位置的改变，或者使用动画
--   元素尺寸的改变，包括大小、外边距、边框等
--   浏览器窗口尺寸的变化（resize 事件发生时）
--   填充内容的改变，比如文本的改变或图片大小改变而引起的计算值宽度和高度的改变
--   读取某些元素属性，如 offsetLeft/Top/Height/Width, clientTop/Left/Width/Height, scrollTop/Left/Width/Height, width/height, getComputedStyle(), currentStyle(IE)等
+- 面试时可以提到 CSS 选择器从右向左匹配
+- !important 应尽量避免使用
 
-**性能影响：**
+## 5. 重排（reflow）和重绘（repaint）
 
-重排是一个比较耗费性能的操作，因为它会影响到整个页面的布局。在重排过程中，浏览器需要重新计算受影响的元素及其子元素的位置和大小，这可能导致整个页面的重新布局。
+### 重排触发条件
 
-### 重绘（Repaint）
+- DOM 增删
+- 元素位置/尺寸变化
+- 浏览器窗口 resize
+- 读取 offset、scroll、client、getComputedStyle 等属性
 
-**定义：**
+### 重绘触发条件
 
-重绘是指浏览器进行渲染时，根据计算好的布局信息，将元素绘制成像素的过程。当元素的外观属性（如颜色、背景、边框等）发生变化时，会触发重绘操作。
+- 元素外观属性变化（color、background、visibility 等）
 
-**触发条件：**
+### 性能优化
 
--   改变元素外观属性，如颜色、背景色、边框样式等
+```js
+// ❌ 多次操作 DOM
+el.style.left = left + 1 + 'px';
+el.style.top = top + 1 + 'px';
 
-**性能影响：**
+// ✅ 合并操作
+el.style.transform = `translate(${left + 1}px, ${top + 1}px)`;
 
-与重排不同，重绘只涉及到元素外观的更改，而不会影响到布局。因此，重绘的性能开销相对较小。但是，如果页面中有大量的元素需要重绘，或者重绘操作频繁发生，仍然会对页面性能产生不利影响。
+// ✅ 使用文档片段
+const fragment = document.createDocumentFragment();
+for (let i = 0; i < 1000; i++) {
+    fragment.appendChild(createItem());
+}
+container.appendChild(fragment);
 
-### 重排与重绘的关系
+// ✅ 缓存布局信息
+const width = div.offsetWidth; // 读取一次
+requestAnimationFrame(() => {
+    console.log(width); // 使用缓存值
+});
+```
 
--   重排一定会引发重绘，因为元素的布局变化后，其外观也需要重新绘制以反映新的布局。
--   但重绘不一定会引发重排，只有当元素的外观变化不会影响到布局时，才会只触发重绘而不触发重排。
+## 6. Flex 布局
 
-### 如何减少重排和重绘
+### 容器属性
 
-为了减少重排和重绘对页面性能的影响，可以采取以下策略：
+```css
+.container {
+    display: flex;
 
--   避免频繁操作 DOM：尽量通过修改 CSS 类名来批量修改样式，而不是直接操作 DOM 元素的样式属性。
--   使用文档片段（DocumentFragment）：在需要插入大量节点时，可以先将这些节点添加到文档片段中，然后再把整个文档片段添加到文档中。这样可以减少多次插入节点引起的重排。
--   避免频繁读取会引发重排/重绘的属性：如果确实需要多次使用这些属性的值，可以将其缓存到变量中。
--   使用 CSS 动画和过渡：在需要实现动画效果时，使用 CSS 动画和过渡，而不是 JavaScript 来操作元素样式。CSS 动画可以利用硬件加速，提高渲染性能。
--   使用高效的 CSS 布局技术：如 Flexbox 和 Grid 布局，它们可以减少对元素位置的频繁调整，从而减少重排。
+    /* 主轴方向 */
+    flex-direction: row | row-reverse | column | column-reverse;
 
-综上所述，重排和重绘是浏览器渲染页面时的重要过程，它们对页面性能有着重要影响。通过优化 DOM 操作、使用文档片段、避免频繁读取布局属性以及采用高效的 CSS 布局和动画技术，可以有效地减少重排和重绘的次数，提高页面性能。
+    /* 换行 */
+    flex-wrap: nowrap | wrap | wrap-reverse;
 
-## Flex 布局
+    /* 方向+换行 */
+    flex-flow: row wrap;
 
-### 容器的属性
+    /* 主轴对齐 */
+    justify-content: flex-start | flex-end | center | space-between | space-around;
 
--   **flex-direction**： 属性决定主轴的方向（即项目的排列方向）
-    -   row（默认值）：主轴为水平方向，起点在左端。
-    -   row-reverse：主轴为水平方向，起点在右端。
-    -   column：主轴为垂直方向，起点在上沿。
-    -   column-reverse：主轴为垂直方向，起点在下沿。
--   **flex-wrap**：属性定义，如果一条轴线排不下，如何换行
-    -   nowrap（默认）：不换行。
-    -   wrap：换行，第一行在上方。
-    -   wrap-reverse：换行，第一行在下方。
--   **flex-flow**：属性是 flex-direction 属性和 flex-wrap 属性的简写形式，默认值为 row nowrap。
--   **justify-content**：定义了项目在主轴上的对齐方式
-    -   flex-start（默认值）：左对齐
-    -   flex-end：右对齐
-    -   center： 居中
-    -   space-between：两端对齐，项目之间的间隔都相等。
-    -   space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
--   **align-items**：定义项目在交叉轴上如何对齐。
-    -   flex-start：交叉轴的起点对齐。
-    -   flex-end：交叉轴的终点对齐。
-    -   center：交叉轴的中点对齐。
-    -   baseline: 项目的第一行文字的基线对齐。
-    -   stretch（默认值）：如果项目未设置高度或设为 auto，将占满整个容器的高度。
--   **align-content**：定义了多根轴线的对齐方式
-    -   flex-start：与交叉轴的起点对齐。
-    -   flex-end：与交叉轴的终点对齐。
-    -   center：与交叉轴的中点对齐。
-    -   space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。
-    -   space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
-    -   stretch（默认值）：轴线占满整个交叉轴。
+    /* 交叉轴对齐 */
+    align-items: flex-start | flex-end | center | baseline | stretch;
 
-### 项目的属性
+    /* 多轴线对齐 */
+    align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+}
+```
 
--   **order**：定义项目的排列顺序。数值越小，排列越靠前，默认为 0
--   **flex-grow**：定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大。
--   **flex-shrink**：定义了项目的缩小比例，默认为 1，即如果空间不足，该项目将缩小。
--   **flex-basis**：定义了在分配多余空间之前，项目占据的主轴空间（main size）
--   **flex**：属性是 flex-grow, flex-shrink 和 flex-basis 的简写，默认值为 0 1 auto。后两个属性可选
--   **align-self**：允许单个项目有与其他项目不一样的对齐方式，可覆盖 align-items 属性
+### 项目属性
 
-## line-height 和 margin 百分比继承
+```css
+.item {
+    /* 排列顺序 */
+    order: 0;
 
--   父元素的 line-height 写了百分比，比如 200%，则子元素 line-height 继承的是父元素 font-size \* 200% 计算出来的值
--   子元素的 margin 写了百分比，比如 margin：50%，则实际 margin 为`父级的 width*50%`
+    /* 放大比例 */
+    flex-grow: 0;
+
+    /* 缩小比例 */
+    flex-shrink: 1;
+
+    /* 初始大小 */
+    flex-basis: auto;
+
+    /* flex-grow, flex-shrink, flex-basis 简写 */
+    flex: 0 1 auto;
+
+    /* 单独对齐 */
+    align-self: auto | flex-start | flex-end | center | baseline | stretch;
+}
+```
+
+### 常见布局
+
+```css
+/* 水平垂直居中 */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 两端对齐 */
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Sticky Footer */
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.page-content {
+    flex: 1;
+}
+```
+
+## 7. Grid 布局
+
+### 基本属性
+
+```css
+.container {
+    display: grid;
+
+    /* 定义列 */
+    grid-template-columns: 100px 100px 100px;
+
+    /* 定义行 */
+    grid-template-rows: 100px 100px;
+
+    /* 简写 */
+    grid-template: 100px 100px / 1fr 2fr 1fr;
+
+    /* fr 单位表示比例 */
+    grid-template-columns: repeat(3, 1fr);
+
+    /* 间隙 */
+    gap: 20px;
+    row-gap: 10px;
+    column-gap: 20px;
+}
+```
+
+### 常见布局
+
+```css
+/* 圣杯布局 */
+.grid-container {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+/* 响应式网格 */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+```
+
+## 8. line-height 和 margin 继承
+
+```css
+/* 百分比继承 */
+.father {
+    font-size: 16px;
+    line-height: 200%; /* 继承值为 32px */
+}
+
+/* 子元素 margin 百分比 */
+.father {
+    width: 500px;
+}
+.son {
+    margin: 50%; /* 实际值为 250px（父 width 的 50%） */
+}
+```
+
+## 9. CSS 定位
+
+### 定位模式
+
+| 值 | 说明 |
+|----|------|
+| static | 默认，正常流 |
+| relative | 相对定位，相对于自身 |
+| absolute | 绝对定位，相对于最近定位祖先 |
+| fixed | 固定定位，相对于视口 |
+| sticky | 粘性定位（CSS3） |
+
+### 层叠上下文
+
+```css
+/* 创建层叠上下文的属性 */
+.layer {
+    position: relative/absolute/fixed;
+    z-index: 数字;
+
+    /* 其他创建方式 */
+    opacity: 0.5;
+    transform: rotate(5deg);
+    mix-blend-mode: multiply;
+}
+```
+
+### 居中方法
+
+```css
+/* 1. absolute + transform */
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 2. flex */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 3. grid */
+.center {
+    display: grid;
+    place-items: center;
+}
+
+/* 4. inline-block + text-align */
+.parent {
+    text-align: center;
+}
+.son {
+    display: inline-block;
+    vertical-align: middle;
+}
+```
+
+## 10. CSS 动画
+
+### transition
+
+```css
+.transition {
+    transition: property duration timing-function delay;
+    transition: all 0.3s ease 0s;
+}
+```
+
+### animation
+
+```css
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animation {
+    animation: fadeIn 0.5s ease forwards;
+}
+```
+
+### 常见动画性能优化
+
+```css
+/* ✅ GPU 加速的属性 */
+.gpu {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* ❌ 避免的属性 */
+.slow {
+    width: 100px;
+    height: 100px;
+    left: 100px;
+    top: 100px;
+}
+```
+
+## 11. CSS 伪类与伪元素
+
+### 伪类
+
+```css
+/* 状态伪类 */
+:hover { }
+:active { }
+:focus { }
+:visited { }
+:focus-within { }
+
+/* 结构伪类 */
+:first-child { }
+:last-child { }
+:nth-child(2n) { }
+:nth-of-type(2n) { }
+:only-child { }
+:root { }
+```
+
+### 伪元素
+
+```css
+/* 创建伪元素 */
+::before { content: ''; }
+::after { content: ''; }
+::first-line { }
+::first-letter { }
+::selection { }
+```
+
+## 12. CSS 响应式
+
+### 媒体查询
+
+```css
+/* 断点 */
+@media (max-width: 768px) { /* 移动端 */ }
+@media (min-width: 769px) and (max-width: 1024px) { /* 平板 */ }
+@media (min-width: 1025px) { /* 桌面 */ }
+
+/* 常用设备 */
+@media (max-width: 480px) { /* 手机 */ }
+@media (min-width: 481px) and (max-width: 768px) { /* 平板 */ }
+@media (min-width: 769px) { /* 桌面 */ }
+```
+
+### 单位
+
+| 单位 | 说明 |
+|------|------|
+| em | 相对于父元素 font-size |
+| rem | 相对于根元素 html font-size |
+| vw/vh | 相对于视口 1% |
+| vmin/vmax | 视口最小/最大方向 |
+| % | 相对于父元素对应属性 |
+
+## 13. CSS 预处理器
+
+### SCSS 常用特性
+
+```scss
+/* 变量 */
+$primary: #333;
+$fs: 16px;
+
+.box {
+    color: $primary;
+    font-size: $fs;
+}
+
+/* 嵌套 */
+.list {
+    li {
+        padding: 10px;
+        &:hover {
+            background: #f5f5f5;
+        }
+    }
+}
+
+/* mixin */
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    @include flex-center;
+}
+
+/* 继承 */
+%btn {
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+.btn-primary {
+    @extend %btn;
+    background: blue;
+}
+```
+
+## 14. CSS 新特性
+
+### CSS3 新增
+
+```css
+/* 圆角 */
+border-radius: 8px;
+
+/* 阴影 */
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+/* 渐变 */
+background: linear-gradient(to right, #fff, #ccc);
+
+/* 滤镜 */
+filter: blur(5px);
+
+/* 遮罩 */
+clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+```
+
+### CSS 变量
+
+```css
+:root {
+    --primary: #333;
+    --spacing: 20px;
+}
+
+.box {
+    color: var(--primary);
+    padding: var(--spacing);
+}
+```
+
+## 15. CSS 经典面试题
+
+### 移动端 1px 问题
+
+```css
+/* 方法1：transform 缩放 */
+.scale-border {
+    position: relative;
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 200%;
+        height: 200%;
+        transform: scale(0.5);
+        border: 1px solid #ddd;
+    }
+}
+
+/* 方法2：border-image */
+.border-image {
+    border: 1px solid #ddd;
+}
+
+/* 方法3：box-shadow */
+.shadow-border {
+    box-shadow: inset 0 -1px 1px #ddd;
+}
+```
+
+### 两栏布局
+
+```css
+/* Flex 方案 */
+.layout {
+    display: flex;
+}
+.sidebar {
+    width: 200px;
+}
+.main {
+    flex: 1;
+}
+
+/* Grid 方案 */
+.layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+}
+```
+
+### 三栏布局
+
+```css
+/* 圣杯布局 */
+.holy-grail {
+    display: flex;
+    padding: 0 200px;
+}
+.header, .footer {
+    flex: 1;
+}
+.main {
+    flex: 1;
+}
+.left, .right {
+    width: 200px;
+}
+.left {
+    margin-left: -200px;
+}
+.right {
+    margin-right: -200px;
+}
+
+/* 双飞翼布局 */
+```
+
+### CSS 垂直居中
+
+```css
+/* 已知高度 */
+.parent {
+    position: relative;
+}
+.child {
+    position: absolute;
+    top: 50%;
+    height: 100px;
+    margin-top: -50px;
+}
+
+/* 未知高度 */
+.child {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Flex */
+.parent {
+    display: flex;
+    align-items: center;
+}
+
+/* Grid */
+.parent {
+    display: grid;
+    place-items: center;
+}
+```
+
+### 清除浮动
+
+```css
+/* 方法1：BFC */
+.clearfix {
+    overflow: hidden;
+}
+
+/* 方法2：伪元素 */
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* 方法3：双伪元素 */
+.clearfix::before,
+.clearfix::after {
+    content: '';
+    display: table;
+}
+.clearfix::after {
+    clear: both;
+}
+```
+
+### CSS 模块化
+
+```css
+/* BEM 命名 */
+.block {}
+.block__element {}
+.block--modifier {}
+
+/* 示例 */
+.card {}
+.card__header {}
+.card__body {}
+.card--featured {}
+```
