@@ -34,14 +34,14 @@ DOM 渲染在 mounted 中就已经完成了
 
 ## 7. 说说生命周期的几个钩子和作用？
 
--   **beforeCreate（创建前）** 在数据观测和初始化事件还未开始
--   **created（创建后）** 完成数据观测，属性和方法的运算，初始化事件，\$el 属性还没有显示出来
--   **beforeMount（载入前）** 在挂载开始之前被调用，相关的 render 函数首次被调用。实例已完成以下的配置：编译模板，把 data 里面的数据和模板生成 html。注意此时还没有挂载 html 到页面上。
--   **mounted（载入后**） 在 el 被新创建的 vm.\$el 替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的 html 内容替换 el 属性指向的 DOM 对象。完成模板中的 html 渲染到 html 页面中。此过程中进行 ajax 交互。
--   **beforeUpdate（更新前）** 在数据更新之前调用，发生在虚拟 DOM 重新渲染和打补丁之前。可以在该钩子中进一步地更改状态，不会触发附加的重渲染过程。
--   **updated（更新后）** 在由于数据更改导致的虚拟 DOM 重新渲染和打补丁之后调用。调用时，组件 DOM 已经更新，所以可以执行依赖于 DOM 的操作。然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环。该钩子在服务器端渲染期间不被调用。
--   **beforeDestroy（销毁前）** 在实例销毁之前调用。实例仍然完全可用。
--   **destroyed（销毁后）** 在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。
+- **beforeCreate（创建前）** 在数据观测和初始化事件还未开始
+- **created（创建后）** 完成数据观测，属性和方法的运算，初始化事件，\$el 属性还没有显示出来
+- **beforeMount（载入前）** 在挂载开始之前被调用，相关的 render 函数首次被调用。实例已完成以下的配置：编译模板，把 data 里面的数据和模板生成 html。注意此时还没有挂载 html 到页面上。
+- **mounted（载入后**） 在 el 被新创建的 vm.\$el 替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的 html 内容替换 el 属性指向的 DOM 对象。完成模板中的 html 渲染到 html 页面中。此过程中进行 ajax 交互。
+- **beforeUpdate（更新前）** 在数据更新之前调用，发生在虚拟 DOM 重新渲染和打补丁之前。可以在该钩子中进一步地更改状态，不会触发附加的重渲染过程。
+- **updated（更新后）** 在由于数据更改导致的虚拟 DOM 重新渲染和打补丁之后调用。调用时，组件 DOM 已经更新，所以可以执行依赖于 DOM 的操作。然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环。该钩子在服务器端渲染期间不被调用。
+- **beforeDestroy（销毁前）** 在实例销毁之前调用。实例仍然完全可用。
+- **destroyed（销毁后）** 在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。
 
 ## 8. Vue 实现数据双向绑定的原理?
 
@@ -53,9 +53,9 @@ vue 的数据双向绑定 将 MVVM 作为数据绑定的入口，整合 Observer
 
 ## 9. Vue 组件间的参数传递
 
--   **父组件传给子组件：** 子组件通过 `props` 方法接受数据
--   **子组件传给父组件：** `$emit` 方法传递参数
--   **其他组件之间** vuex
+- **父组件传给子组件：** 子组件通过 `props` 方法接受数据
+- **子组件传给父组件：** `$emit` 方法传递参数
+- **其他组件之间** vuex
 
 ## 10. Vue 的路由实现：hash 模式 和 history 模式
 
@@ -168,10 +168,10 @@ v-for 、 v-if 、v-bind、v-on、v-show、v-else
 
 ## 20. vue 常用的修饰符？
 
--   **.prevent:** 提交事件不再重载页面
--   **.stop:** 阻止单击事件冒泡
--   **.self:** 当事件发生在该元素本身而不是子元素的时候会触发
--   **.capture:** 事件侦听，事件发生的时候会调用
+- **.prevent:** 提交事件不再重载页面
+- **.stop:** 阻止单击事件冒泡
+- **.self:** 当事件发生在该元素本身而不是子元素的时候会触发
+- **.capture:** 事件侦听，事件发生的时候会调用
 
 ## 21. \$attrs 和 \$listeners 的区别？
 
@@ -190,11 +190,11 @@ v-for 、 v-if 、v-bind、v-on、v-show、v-else
 export default {
     mounted() {
         // 获取所有非 prop 属性
-        console.log(this.$attrs) // { name: 'Vue', age: '18' }
+        console.log(this.$attrs); // { name: 'Vue', age: '18' }
         // 获取所有父组件传入的事件监听器
-        console.log(this.$listeners) // { click: handleClick }
-    }
-}
+        console.log(this.$listeners); // { click: handleClick }
+    },
+};
 </script>
 ```
 
@@ -207,28 +207,28 @@ mixins 是一种分发 Vue 组件中可复用功能的非常灵活的方式
 export const myMixin = {
     data() {
         return {
-            message: 'Hello'
-        }
+            message: "Hello",
+        };
     },
     methods: {
         hello() {
-            console.log('Hello from mixin!')
-        }
+            console.log("Hello from mixin!");
+        },
     },
     mounted() {
-        console.log('Mixin mounted')
-    }
-}
+        console.log("Mixin mounted");
+    },
+};
 
 // 组件中使用
-import { myMixin } from './mixin'
+import { myMixin } from "./mixin";
 
 export default {
     mixins: [myMixin],
     mounted() {
-        console.log('Component mounted')
-    }
-}
+        console.log("Component mounted");
+    },
+};
 ```
 
 **合并规则：**
@@ -314,15 +314,15 @@ export default {
 export default {
     data() {
         return {
-            currentComponent: 'Home'
-        }
+            currentComponent: "Home",
+        };
     },
     methods: {
         switchComponent(name) {
-            this.currentComponent = name
-        }
-    }
-}
+            this.currentComponent = name;
+        },
+    },
+};
 </script>
 ```
 
@@ -340,16 +340,16 @@ Vue 2.7 是 Vue 2 的最后一个版本，带来了部分 Composition API 的支
 
 ```vue
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from "vue";
 
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
+const count = ref(0);
+const doubled = computed(() => count.value * 2);
 
 function increment() {
-    count.value++
+    count.value++;
 }
 
-return { count, doubled, increment }
+return { count, doubled, increment };
 </script>
 ```
 
@@ -363,15 +363,15 @@ function defineReactive(obj, key, value) {
         enumerable: true,
         configurable: true,
         get() {
-            return value
+            return value;
         },
         set(newValue) {
             if (newValue !== value) {
-                value = newValue
+                value = newValue;
                 // 通知更新
             }
-        }
-    })
+        },
+    });
 }
 ```
 
@@ -396,11 +396,11 @@ Vue 被设计为可以自底向上逐层应用
 nextTick 可以在 DOM 更新后延迟执行回调
 
 ```js
-this.message = 'updated'
+this.message = "updated";
 this.$nextTick(() => {
     // DOM 已经更新完成
-    console.log(this.$refs.content.innerText)
-})
+    console.log(this.$refs.content.innerText);
+});
 ```
 
 **实现原理：**
@@ -414,18 +414,18 @@ this.$nextTick(() => {
 ```js
 // 工厂函数
 const AsyncComponent = () => ({
-    component: import('./AsyncComponent.vue'),
+    component: import("./AsyncComponent.vue"),
     loading: LoadingComponent,
     error: ErrorComponent,
     delay: 200,
-    timeout: 3000
-})
+    timeout: 3000,
+});
 
 export default {
     components: {
-        AsyncComponent
-    }
-}
+        AsyncComponent,
+    },
+};
 ```
 
 ## 31. Vue 的事件总线是什么？
@@ -434,21 +434,21 @@ export default {
 
 ```js
 // event-bus.js
-import Vue from 'vue'
-export const EventBus = new Vue()
+import Vue from "vue";
+export const EventBus = new Vue();
 
 // 组件 A - 发送事件
-import { EventBus } from './event-bus'
-EventBus.$emit('message', 'Hello')
+import { EventBus } from "./event-bus";
+EventBus.$emit("message", "Hello");
 
 // 组件 B - 接收事件
-import { EventBus } from './event-bus'
-EventBus.$on('message', (msg) => {
-    console.log(msg)
-})
+import { EventBus } from "./event-bus";
+EventBus.$on("message", (msg) => {
+    console.log(msg);
+});
 
 // 组件销毁时移除
-EventBus.$off('message')
+EventBus.$off("message");
 ```
 
 ## 32. Vue 的 scoped 原理？
@@ -487,13 +487,7 @@ data() {
 <Child :count="count" @update="handleUpdate" />
 
 <!-- 子组件 -->
-props: ['count'],
-methods: {
-    update() {
-        // 通过 $emit 通知父组件修改
-        this.$emit('update', newValue)
-    }
-}
+props: ['count'], methods: { update() { // 通过 $emit 通知父组件修改 this.$emit('update', newValue) } }
 ```
 
 ## 35. computed 和 watch 的区别？
@@ -579,29 +573,29 @@ Vue 的虚拟 DOM 采用同层比较的 diff 算法
 ```js
 export default {
     data() {
-        return { count: 0 }
+        return { count: 0 };
     },
     methods: {
         increment() {
-            this.count++
-        }
-    }
-}
+            this.count++;
+        },
+    },
+};
 ```
 
 **组合式 API（Vue 2.7+ / Vue 3）：**
 
 ```js
-import { ref } from 'vue'
+import { ref } from "vue";
 
 export default {
     setup() {
-        const count = ref(0)
-        const increment = () => count.value++
+        const count = ref(0);
+        const increment = () => count.value++;
 
-        return { count, increment }
-    }
-}
+        return { count, increment };
+    },
+};
 ```
 
 ## 40. Vue 的插件机制？
@@ -613,22 +607,22 @@ export default {
 export default {
     install(Vue, options) {
         // 添加全局方法
-        Vue.myGlobalMethod = function() {}
+        Vue.myGlobalMethod = function () {};
 
         // 添加全局属性
-        Vue.prototype.$myPlugin = options
+        Vue.prototype.$myPlugin = options;
 
         // 添加指令
-        Vue.directive('my-directive', {})
+        Vue.directive("my-directive", {});
 
         // 添加混入
-        Vue.mixin({})
-    }
-}
+        Vue.mixin({});
+    },
+};
 
 // main.js
-import MyPlugin from './my-plugin'
-Vue.use(MyPlugin, { option: 'value' })
+import MyPlugin from "./my-plugin";
+Vue.use(MyPlugin, { option: "value" });
 ```
 
 ## 41. Vue 的模板编译原理？
@@ -708,10 +702,10 @@ $refs 用于获取 DOM 元素或组件实例
 <script>
 export default {
     mounted() {
-        console.log(this.$refs.myDiv)
-        console.log(this.$refs.child)
-    }
-}
+        console.log(this.$refs.myDiv);
+        console.log(this.$refs.child);
+    },
+};
 </script>
 ```
 
@@ -737,13 +731,13 @@ $options 用于获取 Vue 实例的初始化选项
 
 ```js
 export default {
-    name: 'MyComponent',
-    customOption: 'Hello',
+    name: "MyComponent",
+    customOption: "Hello",
     mounted() {
-        console.log(this.$options.name) // MyComponent
-        console.log(this.$options.customOption) // Hello
-    }
-}
+        console.log(this.$options.name); // MyComponent
+        console.log(this.$options.customOption); // Hello
+    },
+};
 ```
 
 ## 48. Vue 的 $parent 和 $children？
@@ -753,24 +747,24 @@ export default {
 
 ```js
 // 子组件
-this.$parent.emit('customEvent', data)
+this.$parent.emit("customEvent", data);
 
 // 父组件
-console.log(this.$children[0])
+console.log(this.$children[0]);
 ```
 
 ## 49. Vue 2 VS Vue 3 主要区别？
 
-| 特性 | Vue2 | Vue3 |
-|------|------|------|
-| 响应式原理 | Object.defineProperty | Proxy |
-| 生命周期 | 选项式 | 组合式（可选） |
-| TypeScript | 有限支持 | 完整支持 |
-| 打包体积 | 较大 | 较小 |
-| 虚拟 DOM | 完整虚拟 DOM | 优化（Block tree） |
-| 组合式 API | 不支持 | 支持 |
-| Suspense | 不支持 | 支持 |
-| Teleport | 不支持 | 支持 |
+| 特性       | Vue2                  | Vue3               |
+| ---------- | --------------------- | ------------------ |
+| 响应式原理 | Object.defineProperty | Proxy              |
+| 生命周期   | 选项式                | 组合式（可选）     |
+| TypeScript | 有限支持              | 完整支持           |
+| 打包体积   | 较大                  | 较小               |
+| 虚拟 DOM   | 完整虚拟 DOM          | 优化（Block tree） |
+| 组合式 API | 不支持                | 支持               |
+| Suspense   | 不支持                | 支持               |
+| Teleport   | 不支持                | 支持               |
 
 ## 50. Vue2 停止维护说明？
 

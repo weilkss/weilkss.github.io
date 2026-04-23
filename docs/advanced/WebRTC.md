@@ -27,11 +27,11 @@ WebRTC 架构分为三层：
 
 ### 2. 核心 API
 
-| API | 作用 |
-|-----|------|
-| `getUserMedia` | 获取用户的摄像头和麦克风 |
-| `RTCPeerConnection` | 建立点对点连接 |
-| `RTCDataChannel` | 传输任意数据 |
+| API                 | 作用                     |
+| ------------------- | ------------------------ |
+| `getUserMedia`      | 获取用户的摄像头和麦克风 |
+| `RTCPeerConnection` | 建立点对点连接           |
+| `RTCDataChannel`    | 传输任意数据             |
 
 ### 3. 信令服务器
 
@@ -85,17 +85,17 @@ async function getLocalStream() {
             video: {
                 width: { ideal: 1280 },
                 height: { ideal: 720 },
-                frameRate: { ideal: 30 }
+                frameRate: { ideal: 30 },
             },
             audio: {
                 echoCancellation: true,
                 noiseSuppression: true,
-                autoGainControl: true
-            }
+                autoGainControl: true,
+            },
         });
         return stream;
     } catch (error) {
-        console.error('获取媒体流失败:', error);
+        console.error("获取媒体流失败:", error);
         throw error;
     }
 }
@@ -106,20 +106,20 @@ async function getLocalStream() {
 ```javascript
 const config = {
     iceServers: [
-        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: "stun:stun.l.google.com:19302" },
         {
-            urls: 'turn:your-turn-server.com',
-            username: 'user',
-            credential: 'password'
-        }
-    ]
+            urls: "turn:your-turn-server.com",
+            username: "user",
+            credential: "password",
+        },
+    ],
 };
 
 const pc = new RTCPeerConnection(config);
 
 // 添加本地媒体轨道
 async function addLocalStreamToConnection(stream) {
-    stream.getTracks().forEach(track => {
+    stream.getTracks().forEach((track) => {
         pc.addTrack(track, stream);
     });
 }
@@ -127,7 +127,7 @@ async function addLocalStreamToConnection(stream) {
 // 监听远程轨道
 pc.ontrack = (event) => {
     const [remoteStream] = event.streams;
-    const video = document.querySelector('#remoteVideo');
+    const video = document.querySelector("#remoteVideo");
     video.srcObject = remoteStream;
 };
 
@@ -146,7 +146,7 @@ pc.onicecandidate = (event) => {
 async function createOffer() {
     const offer = await pc.createOffer({
         offerToReceiveAudio: 1,
-        offerToReceiveVideo: 1
+        offerToReceiveVideo: 1,
     });
     await pc.setLocalDescription(offer);
     return offer;
@@ -165,17 +165,17 @@ async function createAnswer(offer) {
 
 ```javascript
 // 发送方
-const dataChannel = pc.createDataChannel('chat');
+const dataChannel = pc.createDataChannel("chat");
 dataChannel.onopen = () => {
-    console.log('DataChannel 已打开');
-    dataChannel.send('Hello, WebRTC!');
+    console.log("DataChannel 已打开");
+    dataChannel.send("Hello, WebRTC!");
 };
 
 // 接收方
 pc.ondatachannel = (event) => {
     const receiveChannel = event.channel;
     receiveChannel.onmessage = (event) => {
-        console.log('收到消息:', event.data);
+        console.log("收到消息:", event.data);
     };
 };
 ```
@@ -184,12 +184,12 @@ pc.ondatachannel = (event) => {
 
 ## ICE 候选类型
 
-| 类型 | 说明 | 可靠性 |
-|------|------|--------|
-| host | 本地网络候选 | 最高 |
-| srflx | 端口反射（通过 STUN 获取公网IP:Port） | 中等 |
-| prflx | _peer reflexive（对称型 NAT） | 较少见 |
-| relay | 中继（通过 TURN 服务器转发） | 最低 |
+| 类型  | 说明                                  | 可靠性 |
+| ----- | ------------------------------------- | ------ |
+| host  | 本地网络候选                          | 最高   |
+| srflx | 端口反射（通过 STUN 获取公网IP:Port） | 中等   |
+| prflx | \_peer reflexive（对称型 NAT）        | 较少见 |
+| relay | 中继（通过 TURN 服务器转发）          | 最低   |
 
 ### ICE 候选优先级
 
@@ -198,6 +198,7 @@ host > srflx > prflx > relay
 ```
 
 通常的连接策略：
+
 1. 首先尝试直连（host）
 2. 如果不同网络，尝试 STUN 获取公网地址
 3. 如果被 NAT 限制，使用 TURN 中继
@@ -226,10 +227,10 @@ host > srflx > prflx > relay
 
 ```javascript
 const iceTransportPolicy = {
-    all: '尝试所有候选',
-    relay: '只使用中继候选',
-    nohost: '不包含 host 候选',
-    none: '不使用 ICE'  // 用于测试
+    all: "尝试所有候选",
+    relay: "只使用中继候选",
+    nohost: "不包含 host 候选",
+    none: "不使用 ICE", // 用于测试
 };
 ```
 
@@ -248,6 +249,7 @@ WebRTC 实现浏览器间实时通信的核心原理包括以下几个步骤：
 
 **2. 端点创建**
 每一方都创建一个 `RTCPeerConnection` 对象，这是 WebRTC 通信的核心枢纽，负责：
+
 - 维护媒体流
 - 处理 ICE 候选
 - 编码/解码媒体
@@ -255,11 +257,13 @@ WebRTC 实现浏览器间实时通信的核心原理包括以下几个步骤：
 
 **3. 信令交换**
 由于 WebRTC 本身不包含信令机制，需要通过 WebSocket 等方式交换：
+
 - SDP（Session Description Protocol）：包含媒体的编解码器、分辨率等元数据
 - ICE Candidate：网络候选信息，用于网络穿透
 
 **4. NAT 穿透**
 使用 ICE 框架整合 STUN/TURN 技术：
+
 - STUN：获取公网地址，尝试直连
 - TURN：作为中继确保连接成功
 
@@ -275,19 +279,22 @@ WebRTC 实现浏览器间实时通信的核心原理包括以下几个步骤：
 一对一通话实现流程：
 
 **步骤1：用户 A 获取本地媒体**
+
 ```javascript
 const localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
 ```
 
 **步骤2：创建连接并添加轨道**
+
 ```javascript
 const pc = new RTCPeerConnection(config);
-localStream.getTracks().forEach(track => {
+localStream.getTracks().forEach((track) => {
     pc.addTrack(track, localStream);
 });
 ```
 
 **步骤3：A 创建 Offer 并发送**
+
 ```javascript
 const offer = await pc.createOffer();
 await pc.setLocalDescription(offer);
@@ -295,6 +302,7 @@ await pc.setLocalDescription(offer);
 ```
 
 **步骤4：B 收到 Offer 并创建 Answer**
+
 ```javascript
 await pc.setRemoteDescription(offer);
 const answer = await pc.createAnswer();
@@ -303,6 +311,7 @@ await pc.setLocalDescription(answer);
 ```
 
 **步骤5：双方交换 ICE Candidates**
+
 ```javascript
 pc.onicecandidate = (event) => {
     if (event.candidate) {
@@ -320,24 +329,26 @@ pc.onicecandidate = (event) => {
 
 **参考答案：**
 
-| 特性 | STUN | TURN |
-|------|------|------|
-| **功能** | 发现公网地址 | 中继数据传输 |
-| **是否中转数据** | 否 | 是 |
-| **延迟** | 无额外延迟 | 增加延迟 |
-| **服务器负载** | 极低 | 较高 |
-| **穿透能力** | 仅对称型 NAT | 所有 NAT 类型 |
-| **适用场景** | 同一网络或轻度 NAT | 复杂网络环境 |
+| 特性             | STUN               | TURN          |
+| ---------------- | ------------------ | ------------- |
+| **功能**         | 发现公网地址       | 中继数据传输  |
+| **是否中转数据** | 否                 | 是            |
+| **延迟**         | 无额外延迟         | 增加延迟      |
+| **服务器负载**   | 极低               | 较高          |
+| **穿透能力**     | 仅对称型 NAT       | 所有 NAT 类型 |
+| **适用场景**     | 同一网络或轻度 NAT | 复杂网络环境  |
 
 **实际建议**：生产环境通常同时配置 STUN 和 TURN，优先使用 STUN 直连，失败后 fallback 到 TURN。
 
 ```javascript
 iceServers: [
-    { urls: 'stun:stun.l.google.com:19302' },      // 直连尝试
-    { urls: 'turn:turn.example.com',                // 备用中继
-      username: 'user',
-      credential: 'password' }
-]
+    { urls: "stun:stun.l.google.com:19302" }, // 直连尝试
+    {
+        urls: "turn:turn.example.com", // 备用中继
+        username: "user",
+        credential: "password",
+    },
+];
 ```
 
 ---
@@ -369,6 +380,7 @@ iceServers: [
 **参考答案：**
 
 **方案一：Mesh 结构（适合 2-4 人）**
+
 - 每个用户与其他所有用户建立 P2P 连接
 - 用户端带宽压力大：需要 N-1 个连接
 - 移动端不推荐
@@ -382,6 +394,7 @@ iceServers: [
 ```
 
 **方案二：SFU（Selective Forwarding Unit）（适合 5 人以上）**
+
 - 媒体服务器选择性转发
 - 用户只需维护一个上行连接
 - 业界主流方案（如 mediasoup、Janus）
@@ -399,6 +412,7 @@ iceServers: [
 ```
 
 **代码示例（使用简单 Mesh）：**
+
 ```javascript
 // 维护多个 PeerConnection
 const peers = new Map();
@@ -408,7 +422,7 @@ async function createMeshConnection(userId) {
     peers.set(userId, pc);
 
     // 添加本地所有轨道
-    localStream.getTracks().forEach(track => {
+    localStream.getTracks().forEach((track) => {
         pc.addTrack(track, localStream);
     });
 
@@ -430,27 +444,32 @@ async function createMeshConnection(userId) {
 WebRTC 在多个层面保证了通信安全：
 
 **1. 媒体加密（SRTP）**
+
 - 使用 AES 加密媒体数据
 - 每个 RTP 包独立加密
 - 防止媒体被窃听
 
 **2. 密钥交换（DTLS）**
+
 - 基于 TLS 1.3
 - 防止中间人攻击
 - 自动协商加密参数
 
 **3. 身份验证**
+
 - TURN 服务器需要 credentials
 - ICE 候选交换需认证
 
 **4. 端点验证**
+
 ```javascript
 pc.onicecandidateerror = (event) => {
-    console.error('ICE 错误:', event.errorCode, event.errorText);
+    console.error("ICE 错误:", event.errorCode, event.errorText);
 };
 ```
 
 **安全建议：**
+
 - 生产环境必须使用 HTTPS
 - TURN 服务器配置强密码
 - 定期更换 credentials
@@ -463,24 +482,24 @@ pc.onicecandidateerror = (event) => {
 
 `pc.connectionState` 反映连接的整体状态：
 
-| 状态 | 说明 |
-|------|------|
-| `new` | 刚创建，未开始连接 |
-| `connecting` | 正在建立连接 |
-| `connected` | 已建立连接 |
+| 状态           | 说明                 |
+| -------------- | -------------------- |
+| `new`          | 刚创建，未开始连接   |
+| `connecting`   | 正在建立连接         |
+| `connected`    | 已建立连接           |
 | `disconnected` | 连接中断（可能恢复） |
-| `failed` | 连接失败 |
-| `closed` | 连接已关闭 |
+| `failed`       | 连接失败             |
+| `closed`       | 连接已关闭           |
 
 **相关状态对比：**
 
 ```javascript
 // ICE 连接状态
-pc.iceConnectionState
+pc.iceConnectionState;
 // 'new' | 'checking' | 'connected' | 'completed' | 'failed' | 'disconnected' | 'closed'
 
 // ICE gather 状态
-pc.iceGatheringState
+pc.iceGatheringState;
 // 'new' | 'gathering' | 'complete'
 ```
 
@@ -491,39 +510,39 @@ pc.iceGatheringState
 **参考答案：**
 
 **1. 能力检测**
+
 ```javascript
 function isSupported() {
-    return !!(navigator.mediaDevices &&
-             navigator.mediaDevices.getUserMedia &&
-             window.RTCPeerConnection);
+    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.RTCPeerConnection);
 }
 ```
 
 **2. 前缀适配**
+
 ```javascript
-const RTCPeerConnection = window.RTCPeerConnection ||
-                           window.webkitRTCPeerConnection ||
-                           window.mozRTCPeerConnection;
+const RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
 ```
 
 **3. 编解码器支持检测**
+
 ```javascript
-const supportedCodecs = RTCRtpReceiver.getCapabilities('video').codecs;
+const supportedCodecs = RTCRtpReceiver.getCapabilities("video").codecs;
 // 优先选择 H.264（兼容性最好）
-const h264Codec = supportedCodecs.find(c => c.mimeType === 'video/H264');
+const h264Codec = supportedCodecs.find((c) => c.mimeType === "video/H264");
 ```
 
 **4. offer/answer 兼容性**
+
 ```javascript
 // 强制使用 VP8（兼容性最好）
 const offer = await pc.createOffer({
     offerToReceiveVideo: 1,
-    offerToReceiveAudio: 1
+    offerToReceiveAudio: 1,
 });
 // 或强制指定编解码器
 await pc.setLocalDescription({
-    type: 'offer',
-    sdp: updateCodecs(offer.sdp, 'VP8')
+    type: "offer",
+    sdp: updateCodecs(offer.sdp, "VP8"),
 });
 ```
 
@@ -534,27 +553,33 @@ await pc.setLocalDescription({
 **参考答案：**
 
 **1. 视频通话**
+
 - 1v1 视频聊天
 - 视频会议
 - 在线客服
 
 **2. 直播推流**
+
 - 低延迟直播
 - 互动直播
 
 **3. 屏幕共享**
+
 - 远程协作
 - 在线教育
 
 **4. 文件传输**
+
 - P2P 文件分享
 - 局域网传输加速
 
 **5. 游戏**
+
 - 实时对战
 - 棋牌类游戏
 
 **6. IoT**
+
 - 视频监控
 - 远程控制
 
@@ -564,23 +589,24 @@ await pc.setLocalDescription({
 
 **参考答案：**
 
-| 错误 | 原因 | 解决方案 |
-|------|------|----------|
-| `NotAllowedError` | 用户拒绝或浏览器无权限 | 引导用户授权 |
-| `NotFoundError` | 设备不存在 | 检查设备连接 |
-| `NotReadableError` | 设备被占用 | 释放设备占用 |
-| `OverconstrainedError` | 媒体参数不满足 | 调整参数 |
-| `SecurityError` | 非 HTTPS 或 localhost | 使用安全上下文 |
+| 错误                   | 原因                   | 解决方案       |
+| ---------------------- | ---------------------- | -------------- |
+| `NotAllowedError`      | 用户拒绝或浏览器无权限 | 引导用户授权   |
+| `NotFoundError`        | 设备不存在             | 检查设备连接   |
+| `NotReadableError`     | 设备被占用             | 释放设备占用   |
+| `OverconstrainedError` | 媒体参数不满足         | 调整参数       |
+| `SecurityError`        | 非 HTTPS 或 localhost  | 使用安全上下文 |
 
 **优雅降级示例：**
+
 ```javascript
 async function getMedia(constraints) {
     try {
         return await navigator.mediaDevices.getUserMedia(constraints);
     } catch (error) {
-        if (error.name === 'OverconstrainedError') {
+        if (error.name === "OverconstrainedError") {
             // 尝试降低要求
-            constraints.video = { facingMode: 'user' };
+            constraints.video = { facingMode: "user" };
             return await navigator.mediaDevices.getUserMedia(constraints);
         }
         throw error;

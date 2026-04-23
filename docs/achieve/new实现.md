@@ -48,25 +48,25 @@ function Person(name, age) {
     this.age = age;
 }
 
-Person.prototype.greet = function() {
+Person.prototype.greet = function () {
     return `Hello, I'm ${this.name}`;
 };
 
-const person = myNew(Person, '张三', 18);
-console.log(person.name);   // '张三'
-console.log(person.age);    // 18
+const person = myNew(Person, "张三", 18);
+console.log(person.name); // '张三'
+console.log(person.age); // 18
 console.log(person.greet()); // 'Hello, I'm 张三'
 console.log(person instanceof Person); // true
 ```
 
 ## 手动实现版本对比
 
-| 步骤 | 说明 | 代码 |
-|------|------|------|
-| 1 | 创建空对象 | `{}` 或 `Object.create()` |
-| 2 | 设置原型链 | `Object.setPrototypeOf(obj, constructor.prototype)` |
-| 3 | 执行构造函数 | `constructor.apply(obj, args)` |
-| 4 | 返回结果 | 判断返回值类型 |
+| 步骤 | 说明         | 代码                                                |
+| ---- | ------------ | --------------------------------------------------- |
+| 1    | 创建空对象   | `{}` 或 `Object.create()`                           |
+| 2    | 设置原型链   | `Object.setPrototypeOf(obj, constructor.prototype)` |
+| 3    | 执行构造函数 | `constructor.apply(obj, args)`                      |
+| 4    | 返回结果     | 判断返回值类型                                      |
 
 ## 注意事项
 

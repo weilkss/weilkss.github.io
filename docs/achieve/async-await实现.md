@@ -26,8 +26,8 @@ function co(generator) {
                     resolve(result.value);
                 } else {
                     Promise.resolve(result.value).then(
-                        val => step('next', val),
-                        err => step('throw', err)
+                        (val) => step("next", val),
+                        (err) => step("throw", err),
                     );
                 }
             } catch (err) {
@@ -35,7 +35,7 @@ function co(generator) {
             }
         }
 
-        step('next');
+        step("next");
     });
 }
 ```
@@ -44,14 +44,14 @@ function co(generator) {
 
 ```js
 function fetchData() {
-    return new Promise(resolve => {
-        setTimeout(() => resolve('data'), 100);
+    return new Promise((resolve) => {
+        setTimeout(() => resolve("data"), 100);
     });
 }
 
 function fetchMore() {
-    return new Promise(resolve => {
-        setTimeout(() => resolve('more'), 100);
+    return new Promise((resolve) => {
+        setTimeout(() => resolve("more"), 100);
     });
 }
 
@@ -63,7 +63,7 @@ co(function* () {
     const more = yield fetchMore();
     console.log(more); // 'more'
 
-    return 'complete';
+    return "complete";
 }).then(console.log); // 'complete'
 ```
 
@@ -75,7 +75,7 @@ co(function* () {
 
 ```js
 function myAsync(generatorFn) {
-    return function(...args) {
+    return function (...args) {
         const generator = generatorFn.apply(this, args);
         return co(generator);
     };
@@ -103,7 +103,7 @@ class AsyncFunction {
 
     then(onFulfilled, onRejected) {
         const self = this;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             function step(method, arg) {
                 try {
                     const result = self.generatorFn[method](arg);
@@ -111,8 +111,8 @@ class AsyncFunction {
                         Promise.resolve(result.value).then(resolve, reject);
                     } else {
                         Promise.resolve(result.value).then(
-                            val => step('next', val),
-                            err => step('throw', err)
+                            (val) => step("next", val),
+                            (err) => step("throw", err),
                         );
                     }
                 } catch (err) {
@@ -120,7 +120,7 @@ class AsyncFunction {
                 }
             }
 
-            step('next');
+            step("next");
         });
     }
 
@@ -130,7 +130,7 @@ class AsyncFunction {
 }
 
 function async(generatorFn) {
-    return function(...args) {
+    return function (...args) {
         return new AsyncFunction(generatorFn.apply(this, args));
     };
 }

@@ -16,8 +16,8 @@ object.__proto__ === prototype
 
 ```js
 function myCreate(proto) {
-    if (proto === null || typeof proto !== 'object') {
-        throw new TypeError('Object prototype may only be an Object or null');
+    if (proto === null || typeof proto !== "object") {
+        throw new TypeError("Object prototype may only be an Object or null");
     }
 
     function F() {}
@@ -30,8 +30,8 @@ function myCreate(proto) {
 
 ```js
 function myCreate(proto, properties) {
-    if (proto === null || typeof proto !== 'object') {
-        throw new TypeError('Object prototype may only be an Object or null');
+    if (proto === null || typeof proto !== "object") {
+        throw new TypeError("Object prototype may only be an Object or null");
     }
 
     function F() {}
@@ -54,12 +54,12 @@ function myCreate(proto, properties) {
 const personProto = {
     greet() {
         return `Hello, I'm ${this.name}`;
-    }
+    },
 };
 
 // 创建实例
 const person = myCreate(personProto);
-person.name = '张三';
+person.name = "张三";
 console.log(person.greet()); // "Hello, I'm 张三"
 console.log(Object.getPrototypeOf(person) === personProto); // true
 
@@ -69,19 +69,19 @@ const personWithAge = myCreate(personProto, {
         value: 18,
         writable: true,
         enumerable: true,
-        configurable: true
-    }
+        configurable: true,
+    },
 });
 console.log(personWithAge.age); // 18
 ```
 
 ## 与 new Object() 和 {} 的区别
 
-| 方式 | 原型 | 特点 |
-|------|------|------|
-| `{}` | Object.prototype | 字面量创建 |
-| `new Object()` | Object.prototype | 构造函数 |
-| `Object.create(proto)` | 自定义原型 | 可创建没有原型链的对象 |
+| 方式                   | 原型             | 特点                   |
+| ---------------------- | ---------------- | ---------------------- |
+| `{}`                   | Object.prototype | 字面量创建             |
+| `new Object()`         | Object.prototype | 构造函数               |
+| `Object.create(proto)` | 自定义原型       | 可创建没有原型链的对象 |
 
 ```js
 // 普通对象的原型链
@@ -97,7 +97,7 @@ console.log(pureObj.hasOwnProperty); // undefined
 function Parent(name) {
     this.name = name;
 }
-Parent.prototype.getName = function() {
+Parent.prototype.getName = function () {
     return this.name;
 };
 
@@ -109,11 +109,11 @@ function Child(name, age) {
 // 原型继承
 Child.prototype = Object.create(Parent.prototype);
 Child.prototype.constructor = Child;
-Child.prototype.getAge = function() {
+Child.prototype.getAge = function () {
     return this.age;
 };
 
-const child = new Child('张三', 18);
+const child = new Child("张三", 18);
 console.log(child.getName()); // '张三'
 console.log(child.getAge()); // 18
 console.log(child instanceof Child); // true
@@ -131,7 +131,7 @@ console.log(child instanceof Parent); // true
 ```js
 // 作为 Map 使用（ES6 之前）
 const map = Object.create(null);
-map.name = 'test';
+map.name = "test";
 // 不会有 hasOwnProperty 等干扰
 ```
 

@@ -7,6 +7,7 @@
 MobX 是一个功能强大、性能卓越的状态管理库，它通过透明的函数式响应式编程（Transparent Functional Reactive Programming，TFRP）来实现状态管理。
 
 **核心特性：**
+
 - 响应式：状态变化自动触发更新
 - 透明：开发者不需要关心响应式实现细节
 - 高性能：细粒度更新，只更新变化的部分
@@ -29,14 +30,14 @@ MobX 遵循三大核心原则：
 
 ### 1.3 对比 Vue 和 React
 
-| 特性 | MobX | Vue | React |
-|------|------|-----|-------|
-| 数据绑定 | 响应式 | 响应式 | 手动/状态管理 |
-| 学习曲线 | 中等 | 低 | 高 |
-| 代码风格 | 面向对象 | 声明式 | 函数式 |
-| 性能 | 优秀 | 优秀 | 需要优化 |
-| 调试 | 困难 | 容易 | 容易 |
-| 社区生态 | 一般 | 丰富 | 丰富 |
+| 特性     | MobX     | Vue    | React         |
+| -------- | -------- | ------ | ------------- |
+| 数据绑定 | 响应式   | 响应式 | 手动/状态管理 |
+| 学习曲线 | 中等     | 低     | 高            |
+| 代码风格 | 面向对象 | 声明式 | 函数式        |
+| 性能     | 优秀     | 优秀   | 需要优化      |
+| 调试     | 困难     | 容易   | 容易          |
+| 社区生态 | 一般     | 丰富   | 丰富          |
 
 ---
 
@@ -86,11 +87,11 @@ arr.push(4);
 `computed` 用于创建计算属性，其值基于响应式状态自动计算：
 
 ```typescript
-import { observable, computed } from 'mobx';
+import { observable, computed } from "mobx";
 
 class Store {
-    @observable firstName: string = '张';
-    @observable lastName: string = '三';
+    @observable firstName: string = "张";
+    @observable lastName: string = "三";
     @observable grades: number[] = [85, 90, 78, 92];
 
     @computed get fullName(): string {
@@ -108,7 +109,7 @@ class Store {
 
 // getter 方式
 const store = new Store();
-store.firstName = '李';
+store.firstName = "李";
 console.log(store.fullName); // 自动计算： 李三
 ```
 
@@ -117,9 +118,9 @@ console.log(store.fullName); // 自动计算： 李三
 `observer` 是 `react-rotx` 提供的 HOC，用于将 React 组件转换为响应式组件：
 
 ```tsx
-import { observer } from 'mobx-react';
-import React from 'react';
-import { store } from './store';
+import { observer } from "mobx-react";
+import React from "react";
+import { store } from "./store";
 
 const UserProfile = observer(() => {
     return (
@@ -141,7 +142,7 @@ const UserProfile = observer(() => {
 `action` 用于修改可观察状态：
 
 ```typescript
-import { observable, action } from 'mobx';
+import { observable, action } from "mobx";
 
 class Store {
     @observable count: number = 0;
@@ -177,13 +178,13 @@ class Store {
 }
 
 // 使用 runInAction 处理异步更新
-import { runInAction } from 'mobx';
+import { runInAction } from "mobx";
 
 class Store {
     @observable data: any = null;
 
     async fetchData() {
-        const response = await fetch('/api/data');
+        const response = await fetch("/api/data");
         const data = await response.json();
 
         // 在异步回调中更新状态
@@ -237,7 +238,7 @@ const counter = types.model('Counter', {
 ### 3.1 购物车 Store
 
 ```typescript
-import { observable, computed, action, makeAutoObservable } from 'mobx';
+import { observable, computed, action, makeAutoObservable } from "mobx";
 
 interface Product {
     id: string;
@@ -264,9 +265,7 @@ class CartStore {
     }
 
     @computed get totalPrice(): number {
-        return this.items.reduce((sum, item) =>
-            sum + item.product.price * item.quantity, 0
-        );
+        return this.items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
     }
 
     @computed get isEmpty(): boolean {
@@ -275,9 +274,7 @@ class CartStore {
 
     @action
     addItem(product: Product) {
-        const existing = this.items.find(
-            item => item.product.id === product.id
-        );
+        const existing = this.items.find((item) => item.product.id === product.id);
 
         if (existing) {
             existing.quantity++;
@@ -288,9 +285,7 @@ class CartStore {
 
     @action
     removeItem(productId: string) {
-        const index = this.items.findIndex(
-            item => item.product.id === productId
-        );
+        const index = this.items.findIndex((item) => item.product.id === productId);
         if (index !== -1) {
             this.items.splice(index, 1);
         }
@@ -298,7 +293,7 @@ class CartStore {
 
     @action
     updateQuantity(productId: string, quantity: number) {
-        const item = this.items.find(item => item.product.id === productId);
+        const item = this.items.find((item) => item.product.id === productId);
         if (item) {
             if (quantity <= 0) {
                 this.removeItem(productId);
@@ -334,9 +329,9 @@ export const cartStore = new CartStore();
 ### 3.2 React 组件使用
 
 ```tsx
-import React from 'react';
-import { observer } from 'mobx-react';
-import { cartStore } from './stores/CartStore';
+import React from "react";
+import { observer } from "mobx-react";
+import { cartStore } from "./stores/CartStore";
 
 const CartView = observer(() => {
     const { items, totalItems, totalPrice, isEmpty, isCheckout } = cartStore;
@@ -350,23 +345,18 @@ const CartView = observer(() => {
             <h2>购物车 ({totalItems} 件商品)</h2>
 
             <div className="cart-items">
-                {items.map(item => (
+                {items.map((item) => (
                     <div key={item.product.id} className="cart-item">
                         <span>{item.product.name}</span>
                         <span>¥{item.product.price}</span>
                         <input
                             type="number"
                             value={item.quantity}
-                            onChange={e => cartStore.updateQuantity(
-                                item.product.id,
-                                parseInt(e.target.value)
-                            )}
+                            onChange={(e) => cartStore.updateQuantity(item.product.id, parseInt(e.target.value))}
                             min="1"
                         />
                         <span>¥{item.product.price * item.quantity}</span>
-                        <button onClick={() => cartStore.removeItem(item.product.id)}>
-                            删除
-                        </button>
+                        <button onClick={() => cartStore.removeItem(item.product.id)}>删除</button>
                     </div>
                 ))}
             </div>
@@ -375,12 +365,8 @@ const CartView = observer(() => {
                 <div className="total">
                     总计：<span>¥{totalPrice.toFixed(2)}</span>
                 </div>
-                <button
-                    className="checkout-btn"
-                    disabled={isCheckout}
-                    onClick={() => cartStore.checkout()}
-                >
-                    {isCheckout ? '结算中...' : '结算'}
+                <button className="checkout-btn" disabled={isCheckout} onClick={() => cartStore.checkout()}>
+                    {isCheckout ? "结算中..." : "结算"}
                 </button>
             </div>
         </div>
@@ -399,11 +385,11 @@ export default CartView;
 `reaction` 用于创建副作用：
 
 ```typescript
-import { reaction } from 'mobx';
+import { reaction } from "mobx";
 
 class Store {
-    @observable name: string = '';
-    @observable filter: string = '';
+    @observable name: string = "";
+    @observable filter: string = "";
     @observable filteredList: string[] = [];
 }
 
@@ -412,20 +398,20 @@ const store = new Store();
 
 // 追踪 name 变化
 const dispose = reaction(
-    () => store.name,  // 追踪的函数
+    () => store.name, // 追踪的函数
     (name, previousName) => {
         console.log(`name changed from ${previousName} to ${name}`);
         // 执行副作用，如 API 调用
         fetchUser(name);
-    }
+    },
 );
 
 // 追踪多个值
 reaction(
-    () => [store.firstName, store.lastName],  // 数组形式追踪多个值
+    () => [store.firstName, store.lastName], // 数组形式追踪多个值
     ([firstName, lastName]) => {
         console.log(`name changed to ${firstName} ${lastName}`);
-    }
+    },
 );
 
 // 清理
@@ -437,19 +423,19 @@ dispose();
 `autorun` 类似 `reaction`，但追踪的是整个函数：
 
 ```typescript
-import { autorun } from 'mobx';
+import { autorun } from "mobx";
 
 const store = new Store();
 
 // 每次追踪的值变化都会执行
 autorun(() => {
-    console.log('name changed:', store.name);
+    console.log("name changed:", store.name);
     // 会立即执行一次，然后每次 store.name 变化时执行
 });
 
 // 用于日志、持久化等副作用
 autorun(() => {
-    localStorage.setItem('name', store.name);
+    localStorage.setItem("name", store.name);
 });
 ```
 
@@ -458,7 +444,7 @@ autorun(() => {
 `when` 用于条件响应：
 
 ```typescript
-import { when } from 'mobx';
+import { when } from "mobx";
 
 class Store {
     @observable isLoaded: boolean = false;
@@ -469,14 +455,14 @@ class Store {
 when(
     () => store.isLoaded,
     () => {
-        console.log('Data is loaded!');
+        console.log("Data is loaded!");
         // 执行一次后自动清理
-    }
+    },
 );
 
 // 等待 promise
 const dispose = when(async () => {
-    return await fetch('/api/ready');
+    return await fetch("/api/ready");
 });
 
 const result = await dispose;
@@ -503,53 +489,53 @@ const result = await dispose;
 
 // 细粒度更新原理
 class Store {
-    @observable user = { name: '张三', age: 25 };
+    @observable user = { name: "张三", age: 25 };
 }
 
 const store = new Store();
 
 // 追踪 user.name - 只会依赖 name
 autorun(() => {
-    console.log(store.user.name);  // 只追踪 name
+    console.log(store.user.name); // 只追踪 name
 });
 
 // 更新 user.age 不会触发上面的 autorun
-store.user.age = 30;  // 不会触发
+store.user.age = 30; // 不会触发
 
 // 更新 user.name 会触发
-store.user.name = '李四';  // 触发
+store.user.name = "李四"; // 触发
 ```
 
 ### 4.5 数组和 Map 的响应式
 
 ```typescript
-import { observable, toJS } from 'mobx';
+import { observable, toJS } from "mobx";
 
 // observable.array
 const list = observable.array([1, 2, 3]);
 
 // 数组方法
-list.push(4);      // 添加
-list.pop();        // 移除最后一个
-list.shift();       // 移除第一个
-list.unshift(0);    // 添加到开头
-list.splice(1, 1);  // 删除/替换
-list.remove(2);     // 移除指定元素
+list.push(4); // 添加
+list.pop(); // 移除最后一个
+list.shift(); // 移除第一个
+list.unshift(0); // 添加到开头
+list.splice(1, 1); // 删除/替换
+list.remove(2); // 移除指定元素
 
 // 切片（不响应式）
-const snapshot = list.slice();  // 返回普通数组
-const jsArray = toJS(list);     // 转换为普通 JS 数组
+const snapshot = list.slice(); // 返回普通数组
+const jsArray = toJS(list); // 转换为普通 JS 数组
 
 // observable.map
 const map = observable.map({
-    key1: 'value1',
-    key2: 'value2'
+    key1: "value1",
+    key2: "value2",
 });
 
-map.set('key3', 'value3');
-map.delete('key1');
-map.has('key1');
-map.get('key1');
+map.set("key3", "value3");
+map.delete("key1");
+map.has("key1");
+map.get("key1");
 
 // 遍历
 map.keys();
@@ -685,17 +671,17 @@ const Component = observer(() => {
 
 ```typescript
 // 问题：直接替换整个对象会丢失响应式
-store.user = { name: '新名字', age: 30 };  // 响应式丢失
+store.user = { name: "新名字", age: 30 }; // 响应式丢失
 
 // 解决：使用 Object.assign 或单独更新属性
-Object.assign(store.user, { name: '新名字' });
-store.user.name = '新名字';
+Object.assign(store.user, { name: "新名字" });
+store.user.name = "新名字";
 
 // 或者使用 observable.ref 保持引用
-import { observable, ref } from 'mobx';
+import { observable, ref } from "mobx";
 
 const store = observable({
-    user: ref({ name: '张三' })
+    user: ref({ name: "张三" }),
 });
 ```
 
@@ -767,24 +753,26 @@ const MyComponent = observer(() => {
 
 **参考答案：**
 
-| 特性 | MobX | Redux |
-|------|------|-------|
+| 特性     | MobX             | Redux              |
+| -------- | ---------------- | ------------------ |
 | 设计理念 | 响应式，自动追踪 | 函数式，单向数据流 |
-| 代码风格 | 面向对象 | 函数式 |
-| 学习曲线 | 较平缓 | 较陡峭 |
-| 样板代码 | 较少 | 较多 |
-| 数据流 | 双向绑定 | 单向数据流 |
-| 不可变性 | 不强制 | 强制 |
-| DevTools | 支持 | 支持 |
-| 中间件 | 少 | 丰富 |
-| 适用场景 | 中小项目 | 大型项目 |
+| 代码风格 | 面向对象         | 函数式             |
+| 学习曲线 | 较平缓           | 较陡峭             |
+| 样板代码 | 较少             | 较多               |
+| 数据流   | 双向绑定         | 单向数据流         |
+| 不可变性 | 不强制           | 强制               |
+| DevTools | 支持             | 支持               |
+| 中间件   | 少               | 丰富               |
+| 适用场景 | 中小项目         | 大型项目           |
 
 **MobX 优势：**
+
 - 样板代码少，开发效率高
 - 面向对象，更易理解
 - 自动追踪依赖，性能好
 
 **Redux 优势：**
+
 - 单一数据源，易于调试
 - 时间旅行调试
 - 中间件丰富，社区活跃
@@ -825,7 +813,7 @@ function observable(target, key) {
             value = newValue;
             // 触发更新
             trackingContext.notify(key);
-        }
+        },
     });
 }
 
@@ -834,15 +822,16 @@ const component = {
     render() {
         // 访问 store.name，自动建立依赖
         console.log(store.name);
-    }
+    },
 };
 
 // name 变化时
-store.name = '新名字';  // 触发 notify
+store.name = "新名字"; // 触发 notify
 // 自动调用 component.render()
 ```
 
 **computed 计算属性：**
+
 - 基于 Dirty Checking 机制
 - 缓存上次计算结果
 - 只有依赖项变化时才重新计算
@@ -874,7 +863,7 @@ async fetchData() {
 **方案二：flow 语法**
 
 ```typescript
-import { flow } from 'mobx';
+import { flow } from "mobx";
 
 class Store {
     @observable data = null;
@@ -894,15 +883,17 @@ class Store {
 **方案三：使用 task（ mobx-utils）**
 
 ```typescript
-import { task } from 'mobx-utils';
+import { task } from "mobx-utils";
 
 class Store {
     @observable data = null;
 
     async fetchData() {
         const [data, error] = await task(
-            api.getData().then(res => [res, null])
-                     .catch(err => [null, err])
+            api
+                .getData()
+                .then((res) => [res, null])
+                .catch((err) => [null, err]),
         );
         this.data = data;
     }
@@ -956,13 +947,13 @@ const Component = observer(({ id }) => {
 **4. 批量更新**
 
 ```typescript
-import { batch } from 'mobx';
+import { batch } from "mobx";
 
 batch(() => {
-    store.name = 'name1';
+    store.name = "name1";
     store.age = 25;
-    store.address = 'address';
-});  // 只触发一次更新
+    store.address = "address";
+}); // 只触发一次更新
 ```
 
 ### 7.5 面试题5：MobX 在大型项目中的实践？
@@ -1015,16 +1006,16 @@ class UserStore {
 // api/services/UserService.ts
 export class UserService {
     async login(credentials) {
-        return api.post('/login', credentials);
+        return api.post("/login", credentials);
     }
 
     async getUserInfo() {
-        return api.get('/user/info');
+        return api.get("/user/info");
     }
 }
 
 // stores/UserStore.ts
-import { UserService } from '@/api/services/UserService';
+import { UserService } from "@/api/services/UserService";
 
 class UserStore {
     private userService = new UserService();
@@ -1041,11 +1032,11 @@ class UserStore {
 **持久化集成：**
 
 ```typescript
-import { persist } from 'mobx-persist';
+import { persist } from "mobx-persist";
 
 // 使用 mobx-persist
 class Store {
-    @observable name = '';
+    @observable name = "";
 
     @persist
     set name(value: string) {
@@ -1056,9 +1047,9 @@ class Store {
 // 配合 localStorage
 const createStore = () => {
     const store = new Store();
-    persist('store', store, {
+    persist("store", store, {
         storage: localStorage,
-        jsonify: false
+        jsonify: false,
     });
     return store;
 };

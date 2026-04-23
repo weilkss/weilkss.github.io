@@ -15,9 +15,9 @@
 ### 基础版
 
 ```js
-Array.prototype.myForEach = function(callback, thisArg) {
-    if (typeof callback !== 'function') {
-        throw new TypeError(callback + ' is not a function');
+Array.prototype.myForEach = function (callback, thisArg) {
+    if (typeof callback !== "function") {
+        throw new TypeError(callback + " is not a function");
     }
 
     const arr = this;
@@ -33,13 +33,13 @@ Array.prototype.myForEach = function(callback, thisArg) {
 ### 完整版（处理稀疏数组和边界情况）
 
 ```js
-Array.prototype.myForEach = function(callback, thisArg) {
+Array.prototype.myForEach = function (callback, thisArg) {
     if (this === null || this === undefined) {
         throw new TypeError('Cannot read property "forEach" of null or undefined');
     }
 
-    if (typeof callback !== 'function') {
-        throw new TypeError(callback + ' is not a function');
+    if (typeof callback !== "function") {
+        throw new TypeError(callback + " is not a function");
     }
 
     const O = Object(this);
@@ -59,7 +59,7 @@ Array.prototype.myForEach = function(callback, thisArg) {
 const numbers = [1, 2, 3];
 
 // 基础用法
-numbers.myForEach(num => console.log(num));
+numbers.myForEach((num) => console.log(num));
 // 1
 // 2
 // 3
@@ -73,8 +73,8 @@ numbers.myForEach((num, index, arr) => {
 // 2: 3 [1, 2, 3]
 
 // 配合 thisArg
-const context = { prefix: 'Num:' };
-numbers.myForEach(function(num) {
+const context = { prefix: "Num:" };
+numbers.myForEach(function (num) {
     console.log(this.prefix + num);
 }, context);
 // Num:1
@@ -90,19 +90,19 @@ sparse.myForEach((val, i) => console.log(`${i}: ${val}`));
 
 ## 与原生对比
 
-| 特性 | 原生 forEach | 手写实现 |
-|------|-------------|---------|
-| 稀疏数组 | 跳过空位 | 跳过空位 |
-| this 绑定 | 支持 | 支持 |
-| 返回值 | undefined | undefined |
-| 修改原数组 | 可能（但不应这么做） | 可能 |
+| 特性       | 原生 forEach         | 手写实现  |
+| ---------- | -------------------- | --------- |
+| 稀疏数组   | 跳过空位             | 跳过空位  |
+| this 绑定  | 支持                 | 支持      |
+| 返回值     | undefined            | undefined |
+| 修改原数组 | 可能（但不应这么做） | 可能      |
 
 ## forEach vs for vs map
 
-| 特性 | forEach | for | map |
-|------|---------|-----|-----|
-| 语法 | 函数式 | 命令式 | 函数式 |
-| break/continue | 不可用 | 可用 | 不可用 |
-| 返回值 | undefined | 可控 | 新数组 |
-| 性能 | 较慢 | 最快 | 较慢 |
-| 修改原数组 | 可 | 可 | 不可 |
+| 特性           | forEach   | for    | map    |
+| -------------- | --------- | ------ | ------ |
+| 语法           | 函数式    | 命令式 | 函数式 |
+| break/continue | 不可用    | 可用   | 不可用 |
+| 返回值         | undefined | 可控   | 新数组 |
+| 性能           | 较慢      | 最快   | 较慢   |
+| 修改原数组     | 可        | 可     | 不可   |

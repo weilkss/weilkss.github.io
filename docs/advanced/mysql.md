@@ -7,6 +7,7 @@
 数据库是按照数据结构来组织、存储和管理数据的仓库，它是一个长期存储在计算机内的、有组织的、可共享的、统一管理的大量数据的集合。
 
 **核心特征：**
+
 - 数据结构化：数据以特定的模型组织，如关系模型、文档模型等
 - 数据共享：多个应用程序可以同时访问数据库中的数据
 - 数据独立性：应用程序与物理存储细节相分离
@@ -17,14 +18,15 @@
 
 MySQL 支持多种存储引擎，不同的存储引擎有不同的特点和适用场景：
 
-| 引擎 | 事务支持 | 锁粒度 | 适用场景 |
-|------|----------|--------|----------|
-| InnoDB | 支持 | 行级锁 | 默认引擎，适用于大多数场景 |
-| MyISAM | 不支持 | 表级锁 | 读多写少，只读表 |
-| MEMORY | 不支持 | - | 临时表，高速缓存 |
-| CSV | 不支持 | - | 数据交换 |
+| 引擎   | 事务支持 | 锁粒度 | 适用场景                   |
+| ------ | -------- | ------ | -------------------------- |
+| InnoDB | 支持     | 行级锁 | 默认引擎，适用于大多数场景 |
+| MyISAM | 不支持   | 表级锁 | 读多写少，只读表           |
+| MEMORY | 不支持   | -      | 临时表，高速缓存           |
+| CSV    | 不支持   | -      | 数据交换                   |
 
 **InnoDB 是 MySQL 5.5.5 之后的默认存储引擎，它的特点是：**
+
 - 支持行级锁和表级锁
 - 支持事务（ACID 特性）
 - 支持外键约束
@@ -53,12 +55,12 @@ ALTER TABLE t1 ENGINE = MyISAM;
 
 ### 2.1 SQL 语句分类
 
-| 类别 | 说明 | 举例 |
-|------|------|------|
-| DDL | 数据定义语言 | CREATE, ALTER, DROP, TRUNCATE |
-| DML | 数据操作语言 | INSERT, UPDATE, DELETE, SELECT |
-| DCL | 数据控制语言 | GRANT, REVOKE |
-| TCL | 事务控制语言 | COMMIT, ROLLBACK, SAVEPOINT |
+| 类别 | 说明         | 举例                           |
+| ---- | ------------ | ------------------------------ |
+| DDL  | 数据定义语言 | CREATE, ALTER, DROP, TRUNCATE  |
+| DML  | 数据操作语言 | INSERT, UPDATE, DELETE, SELECT |
+| DCL  | 数据控制语言 | GRANT, REVOKE                  |
+| TCL  | 事务控制语言 | COMMIT, ROLLBACK, SAVEPOINT    |
 
 ### 2.2 DDL 语句
 
@@ -95,7 +97,7 @@ TRUNCATE TABLE users;
 ```sql
 -- 插入数据
 INSERT INTO users (username, email, age) VALUES ('张三', 'zhangsan@example.com', 25);
-INSERT INTO users (username, email) VALUES 
+INSERT INTO users (username, email) VALUES
     ('李四', 'lisi@example.com'),
     ('王五', 'wangwu@example.com');
 
@@ -110,7 +112,7 @@ SELECT * FROM users;
 SELECT username, email FROM users WHERE age > 20 ORDER BY created_at DESC LIMIT 10;
 
 -- 聚合函数
-SELECT 
+SELECT
     COUNT(*) as total,
     SUM(age) as total_age,
     AVG(age) as avg_age,
@@ -148,11 +150,11 @@ SELECT username FROM admin_users WHERE login_time > '2024-01-01';
 
 **索引的优缺点：**
 
-| 优点 | 缺点 |
-|------|------|
-| 大幅提高查询速度 | 占用磁盘空间 |
-| 加速表与表的连接 | 降低写入性能（INSERT/UPDATE/DELETE） |
-| 使用优化器提高性能 | 需要维护成本 |
+| 优点               | 缺点                                 |
+| ------------------ | ------------------------------------ |
+| 大幅提高查询速度   | 占用磁盘空间                         |
+| 加速表与表的连接   | 降低写入性能（INSERT/UPDATE/DELETE） |
+| 使用优化器提高性能 | 需要维护成本                         |
 
 ### 3.2 索引类型
 
@@ -195,12 +197,14 @@ DROP INDEX idx_name ON users;
 ```
 
 **B+ Tree 的特点：**
+
 - 所有数据都存储在叶子节点
 - 叶子节点之间通过双向链表连接，便于范围查询
 - 树高一般控制在 3-4 层，减少磁盘 IO
 - 支持等值查询和范围查询
 
 **Hash 索引（Memory 引擎）：**
+
 - 基于 Hash 表实现，查询效率 O(1)
 - 只支持等值查询，不支持范围查询和排序
 - 适用于等值查询频繁的场景
@@ -258,12 +262,12 @@ CREATE INDEX idx_age_created ON users(age, created_at);
 
 **ACID 特性：**
 
-| 特性 | 说明 | 举例 |
-|------|------|------|
-| Atomic（原子性） | 事务是最小执行单位，不可分割 | 转账操作要么全部成功，要么全部失败 |
-| Consistency（一致性） | 事务执行前后，数据库状态保持一致 | 转账前后总金额不变 |
-| Isolation（隔离性） | 并发执行的事务相互隔离，不相互干扰 | 两个转账操作同时进行，结果正确 |
-| Durability（持久性） | 事务提交后，其结果永久保存 | 提交后数据不会丢失 |
+| 特性                  | 说明                               | 举例                               |
+| --------------------- | ---------------------------------- | ---------------------------------- |
+| Atomic（原子性）      | 事务是最小执行单位，不可分割       | 转账操作要么全部成功，要么全部失败 |
+| Consistency（一致性） | 事务执行前后，数据库状态保持一致   | 转账前后总金额不变                 |
+| Isolation（隔离性）   | 并发执行的事务相互隔离，不相互干扰 | 两个转账操作同时进行，结果正确     |
+| Durability（持久性）  | 事务提交后，其结果永久保存         | 提交后数据不会丢失                 |
 
 ### 4.2 事务隔离级别
 
@@ -276,12 +280,12 @@ SELECT @@transaction_isolation;
 SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
 ```
 
-| 隔离级别 | 脏读 | 不可重复读 | 幻读 | 实现方式 |
-|----------|------|-----------|------|----------|
-| READ UNCOMMITTED | 可能 | 可能 | 可能 | 无 |
-| READ COMMITTED | 不可能 | 可能 | 可能 | 快照读 |
-| REPEATABLE READ（MySQL默认） | 不可能 | 不可能 | 可能 | MVCC + Next-Key Lock |
-| SERIALIZABLE | 不可能 | 不可能 | 不可能 | 锁机制 |
+| 隔离级别                     | 脏读   | 不可重复读 | 幻读   | 实现方式             |
+| ---------------------------- | ------ | ---------- | ------ | -------------------- |
+| READ UNCOMMITTED             | 可能   | 可能       | 可能   | 无                   |
+| READ COMMITTED               | 不可能 | 可能       | 可能   | 快照读               |
+| REPEATABLE READ（MySQL默认） | 不可能 | 不可能     | 可能   | MVCC + Next-Key Lock |
+| SERIALIZABLE                 | 不可能 | 不可能     | 不可能 | 锁机制               |
 
 **脏读、不可重复读、幻读的概念：**
 
@@ -289,9 +293,9 @@ SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
 -- 脏读：读取到其他事务未提交的数据
 -- 事务A                      事务B
 BEGIN;                       BEGIN;
-UPDATE users SET age=30;    -- 
+UPDATE users SET age=30;    --
 SELECT age FROM users;      -- 读取到age=30（脏数据）
-ROLLBACK;                   -- 
+ROLLBACK;                   --
                             COMMIT;
 
 -- 不可重复读：同一事务中，两次读取同一数据结果不同
@@ -411,6 +415,7 @@ SELECT * FROM users WHERE id > 10 AND id < 20 FOR UPDATE;
 ### 5.3 死锁及其处理
 
 **死锁产生条件：**
+
 1. 互斥条件：资源一次只能被一个事务使用
 2. 请求与保持条件：事务已保持至少一个资源
 3. 不剥夺条件：资源不能被强制剥夺
@@ -474,9 +479,9 @@ EXPLAIN SELECT * FROM users WHERE name = '张三';
 ### 6.2 EXPLAIN 分析
 
 ```sql
-EXPLAIN SELECT u.*, o.* 
-FROM users u 
-LEFT JOIN orders o ON u.id = o.user_id 
+EXPLAIN SELECT u.*, o.*
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
 WHERE u.age > 20;
 
 -- 输出字段说明：
@@ -507,7 +512,7 @@ SET GLOBAL long_query_time = 1;  -- 超过1秒记录
 mysqldumpslow -s t -t 10 /var/log/mysql/slow.log;
 
 -- 使用 performance_schema
-SELECT * FROM performance_schema.events_statements_summary_by_digest 
+SELECT * FROM performance_schema.events_statements_summary_by_digest
 ORDER BY SUM_TIMER_WAIT DESC LIMIT 10;
 ```
 
@@ -519,18 +524,19 @@ ORDER BY SUM_TIMER_WAIT DESC LIMIT 10;
 
 **参考答案：**
 
-| 特性 | InnoDB | MyISAM |
-|------|--------|--------|
-| 事务支持 | 支持 | 不支持 |
-| 锁粒度 | 行级锁 | 表级锁 |
-| 外键约束 | 支持 | 不支持 |
-| 全文索引 | 5.6+支持 | 支持 |
-| 存储结构 | 聚簇索引 | 非聚簇索引 |
-| 崩溃恢复 | 自动恢复 | 需手动修复 |
+| 特性     | InnoDB       | MyISAM       |
+| -------- | ------------ | ------------ |
+| 事务支持 | 支持         | 不支持       |
+| 锁粒度   | 行级锁       | 表级锁       |
+| 外键约束 | 支持         | 不支持       |
+| 全文索引 | 5.6+支持     | 支持         |
+| 存储结构 | 聚簇索引     | 非聚簇索引   |
+| 崩溃恢复 | 自动恢复     | 需手动修复   |
 | 查询性能 | 大量查询稍慢 | 大量查询更快 |
-| 写入性能 | 事务写入较慢 | 写入较快 |
+| 写入性能 | 事务写入较慢 | 写入较快     |
 
 **实际选择建议：**
+
 - 需要事务支持、外键约束、并发写入：选择 InnoDB
 - 只读表、大量全文搜索需求：选择 MyISAM
 - 现代应用默认选择 InnoDB
@@ -540,12 +546,14 @@ ORDER BY SUM_TIMER_WAIT DESC LIMIT 10;
 **参考答案：**
 
 **聚簇索引（Clustered Index）：**
+
 - 数据行与索引存储在一起，叶子节点包含完整数据
 - 每个表只能有一个聚簇索引（主键索引）
 - 适合范围查询和主键查询
 - 插入数据时可能造成页分裂，影响性能
 
 **非聚簇索引（Non-clustered Index）：**
+
 - 叶子节点只存储索引列和主键值
 - 查询时需要回表（根据主键查找完整数据）
 - 一个表可以有多个非聚簇索引
@@ -569,6 +577,7 @@ SELECT * FROM orders WHERE order_no = 'A001'; -- 先通过非聚簇索引找到 
 **参考答案：**
 
 **步骤一：定位慢查询**
+
 ```sql
 -- 开启慢查询日志
 SET GLOBAL slow_query_log = 'ON';
@@ -579,6 +588,7 @@ SHOW FULL PROCESSLIST;
 ```
 
 **步骤二：分析查询计划**
+
 ```sql
 EXPLAIN SELECT * FROM users WHERE name = '张三';
 
@@ -610,6 +620,7 @@ ALTER TABLE users MODIFY COLUMN status TINYINT DEFAULT 0;
 ```
 
 **步骤四：使用缓存**
+
 ```sql
 -- 应用层缓存（Redis）
 const cacheKey = `user:${userId}`;
@@ -646,7 +657,7 @@ CREATE USER 'repl'@'%' IDENTIFIED BY 'password';
 GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%';
 
 -- 从库执行复制命令
-CHANGE MASTER TO 
+CHANGE MASTER TO
     MASTER_HOST = 'master_host',
     MASTER_USER = 'repl',
     MASTER_PASSWORD = 'password',
@@ -670,13 +681,14 @@ class DatabaseRouter {
 
 // 中间件实现
 app.use(async (ctx, next) => {
-    const isWrite = ['POST', 'PUT', 'DELETE'].includes(ctx.method);
+    const isWrite = ["POST", "PUT", "DELETE"].includes(ctx.method);
     ctx.db = dbRouter.getConnection(isWrite);
     await next();
 });
 ```
 
 **故障转移方案：**
+
 1. MHA（MySQL High Availability）
 2. MySQL Cluster
 3. Galera Cluster
@@ -723,6 +735,7 @@ CREATE TABLE orders (
 ```
 
 **分片中间件：**
+
 - ShardingSphere
 - MyCat
 - Cobar
@@ -743,18 +756,18 @@ SELECT * FROM users WHERE id = ?
 function getUser(id) {
     const cacheKey = `user:${id}`;
     const cached = redis.get(cacheKey);
-    
+
     if (cached) {
         const user = JSON.parse(cached);
         if (user.logical_expire > Date.now()) {
             return user;
         }
     }
-    
+
     // 获取锁
     const lockKey = `lock:user:${id}`;
     const lock = redis.set(lockKey, '1', 'NX', 'EX', 10);
-    
+
     if (lock) {
         const user = await db.query('SELECT * FROM users WHERE id = ?', [id]);
         user.logical_expire = Date.now() + 3600000;
@@ -762,7 +775,7 @@ function getUser(id) {
         redis.del(lockKey);
         return user;
     }
-    
+
     // 等待后重试
     await sleep(100);
     return getUser(id);

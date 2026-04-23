@@ -6,11 +6,11 @@ Promise 是异步编程的一种解决方案，比回调函数更强大、更优
 
 ## Promise 状态
 
-| 状态 | 说明 | 转换 |
-|------|------|------|
-| pending | 待定（初始状态） | 可转为 fulfilled 或 rejected |
-| fulfilled | 已兑现（成功） | 不可转换其他状态 |
-| rejected | 已拒绝（失败） | 不可转换其他状态 |
+| 状态      | 说明             | 转换                         |
+| --------- | ---------------- | ---------------------------- |
+| pending   | 待定（初始状态） | 可转为 fulfilled 或 rejected |
+| fulfilled | 已兑现（成功）   | 不可转换其他状态             |
+| rejected  | 已拒绝（失败）   | 不可转换其他状态             |
 
 ## 核心原理
 
@@ -22,9 +22,9 @@ Promise 是异步编程的一种解决方案，比回调函数更强大、更优
 ## 完整实现
 
 ```js
-const PENDING = 'pending';
-const FULFILLED = 'fulfilled';
-const REJECTED = 'rejected';
+const PENDING = "pending";
+const FULFILLED = "fulfilled";
+const REJECTED = "rejected";
 
 class MyPromise {
     constructor(executor) {
@@ -40,7 +40,7 @@ class MyPromise {
             if (this.state === PENDING) {
                 this.state = FULFILLED;
                 this.value = value;
-                this.onFulfilledCallbacks.forEach(fn => fn());
+                this.onFulfilledCallbacks.forEach((fn) => fn());
             }
         };
 
@@ -48,7 +48,7 @@ class MyPromise {
             if (this.state === PENDING) {
                 this.state = REJECTED;
                 this.reason = reason;
-                this.onRejectedCallbacks.forEach(fn => fn());
+                this.onRejectedCallbacks.forEach((fn) => fn());
             }
         };
 
@@ -61,8 +61,13 @@ class MyPromise {
 
     then(onFulfilled, onRejected) {
         // 参数可选处理
-        onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v;
-        onRejected = typeof onRejected === 'function' ? onRejected : err => { throw err; };
+        onFulfilled = typeof onFulfilled === "function" ? onFulfilled : (v) => v;
+        onRejected =
+            typeof onRejected === "function"
+                ? onRejected
+                : (err) => {
+                      throw err;
+                  };
 
         const promise2 = new MyPromise((resolve, reject) => {
             if (this.state === FULFILLED) {
@@ -121,8 +126,11 @@ class MyPromise {
 
     finally(callback) {
         return this.then(
-            value => MyPromise.resolve(callback()).then(() => value),
-            reason => MyPromise.resolve(callback()).then(() => { throw reason; })
+            (value) => MyPromise.resolve(callback()).then(() => value),
+            (reason) =>
+                MyPromise.resolve(callback()).then(() => {
+                    throw reason;
+                }),
         );
     }
 
@@ -130,7 +138,7 @@ class MyPromise {
         if (value instanceof MyPromise) {
             return value;
         }
-        return new MyPromise(resolve => resolve(value));
+        return new MyPromise((resolve) => resolve(value));
     }
 
     static reject(reason) {
@@ -142,7 +150,7 @@ class MyPromise {
 function resolvePromise(promise2, x, resolve, reject) {
     // 避免循环引用
     if (promise2 === x) {
-        return reject(new TypeError('Chaining cycle detected'));
+        return reject(new TypeError("Chaining cycle detected"));
     }
 
     // 如果 x 是 Promise
@@ -152,23 +160,23 @@ function resolvePromise(promise2, x, resolve, reject) {
     }
 
     // 如果 x 是对象或函数
-    if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
+    if (x !== null && (typeof x === "object" || typeof x === "function")) {
         let called = false;
         try {
             const then = x.then;
-            if (typeof then === 'function') {
+            if (typeof then === "function") {
                 then.call(
                     x,
-                    y => {
+                    (y) => {
                         if (called) return;
                         called = true;
                         resolvePromise(promise2, y, resolve, reject);
                     },
-                    err => {
+                    (err) => {
                         if (called) return;
                         called = true;
                         reject(err);
-                    }
+                    },
                 );
             } else {
                 resolve(x);
@@ -189,19 +197,19 @@ function resolvePromise(promise2, x, resolve, reject) {
 ```js
 const promise = new MyPromise((resolve, reject) => {
     setTimeout(() => {
-        resolve('成功');
+        resolve("成功");
     }, 1000);
 });
 
 promise
-    .then(res => {
+    .then((res) => {
         console.log(res); // '成功'
-        return '第二次成功';
+        return "第二次成功";
     })
-    .then(res => {
+    .then((res) => {
         console.log(res); // '第二次成功'
     })
-    .catch(err => {
+    .catch((err) => {
         console.log(err);
     });
 ```

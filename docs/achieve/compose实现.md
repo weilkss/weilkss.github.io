@@ -19,7 +19,7 @@ compose(f, g, h) 等价于 (...args) => f(g(h(...args)))
 ```js
 function compose(...fns) {
     if (fns.length === 0) {
-        return arg => arg;
+        return (arg) => arg;
     }
 
     if (fns.length === 1) {
@@ -37,7 +37,7 @@ function compose(...fns) {
 ```js
 function compose(...fns) {
     if (fns.length === 0) {
-        return arg => arg;
+        return (arg) => arg;
     }
 
     return fns.reduce((prevFn, nextFn) => {
@@ -45,7 +45,7 @@ function compose(...fns) {
             try {
                 return prevFn(nextFn(...args));
             } catch (err) {
-                console.error('Compose error:', err);
+                console.error("Compose error:", err);
                 throw err;
             }
         };
@@ -66,7 +66,7 @@ pipe(f, g, h) 等价于 (...args) => h(g(f(...args)))
 ```js
 function pipe(...fns) {
     if (fns.length === 0) {
-        return arg => arg;
+        return (arg) => arg;
     }
 
     if (fns.length === 1) {
@@ -83,9 +83,9 @@ function pipe(...fns) {
 
 ```js
 // 示例函数
-const double = x => x * 2;
-const square = x => x * x;
-const addTen = x => x + 10;
+const double = (x) => x * 2;
+const square = (x) => x * x;
+const addTen = (x) => x + 10;
 
 // compose：从右到左执行
 // 先 square(2) = 4，再 double(4) = 8
@@ -108,45 +108,45 @@ console.log(piped(2)); // 18
 ### 表单验证
 
 ```js
-const trim = str => str.trim();
-const isNonEmpty = str => str.length > 0;
-const isEmail = str => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
+const trim = (str) => str.trim();
+const isNonEmpty = (str) => str.length > 0;
+const isEmail = (str) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
 
 const validateEmail = compose(
-    email => ({ isValid: email.isValid, value: email.value }),
-    email => ({ ...email, isValid: email.isValid && isEmail(email.value) }),
-    email => ({ ...email, isValid: isNonEmpty(email.value) }),
-    value => ({ value, isValid: true })
+    (email) => ({ isValid: email.isValid, value: email.value }),
+    (email) => ({ ...email, isValid: email.isValid && isEmail(email.value) }),
+    (email) => ({ ...email, isValid: isNonEmpty(email.value) }),
+    (value) => ({ value, isValid: true }),
 );
 
-console.log(validateEmail('  user@example.com  '));
+console.log(validateEmail("  user@example.com  "));
 // { value: 'user@example.com', isValid: true }
 ```
 
 ### 中间件模式
 
 ```js
-const middleware1 = next => config => {
-    console.log('middleware1 start');
+const middleware1 = (next) => (config) => {
+    console.log("middleware1 start");
     const result = next(config);
-    console.log('middleware1 end');
+    console.log("middleware1 end");
     return result;
 };
 
-const middleware2 = next => config => {
-    console.log('middleware2 start');
+const middleware2 = (next) => (config) => {
+    console.log("middleware2 start");
     const result = next(config);
-    console.log('middleware2 end');
+    console.log("middleware2 end");
     return result;
 };
 
-const handler = config => {
-    console.log('handler executed:', config);
-    return 'response';
+const handler = (config) => {
+    console.log("handler executed:", config);
+    return "response";
 };
 
 const composed = compose(middleware1, middleware2)(handler);
-composed({ data: 'test' });
+composed({ data: "test" });
 // middleware2 start
 // middleware1 start
 // handler executed: { data: 'test' }
@@ -158,8 +158,8 @@ composed({ data: 'test' });
 
 ## compose vs pipe 对比
 
-| 特性 | compose | pipe |
-|------|---------|------|
-| 执行顺序 | 从右到左 | 从左到右 |
-| 可读性 | 更符合数学概念 f(g(x)) | 更符合流水线 |
-| 使用场景 | 函数式编程 | 数据转换流水线 |
+| 特性     | compose                | pipe           |
+| -------- | ---------------------- | -------------- |
+| 执行顺序 | 从右到左               | 从左到右       |
+| 可读性   | 更符合数学概念 f(g(x)) | 更符合流水线   |
+| 使用场景 | 函数式编程             | 数据转换流水线 |

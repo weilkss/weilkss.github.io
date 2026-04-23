@@ -15,11 +15,11 @@ export default defineConfig({
             { text: "进阶", link: "/advanced/es6" },
             { text: "实现", link: "/achieve/防抖节流" },
             { text: "Vue", link: "/vue/vue3" },
-            { text: "React", link: "/react" },
-            { text: "Plugin", link: "/plugin/vue" },
+            { text: "React", link: "/react/base" },
+            { text: "Plugin", link: "/plugin" },
         ],
         sidebar: {
-            "/basis/": {
+            "/basis": {
                 items: [
                     {
                         text: "CSS",
@@ -39,7 +39,7 @@ export default defineConfig({
                     },
                 ],
             },
-            "/advanced/": {
+            "/advanced": {
                 base: "/advanced/",
                 items: [
                     {
@@ -172,7 +172,7 @@ export default defineConfig({
                     },
                 ],
             },
-            "/achieve/": {
+            "/achieve": {
                 items: [
                     { text: "防抖节流", link: "/achieve/防抖节流" },
                     { text: "深拷贝", link: "/achieve/深拷贝" },
@@ -199,35 +199,52 @@ export default defineConfig({
                     { text: "二分查找实现", link: "/achieve/二分查找实现" },
                 ],
             },
-            "/vue/": {
+            "/vue": {
                 items: [
                     {
-                        text: "Vue2",
+                        text: "Vue3知识",
+                        link: "/vue/vue3",
+                    },
+                    {
+                        text: "Vue2知识",
                         link: "/vue/vue2",
                     },
                     {
-                        text: "Vue3",
-                        link: "/vue/vue3",
+                        text: "手撕Vue3",
+                        link: "/vue/prei3",
+                    },
+                    {
+                        text: "手撕Vue2",
+                        link: "/vue/prei2",
                     },
                 ],
             },
-            "/react/": {
+            "/react": {
                 base: "/react/",
                 items: [
                     {
-                        text: "react",
-                        collapsed: false,
-                        items: [{ text: "介绍", link: "/index" }],
+                        text: "基础知识",
+                        link: "/base",
+                    },
+                    {
+                        text: "高频面试",
+                        link: "/high",
+                    },
+                    {
+                        text: "手撕React",
+                        link: "/mini",
+                    },
+                    {
+                        text: "技术周边",
+                        link: "/periphery",
                     },
                 ],
             },
-            "/plugin/": {
-                base: "/plugin/",
+            "/plugin": {
                 items: [
                     {
-                        text: "plugin",
-                        collapsed: false,
-                        link: "/vue",
+                        text: "前端轮子",
+                        link: "/plugin/",
                     },
                 ],
             },

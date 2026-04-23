@@ -16,9 +16,9 @@
 ### 基础版
 
 ```js
-Array.prototype.myFilter = function(callback, thisArg) {
-    if (typeof callback !== 'function') {
-        throw new TypeError(callback + ' is not a function');
+Array.prototype.myFilter = function (callback, thisArg) {
+    if (typeof callback !== "function") {
+        throw new TypeError(callback + " is not a function");
     }
 
     const arr = this;
@@ -39,13 +39,13 @@ Array.prototype.myFilter = function(callback, thisArg) {
 ### 完整版（处理稀疏数组和边界情况）
 
 ```js
-Array.prototype.myFilter = function(callback, thisArg) {
+Array.prototype.myFilter = function (callback, thisArg) {
     if (this === null || this === undefined) {
         throw new TypeError('Cannot read property "filter" of null or undefined');
     }
 
-    if (typeof callback !== 'function') {
-        throw new TypeError(callback + ' is not a function');
+    if (typeof callback !== "function") {
+        throw new TypeError(callback + " is not a function");
     }
 
     const O = Object(this);
@@ -71,16 +71,16 @@ Array.prototype.myFilter = function(callback, thisArg) {
 const numbers = [1, 2, 3, 4, 5, 6];
 
 // 基础筛选
-const evens = numbers.myFilter(x => x % 2 === 0);
+const evens = numbers.myFilter((x) => x % 2 === 0);
 console.log(evens); // [2, 4, 6]
 
 // 筛选对象
 const users = [
-    { name: '张三', age: 18 },
-    { name: '李四', age: 20 },
-    { name: '王五', age: 15 }
+    { name: "张三", age: 18 },
+    { name: "李四", age: 20 },
+    { name: "王五", age: 15 },
 ];
-const adults = users.myFilter(user => user.age >= 18);
+const adults = users.myFilter((user) => user.age >= 18);
 console.log(adults);
 // [{ name: '张三', age: 18 }, { name: '李四', age: 20 }]
 
@@ -90,26 +90,26 @@ console.log(indexEven); // [1, 3, 5]（索引0,2,4的元素）
 
 // 配合 thisArg
 const context = { minValue: 3 };
-const filtered = numbers.myFilter(function(num) {
+const filtered = numbers.myFilter(function (num) {
     return num >= this.minValue;
 }, context);
 console.log(filtered); // [3, 4, 5, 6]
 
 // 去除假值
-const mixed = [0, 1, false, 2, '', 3, null, undefined, NaN];
+const mixed = [0, 1, false, 2, "", 3, null, undefined, NaN];
 const truthy = mixed.myFilter(Boolean);
 console.log(truthy); // [1, 2, 3]
 ```
 
 ## 与原生对比
 
-| 特性 | 原生 filter | 手写实现 |
-|------|------------|---------|
-| 稀疏数组 | 跳过空位 | 跳过空位 |
-| this 绑定 | 支持 | 支持 |
-| 返回新数组 | ✓ | ✓ |
-| 原数组不变 | ✓ | ✓ |
-| 回调参数 | (element, index, array) | 支持 |
+| 特性       | 原生 filter             | 手写实现 |
+| ---------- | ----------------------- | -------- |
+| 稀疏数组   | 跳过空位                | 跳过空位 |
+| this 绑定  | 支持                    | 支持     |
+| 返回新数组 | ✓                       | ✓        |
+| 原数组不变 | ✓                       | ✓        |
+| 回调参数   | (element, index, array) | 支持     |
 
 ## 面试追问点
 
@@ -119,7 +119,7 @@ console.log(truthy); // [1, 2, 3]
 
 ### filter 与 find 的区别
 
-| 方法 | 返回值 | 找到第一个后 |
-|------|--------|-------------|
-| filter | 新数组（可能多个） | 继续遍历 |
-| find | 第一个匹配元素 | 停止遍历 |
+| 方法   | 返回值             | 找到第一个后 |
+| ------ | ------------------ | ------------ |
+| filter | 新数组（可能多个） | 继续遍历     |
+| find   | 第一个匹配元素     | 停止遍历     |

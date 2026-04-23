@@ -30,31 +30,31 @@
 
 ### 语义化优点
 
-| 优点 | 说明 |
-|------|------|
-| SEO 友好 | 便于搜索引擎理解页面结构，提高搜索排名 |
-| 可访问性 | 屏幕阅读器能准确解析内容 |
-| 代码可读性 | 开发者易于理解和维护 |
-| 设备兼容 | 适合不同设备解析 |
+| 优点       | 说明                                   |
+| ---------- | -------------------------------------- |
+| SEO 友好   | 便于搜索引擎理解页面结构，提高搜索排名 |
+| 可访问性   | 屏幕阅读器能准确解析内容               |
+| 代码可读性 | 开发者易于理解和维护                   |
+| 设备兼容   | 适合不同设备解析                       |
 
 ### 行内元素与块级元素
 
-| 行内元素 | 块级元素 |
-|----------|----------|
+| 行内元素                        | 块级元素                         |
+| ------------------------------- | -------------------------------- |
 | span、a、strong、em、img、input | div、p、h1-h6、ul、ol、li、table |
-| 不换行 | 独占一行 |
-| 不能设置宽高 | 可设置宽高 |
-| margin 上下无效 | margin 上下有效 |
+| 不换行                          | 独占一行                         |
+| 不能设置宽高                    | 可设置宽高                       |
+| margin 上下无效                 | margin 上下有效                  |
 
 ## 2. script 标签 defer 与 async
 
 ### 执行时机对比
 
-| 类型 | 执行时机 | 是否阻塞 HTML |
-|------|----------|--------------|
-| `<script>` | 下载后立即执行 | 完全阻塞 |
-| `<script async>` | 下载完成即执行 | 可能阻塞 |
-| `<script defer>` | HTML 解析完成后执行 | 不阻塞 |
+| 类型             | 执行时机            | 是否阻塞 HTML |
+| ---------------- | ------------------- | ------------- |
+| `<script>`       | 下载后立即执行      | 完全阻塞      |
+| `<script async>` | 下载完成即执行      | 可能阻塞      |
+| `<script defer>` | HTML 解析完成后执行 | 不阻塞        |
 
 ```html
 <!-- 阻塞：HTML 解析暂停，等待脚本下载并执行 -->
@@ -149,8 +149,7 @@ DOCTYPE 声明告诉浏览器文档使用的 HTML 版本。
 <!DOCTYPE html>
 
 <!-- HTML 4.01 -->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 ```
 
 ### 严格模式与混杂模式
@@ -162,43 +161,43 @@ DOCTYPE 声明告诉浏览器文档使用的 HTML 版本。
 
 ```html
 <!-- 字符编码 -->
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 
 <!-- 视口设置 -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!-- SEO -->
-<meta name="description" content="页面描述">
-<meta name="keywords" content="关键词1, 关键词2">
-<meta name="author" content="作者">
-<meta name="robots" content="index, follow">
+<meta name="description" content="页面描述" />
+<meta name="keywords" content="关键词1, 关键词2" />
+<meta name="author" content="作者" />
+<meta name="robots" content="index, follow" />
 
 <!-- 移动端 -->
-<meta name="format-detection" content="telephone=no">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 <!-- 社交分享 -->
-<meta property="og:title" content="标题">
-<meta property="og:description" content="描述">
-<meta property="og:image" content="图片地址">
+<meta property="og:title" content="标题" />
+<meta property="og:description" content="描述" />
+<meta property="og:image" content="图片地址" />
 ```
 
 ## 6. link 标签常用属性
 
 ```html
 <!-- 引入 CSS -->
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css" />
 
 <!-- 预加载关键资源 -->
-<link rel="preload" href="main.js" as="script">
-<link rel="preconnect" href="https://api.example.com">
+<link rel="preload" href="main.js" as="script" />
+<link rel="preconnect" href="https://api.example.com" />
 
 <!-- DNS 预解析 -->
-<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 
 <!-- 图标 -->
-<link rel="icon" href="favicon.ico">
-<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="icon.png" />
 ```
 
 ## 7. HTML5 新特性
@@ -206,82 +205,106 @@ DOCTYPE 声明告诉浏览器文档使用的 HTML 版本。
 ### 新增语义化标签
 
 ```html
-<header>、<footer>、<nav>、<main>、<article>、<section>
-<aside>、<figure>、<figcaption>、<time>、<mark>
+<header>
+    、
+    <footer>
+        、
+        <nav>
+            、
+            <main>
+                、
+                <article>
+                    、
+                    <section>
+                        <aside>
+                            、
+                            <figure>
+                                、
+                                <figcaption>
+                                    、<time>、<mark></mark></time>
+                                </figcaption>
+                            </figure>
+                        </aside>
+                    </section>
+                </article>
+            </main>
+        </nav>
+    </footer>
+</header>
 ```
 
 ### 新增表单属性
 
 ```html
-<input type="email" placeholder="邮箱">
-<input type="url" placeholder="网址">
-<input type="date" min="2020-01-01">
-<input type="number" min="0" max="100" step="10">
-<input required pattern="[A-Za-z]{3}">
-<input autofocus>
+<input type="email" placeholder="邮箱" />
+<input type="url" placeholder="网址" />
+<input type="date" min="2020-01-01" />
+<input type="number" min="0" max="100" step="10" />
+<input required pattern="[A-Za-z]{3}" />
+<input autofocus />
 ```
 
 ### 新增 API
 
 ```js
 // 本地存储
-localStorage.setItem('key', 'value')
-localStorage.getItem('key')
-sessionStorage.setItem('key', 'value')
+localStorage.setItem("key", "value");
+localStorage.getItem("key");
+sessionStorage.setItem("key", "value");
 
 // 地理定位
-navigator.geolocation.getCurrentPosition(position => {
-    console.log(position.coords.latitude)
-})
+navigator.geolocation.getCurrentPosition((position) => {
+    console.log(position.coords.latitude);
+});
 
 // 拖拽 API
-element.draggable = true
-element.addEventListener('dragstart', e => {
-    e.dataTransfer.setData('text', e.target.id)
-})
+element.draggable = true;
+element.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("text", e.target.id);
+});
 
 // Canvas
-const canvas = document.getElementById('myCanvas')
-const ctx = canvas.getContext('2d')
-ctx.fillRect(0, 0, 100, 100)
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+ctx.fillRect(0, 0, 100, 100);
 
 // Web Worker
-const worker = new Worker('worker.js')
-worker.postMessage({ type: 'start' })
-worker.onmessage = e => console.log(e.data)
+const worker = new Worker("worker.js");
+worker.postMessage({ type: "start" });
+worker.onmessage = (e) => console.log(e.data);
 ```
 
 ## 8. 本地存储对比
 
-| 特性 | localStorage | sessionStorage | cookie |
-|------|--------------|----------------|--------|
-| 容量 | 5MB | 5MB | 4KB |
-| 生命周期 | 永久 | 标签页关闭 | 可设置过期时间 |
-| 作用域 | 同源 | 同源+同标签页 | 同源 |
-| API | 同步 | 同步 | 需手动处理 |
+| 特性     | localStorage | sessionStorage | cookie         |
+| -------- | ------------ | -------------- | -------------- |
+| 容量     | 5MB          | 5MB            | 4KB            |
+| 生命周期 | 永久         | 标签页关闭     | 可设置过期时间 |
+| 作用域   | 同源         | 同源+同标签页  | 同源           |
+| API      | 同步         | 同步           | 需手动处理     |
 
 ```js
 // localStorage
-localStorage.setItem('user', JSON.stringify({ name: '张三' }))
-const user = JSON.parse(localStorage.getItem('user'))
+localStorage.setItem("user", JSON.stringify({ name: "张三" }));
+const user = JSON.parse(localStorage.getItem("user"));
 
 // sessionStorage
-sessionStorage.setItem('token', 'abc123')
-const token = sessionStorage.getItem('token')
+sessionStorage.setItem("token", "abc123");
+const token = sessionStorage.getItem("token");
 
 // cookie
-document.cookie = 'token=abc123; expires=Fri, 31 Dec 2024 23:59:59 GMT; path=/'
+document.cookie = "token=abc123; expires=Fri, 31 Dec 2024 23:59:59 GMT; path=/";
 ```
 
 ## 9. 浏览器内核
 
-| 浏览器 | 内核 |
-|--------|------|
-| Chrome | Blink（WebKit 分支） |
-| Safari | WebKit |
-| Firefox | Gecko |
-| IE/Edge | Trident / Blink |
-| Opera | Blink |
+| 浏览器  | 内核                 |
+| ------- | -------------------- |
+| Chrome  | Blink（WebKit 分支） |
+| Safari  | WebKit               |
+| Firefox | Gecko                |
+| IE/Edge | Trident / Blink      |
+| Opera   | Blink                |
 
 ### 渲染过程
 
@@ -315,11 +338,10 @@ CSS → Rule → CSSOM Tree
 
 ```html
 <!-- CSS 放在 head，避免 FOUC -->
-<link rel="stylesheet" href="critical.css">
+<link rel="stylesheet" href="critical.css" />
 
 <!-- 非关键 CSS 异步加载 -->
-<link rel="preload" href="non-critical.css" as="style"
-      onload="this.rel='stylesheet'">
+<link rel="preload" href="non-critical.css" as="style" onload="this.rel='stylesheet'" />
 
 <!-- JS 放在 body 末尾或使用 defer -->
 <script src="app.js" defer></script>
@@ -330,36 +352,38 @@ CSS → Rule → CSSOM Tree
 ```html
 <!-- 内联关键 CSS -->
 <style>
-    .critical { color: red; }
+    .critical {
+        color: red;
+    }
 </style>
 
 <!-- 懒加载非首屏图片 -->
-<img loading="lazy" src="image.jpg" alt="">
+<img loading="lazy" src="image.jpg" alt="" />
 
 <!-- 预加载关键资源 -->
-<link rel="preload" href="font.woff2" as="font" crossorigin>
+<link rel="preload" href="font.woff2" as="font" crossorigin />
 ```
 
 ## 12. HTML 与 XHTML 区别
 
-| 特性 | HTML | XHTML |
-|------|------|-------|
-| 语法 | 宽松 | 严格 |
-| 标签 | 不区分大小写 | 必须小写 |
-| 属性引号 | 可省略 | 必须引号 |
-| 闭合标签 | 可省略 | 必须闭合 |
-| DOCTYPE | 可省略 | 必须声明 |
+| 特性     | HTML         | XHTML    |
+| -------- | ------------ | -------- |
+| 语法     | 宽松         | 严格     |
+| 标签     | 不区分大小写 | 必须小写 |
+| 属性引号 | 可省略       | 必须引号 |
+| 闭合标签 | 可省略       | 必须闭合 |
+| DOCTYPE  | 可省略       | 必须声明 |
 
 ## 13. Canvas 与 SVG 对比
 
-| 特性 | Canvas | SVG |
-|------|--------|-----|
-| 类型 | 位图 | 矢量图 |
-| 渲染方式 | JavaScript 绘制 | DOM 操作 |
-| 事件绑定 | 像素级别 | 元素级别 |
-| 缩放 | 失真 | 无损 |
-| 适用场景 | 游戏、图表 | 图标、图表 |
-| 性能 | 大量元素时更好 | 少量元素时更好 |
+| 特性     | Canvas          | SVG            |
+| -------- | --------------- | -------------- |
+| 类型     | 位图            | 矢量图         |
+| 渲染方式 | JavaScript 绘制 | DOM 操作       |
+| 事件绑定 | 像素级别        | 元素级别       |
+| 缩放     | 失真            | 无损           |
+| 适用场景 | 游戏、图表      | 图标、图表     |
+| 性能     | 大量元素时更好  | 少量元素时更好 |
 
 ```html
 <!-- Canvas -->
@@ -367,8 +391,8 @@ CSS → Rule → CSSOM Tree
 
 <!-- SVG -->
 <svg width="500" height="300">
-    <rect x="10" y="10" width="100" height="100" fill="red"/>
-    <circle cx="250" cy="150" r="50" fill="blue"/>
+    <rect x="10" y="10" width="100" height="100" fill="red" />
+    <circle cx="250" cy="150" r="50" fill="blue" />
 </svg>
 ```
 
@@ -391,25 +415,22 @@ HTML5 简化了语法，不再需要引用 DTD，自动进入标准模式。
 响应式图片，根据设备屏幕密度或宽度提供不同分辨率图片。
 
 ```html
-<img src="small.jpg"
-     srcset="small.jpg 1x, medium.jpg 2x, large.jpg 3x"
-     alt="响应式图片">
+<img src="small.jpg" srcset="small.jpg 1x, medium.jpg 2x, large.jpg 3x" alt="响应式图片" />
 ```
 
 ### 前端攻击及防范？
 
-| 攻击类型 | 防范措施 |
-|----------|----------|
-| XSS | 转义 HTML 实体， CSP 配置 |
-| CSRF | Token 验证， SameSite Cookie |
-| SQL 注入 | 参数化查询 |
-| 点击劫持 | X-Frame-Options 头 |
+| 攻击类型 | 防范措施                     |
+| -------- | ---------------------------- |
+| XSS      | 转义 HTML 实体， CSP 配置    |
+| CSRF     | Token 验证， SameSite Cookie |
+| SQL 注入 | 参数化查询                   |
+| 点击劫持 | X-Frame-Options 头           |
 
 ```html
 <!-- 防止 XSS -->
-<meta http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
 
 <!-- 防止点击劫持 -->
-<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="X-Frame-Options" content="DENY" />
 ```

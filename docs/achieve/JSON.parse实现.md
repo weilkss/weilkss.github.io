@@ -7,6 +7,7 @@
 ## 实现方式
 
 JSON.parse 有两种实现方式：
+
 1. **eval 方式**：使用 `eval()` 执行（简单但有安全隐患）
 2. **正则方式**：手动解析字符串（复杂但安全）
 
@@ -15,22 +16,22 @@ JSON.parse 有两种实现方式：
 ### 方式一：eval 方式（简单实现）
 
 ```js
-JSON.myParse = function(jsonString) {
-    if (typeof jsonString !== 'string') {
+JSON.myParse = function (jsonString) {
+    if (typeof jsonString !== "string") {
         return jsonString;
     }
 
     // 使用 eval 执行，注意安全风险
     // 在实际使用中推荐使用方式二
-    return eval('(' + jsonString + ')');
+    return eval("(" + jsonString + ")");
 };
 ```
 
 ### 方式二：正则解析（完整实现）
 
 ```js
-JSON.myParse = function(text, reviver) {
-    if (typeof text !== 'string') {
+JSON.myParse = function (text, reviver) {
+    if (typeof text !== "string") {
         return null;
     }
 
@@ -43,31 +44,31 @@ JSON.myParse = function(text, reviver) {
     function parseValue() {
         skipWhitespace();
         if (index >= text.length) {
-            throw new Error('Unexpected end of input');
+            throw new Error("Unexpected end of input");
         }
 
         const ch = text[index];
 
-        if (ch === '{') {
+        if (ch === "{") {
             return parseObject();
         }
-        if (ch === '[') {
+        if (ch === "[") {
             return parseArray();
         }
         if (ch === '"') {
             return parseString();
         }
-        if (ch === 't' || ch === 'f') {
+        if (ch === "t" || ch === "f") {
             return parseBoolean();
         }
-        if (ch === 'n') {
+        if (ch === "n") {
             return parseNull();
         }
-        if (ch === '-' || isDigit(ch)) {
+        if (ch === "-" || isDigit(ch)) {
             return parseNumber();
         }
 
-        throw new Error('Unexpected character: ' + ch);
+        throw new Error("Unexpected character: " + ch);
     }
 
     function skipWhitespace() {
@@ -77,15 +78,15 @@ JSON.myParse = function(text, reviver) {
     }
 
     function parseObject() {
-        if (text[index] !== '{') {
-            throw new Error('Expected {');
+        if (text[index] !== "{") {
+            throw new Error("Expected {");
         }
         index++;
 
         const obj = {};
         skipWhitespace();
 
-        if (text[index] === '}') {
+        if (text[index] === "}") {
             index++;
             return obj;
         }
@@ -93,14 +94,14 @@ JSON.myParse = function(text, reviver) {
         while (true) {
             skipWhitespace();
             if (text[index] !== '"') {
-                throw new Error('Expected property name');
+                throw new Error("Expected property name");
             }
 
             const key = parseString();
             skipWhitespace();
 
-            if (text[index] !== ':') {
-                throw new Error('Expected :');
+            if (text[index] !== ":") {
+                throw new Error("Expected :");
             }
             index++;
 
@@ -108,27 +109,27 @@ JSON.myParse = function(text, reviver) {
             obj[key] = value;
 
             skipWhitespace();
-            if (text[index] === '}') {
+            if (text[index] === "}") {
                 index++;
                 return obj;
             }
-            if (text[index] !== ',') {
-                throw new Error('Expected , or }');
+            if (text[index] !== ",") {
+                throw new Error("Expected , or }");
             }
             index++;
         }
     }
 
     function parseArray() {
-        if (text[index] !== '[') {
-            throw new Error('Expected [');
+        if (text[index] !== "[") {
+            throw new Error("Expected [");
         }
         index++;
 
         const arr = [];
         skipWhitespace();
 
-        if (text[index] === ']') {
+        if (text[index] === "]") {
             index++;
             return arr;
         }
@@ -138,12 +139,12 @@ JSON.myParse = function(text, reviver) {
             arr.push(value);
 
             skipWhitespace();
-            if (text[index] === ']') {
+            if (text[index] === "]") {
                 index++;
                 return arr;
             }
-            if (text[index] !== ',') {
-                throw new Error('Expected , or ]');
+            if (text[index] !== ",") {
+                throw new Error("Expected , or ]");
             }
             index++;
         }
@@ -155,28 +156,40 @@ JSON.myParse = function(text, reviver) {
         }
         index++;
 
-        let str = '';
+        let str = "";
         while (index < text.length && text[index] !== '"') {
-            if (text[index] === '\\') {
+            if (text[index] === "\\") {
                 index++;
                 if (index >= text.length) {
-                    throw new Error('Unexpected end of string');
+                    throw new Error("Unexpected end of string");
                 }
                 const escaped = text[index];
                 switch (escaped) {
-                    case '"': str += '"'; break;
-                    case '\\': str += '\\'; break;
-                    case '/': str += '/'; break;
-                    case 'n': str += '\n'; break;
-                    case 'r': str += '\r'; break;
-                    case 't': str += '\t'; break;
-                    case 'u':
+                    case '"':
+                        str += '"';
+                        break;
+                    case "\\":
+                        str += "\\";
+                        break;
+                    case "/":
+                        str += "/";
+                        break;
+                    case "n":
+                        str += "\n";
+                        break;
+                    case "r":
+                        str += "\r";
+                        break;
+                    case "t":
+                        str += "\t";
+                        break;
+                    case "u":
                         if (index + 4 >= text.length) {
-                            throw new Error('Invalid unicode escape');
+                            throw new Error("Invalid unicode escape");
                         }
                         const hex = text.substring(index + 1, index + 5);
                         if (!/^[0-9a-fA-F]{4}$/.test(hex)) {
-                            throw new Error('Invalid unicode escape');
+                            throw new Error("Invalid unicode escape");
                         }
                         str += String.fromCharCode(parseInt(hex, 16));
                         index += 4;
@@ -191,7 +204,7 @@ JSON.myParse = function(text, reviver) {
         }
 
         if (index >= text.length) {
-            throw new Error('Unterminated string');
+            throw new Error("Unterminated string");
         }
         index++; // skip closing "
 
@@ -201,37 +214,37 @@ JSON.myParse = function(text, reviver) {
     function parseNumber() {
         let start = index;
 
-        if (text[index] === '-') {
+        if (text[index] === "-") {
             index++;
         }
 
-        if (text[index] === '0') {
+        if (text[index] === "0") {
             index++;
         } else if (isDigit(text[index])) {
             while (index < text.length && isDigit(text[index])) {
                 index++;
             }
         } else {
-            throw new Error('Invalid number');
+            throw new Error("Invalid number");
         }
 
-        if (text[index] === '.') {
+        if (text[index] === ".") {
             index++;
             if (!isDigit(text[index])) {
-                throw new Error('Invalid number');
+                throw new Error("Invalid number");
             }
             while (index < text.length && isDigit(text[index])) {
                 index++;
             }
         }
 
-        if (text[index] === 'e' || text[index] === 'E') {
+        if (text[index] === "e" || text[index] === "E") {
             index++;
-            if (text[index] === '+' || text[index] === '-') {
+            if (text[index] === "+" || text[index] === "-") {
                 index++;
             }
             if (!isDigit(text[index])) {
-                throw new Error('Invalid number');
+                throw new Error("Invalid number");
             }
             while (index < text.length && isDigit(text[index])) {
                 index++;
@@ -242,30 +255,30 @@ JSON.myParse = function(text, reviver) {
         const num = parseFloat(numStr);
 
         if (isNaN(num)) {
-            throw new Error('Invalid number: ' + numStr);
+            throw new Error("Invalid number: " + numStr);
         }
 
         return num;
     }
 
     function parseBoolean() {
-        if (text.substring(index, index + 4) === 'true') {
+        if (text.substring(index, index + 4) === "true") {
             index += 4;
             return true;
         }
-        if (text.substring(index, index + 5) === 'false') {
+        if (text.substring(index, index + 5) === "false") {
             index += 5;
             return false;
         }
-        throw new Error('Expected boolean');
+        throw new Error("Expected boolean");
     }
 
     function parseNull() {
-        if (text.substring(index, index + 4) === 'null') {
+        if (text.substring(index, index + 4) === "null") {
             index += 4;
             return null;
         }
-        throw new Error('Expected null');
+        throw new Error("Expected null");
     }
 
     function isDigit(ch) {
@@ -278,17 +291,17 @@ JSON.myParse = function(text, reviver) {
         result = parseValue();
         skipWhitespace();
         if (index < text.length) {
-            throw new Error('Unexpected characters after parsing');
+            throw new Error("Unexpected characters after parsing");
         }
     } catch (e) {
-        throw new SyntaxError('JSON.parse: ' + e.message);
+        throw new SyntaxError("JSON.parse: " + e.message);
     }
 
     // 应用 reviver 转换
-    if (typeof reviver === 'function') {
+    if (typeof reviver === "function") {
         const walk = (holder, key, reviver) => {
             const value = holder[key];
-            if (value && typeof value === 'object') {
+            if (value && typeof value === "object") {
                 for (const k in value) {
                     if (Object.prototype.hasOwnProperty.call(value, k)) {
                         const nested = walk(value, k, reviver);
@@ -302,11 +315,11 @@ JSON.myParse = function(text, reviver) {
             }
             return reviver.call(holder, key, value);
         };
-        result = walk({ '': result }, '', reviver);
+        result = walk({ "": result }, "", reviver);
     }
 
     return result;
-}
+};
 ```
 
 ## 使用示例
@@ -319,7 +332,7 @@ console.log(JSON.myParse(jsonString));
 
 // 使用 reviver
 const parsed = JSON.myParse(jsonString, (key, value) => {
-    if (typeof value === 'number') {
+    if (typeof value === "number") {
         return value * 2;
     }
     return value;
@@ -335,12 +348,13 @@ console.log(parsed);
 ```js
 // 恶意 JSON 字符串可能包含危险代码
 const malicious = '{"name":"test"}; console.log("hacked")';
-eval('(' + malicious + ')'); // 会执行额外代码
+eval("(" + malicious + ")"); // 会执行额外代码
 ```
 
 ### reviver 函数的作用
 
 用于在返回结果之前转换值，例如：
+
 - 转换日期字符串为 Date 对象
 - 过滤某些属性
 - 数据脱敏
@@ -348,6 +362,6 @@ eval('(' + malicious + ')'); // 会执行额外代码
 ### 为什么用括号包裹
 
 ```js
-eval('({name: "test"})') // 解析为对象字面量
-eval('{name: "test"}')    // 解析为代码块，label 语法
+eval('({name: "test"})'); // 解析为对象字面量
+eval('{name: "test"}'); // 解析为代码块，label 语法
 ```

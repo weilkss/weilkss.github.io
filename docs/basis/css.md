@@ -6,9 +6,9 @@
 
 **两种盒模型：**
 
-| 类型 | 计算方式 |
-|------|----------|
-| 标准盒模型 | width = content |
+| 类型             | 计算方式                           |
+| ---------------- | ---------------------------------- |
+| 标准盒模型       | width = content                    |
 | IE（替代）盒模型 | width = content + padding + border |
 
 ```css
@@ -72,23 +72,27 @@ margin 重叠发生在垂直方向的相邻块级元素之间。
 
 ### 优先级计算
 
-| 选择器 | 权重 |
-|--------|------|
-| !important | 最高 |
-| 行内样式 | 1000 |
-| ID 选择器 | 100 |
-| 类/属性/伪类 | 10 |
-| 元素/伪元素 | 1 |
-| 通配符 | 0 |
+| 选择器       | 权重 |
+| ------------ | ---- |
+| !important   | 最高 |
+| 行内样式     | 1000 |
+| ID 选择器    | 100  |
+| 类/属性/伪类 | 10   |
+| 元素/伪元素  | 1    |
+| 通配符       | 0    |
 
 ### 示例
 
 ```css
 /* 优先级：100 + 10 + 1 = 111 */
-#header.nav.active { /* ... */ }
+#header.nav.active {
+    /* ... */
+}
 
 /* 优先级：10 + 10 = 20 */
-.nav.active { /* ... */ }
+.nav.active {
+    /* ... */
+}
 
 /* 如果优先级相同，后定义的生效 */
 ```
@@ -115,8 +119,8 @@ margin 重叠发生在垂直方向的相邻块级元素之间。
 
 ```js
 // ❌ 多次操作 DOM
-el.style.left = left + 1 + 'px';
-el.style.top = top + 1 + 'px';
+el.style.left = left + 1 + "px";
+el.style.top = top + 1 + "px";
 
 // ✅ 合并操作
 el.style.transform = `translate(${left + 1}px, ${top + 1}px)`;
@@ -282,13 +286,13 @@ requestAnimationFrame(() => {
 
 ### 定位模式
 
-| 值 | 说明 |
-|----|------|
-| static | 默认，正常流 |
-| relative | 相对定位，相对于自身 |
+| 值       | 说明                         |
+| -------- | ---------------------------- |
+| static   | 默认，正常流                 |
+| relative | 相对定位，相对于自身         |
 | absolute | 绝对定位，相对于最近定位祖先 |
-| fixed | 固定定位，相对于视口 |
-| sticky | 粘性定位（CSS3） |
+| fixed    | 固定定位，相对于视口         |
+| sticky   | 粘性定位（CSS3）             |
 
 ### 层叠上下文
 
@@ -354,8 +358,12 @@ requestAnimationFrame(() => {
 
 ```css
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .animation {
@@ -387,30 +395,48 @@ requestAnimationFrame(() => {
 
 ```css
 /* 状态伪类 */
-:hover { }
-:active { }
-:focus { }
-:visited { }
-:focus-within { }
+:hover {
+}
+:active {
+}
+:focus {
+}
+:visited {
+}
+:focus-within {
+}
 
 /* 结构伪类 */
-:first-child { }
-:last-child { }
-:nth-child(2n) { }
-:nth-of-type(2n) { }
-:only-child { }
-:root { }
+:first-child {
+}
+:last-child {
+}
+:nth-child(2n) {
+}
+:nth-of-type(2n) {
+}
+:only-child {
+}
+:root {
+}
 ```
 
 ### 伪元素
 
 ```css
 /* 创建伪元素 */
-::before { content: ''; }
-::after { content: ''; }
-::first-line { }
-::first-letter { }
-::selection { }
+::before {
+    content: "";
+}
+::after {
+    content: "";
+}
+::first-line {
+}
+::first-letter {
+}
+::selection {
+}
 ```
 
 ## 12. CSS 响应式
@@ -419,25 +445,37 @@ requestAnimationFrame(() => {
 
 ```css
 /* 断点 */
-@media (max-width: 768px) { /* 移动端 */ }
-@media (min-width: 769px) and (max-width: 1024px) { /* 平板 */ }
-@media (min-width: 1025px) { /* 桌面 */ }
+@media (max-width: 768px) {
+    /* 移动端 */
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* 平板 */
+}
+@media (min-width: 1025px) {
+    /* 桌面 */
+}
 
 /* 常用设备 */
-@media (max-width: 480px) { /* 手机 */ }
-@media (min-width: 481px) and (max-width: 768px) { /* 平板 */ }
-@media (min-width: 769px) { /* 桌面 */ }
+@media (max-width: 480px) {
+    /* 手机 */
+}
+@media (min-width: 481px) and (max-width: 768px) {
+    /* 平板 */
+}
+@media (min-width: 769px) {
+    /* 桌面 */
+}
 ```
 
 ### 单位
 
-| 单位 | 说明 |
-|------|------|
-| em | 相对于父元素 font-size |
-| rem | 相对于根元素 html font-size |
-| vw/vh | 相对于视口 1% |
-| vmin/vmax | 视口最小/最大方向 |
-| % | 相对于父元素对应属性 |
+| 单位      | 说明                        |
+| --------- | --------------------------- |
+| em        | 相对于父元素 font-size      |
+| rem       | 相对于根元素 html font-size |
+| vw/vh     | 相对于视口 1%               |
+| vmin/vmax | 视口最小/最大方向           |
+| %         | 相对于父元素对应属性        |
 
 ## 13. CSS 预处理器
 
@@ -529,7 +567,7 @@ clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
 .scale-border {
     position: relative;
     &::after {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         top: 0;
@@ -580,13 +618,15 @@ clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
     display: flex;
     padding: 0 200px;
 }
-.header, .footer {
+.header,
+.footer {
     flex: 1;
 }
 .main {
     flex: 1;
 }
-.left, .right {
+.left,
+.right {
     width: 200px;
 }
 .left {
@@ -643,7 +683,7 @@ clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
 
 /* 方法2：伪元素 */
 .clearfix::after {
-    content: '';
+    content: "";
     display: block;
     clear: both;
 }
@@ -651,7 +691,7 @@ clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
 /* 方法3：双伪元素 */
 .clearfix::before,
 .clearfix::after {
-    content: '';
+    content: "";
     display: table;
 }
 .clearfix::after {
@@ -663,13 +703,20 @@ clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
 
 ```css
 /* BEM 命名 */
-.block {}
-.block__element {}
-.block--modifier {}
+.block {
+}
+.block__element {
+}
+.block--modifier {
+}
 
 /* 示例 */
-.card {}
-.card__header {}
-.card__body {}
-.card--featured {}
+.card {
+}
+.card__header {
+}
+.card__body {
+}
+.card--featured {
+}
 ```

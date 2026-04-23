@@ -7,6 +7,7 @@
 PM2（Process Manager 2）是一个Node.js进程管理器，用于管理Node.js应用程序的生产环境，提供进程守护、负载均衡、自动重启等功能。
 
 **核心功能：**
+
 - 进程守护：应用程序崩溃后自动重启
 - 负载均衡：支持集群模式
 - 日志管理：统一的日志输出和管理
@@ -59,36 +60,38 @@ pm2 start app.js -i 4  # 启动4个实例
 ```javascript
 // ecosystem.config.js
 module.exports = {
-  apps: [{
-    name: 'my-app',
-    script: './app.js',
-    args: 'arg1 arg2',           // 启动参数
-    cwd: './',                    // 工作目录
-    instances: 4,                 // 实例数量
-    exec_mode: 'cluster',         // 模式：cluster 或 fork
-    watch: true,                  // 监听文件变化
-    ignore_watch: ['node_modules', 'logs'],  // 忽略的文件
-    max_memory_restart: '500M',   // 超过内存重启
-    env: {
-      NODE_ENV: 'development'
-    },
-    env_production: {
-      NODE_ENV: 'production'
-    },
-    error_file: './logs/error.log',
-    out_file: './logs/out.log',
-    log_date_format: 'YYYY-MM-DD HH:mm:ss',
-    merge_logs: true,
-    autorestart: true,
-    max_restarts: 10,
-    min_uptime: '10s',
-    restart_delay: 4000,
-    listen_timeout: 8000,
-    kill_timeout: 5000,
-    post_update: ['npm install'],  // 更新后执行
-    prestart: ['npm install'],
-    postmortem: false
-  }]
+    apps: [
+        {
+            name: "my-app",
+            script: "./app.js",
+            args: "arg1 arg2", // 启动参数
+            cwd: "./", // 工作目录
+            instances: 4, // 实例数量
+            exec_mode: "cluster", // 模式：cluster 或 fork
+            watch: true, // 监听文件变化
+            ignore_watch: ["node_modules", "logs"], // 忽略的文件
+            max_memory_restart: "500M", // 超过内存重启
+            env: {
+                NODE_ENV: "development",
+            },
+            env_production: {
+                NODE_ENV: "production",
+            },
+            error_file: "./logs/error.log",
+            out_file: "./logs/out.log",
+            log_date_format: "YYYY-MM-DD HH:mm:ss",
+            merge_logs: true,
+            autorestart: true,
+            max_restarts: 10,
+            min_uptime: "10s",
+            restart_delay: 4000,
+            listen_timeout: 8000,
+            kill_timeout: 5000,
+            post_update: ["npm install"], // 更新后执行
+            prestart: ["npm install"],
+            postmortem: false,
+        },
+    ],
 };
 ```
 
@@ -174,12 +177,12 @@ pm2 list
 // 请求依次分配给每个实例
 
 // app.js - 启用集群通信
-const http = require('http');
+const http = require("http");
 const port = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
     // 在集群中广播消息
-    process.send({ type: 'request', url: req.url });
+    process.send({ type: "request", url: req.url });
 
     res.end(`handled by process ${process.pid}`);
 });
@@ -188,7 +191,7 @@ server.listen(port, () => {
     console.log(`Server running on port ${port}, pid: ${process.pid}`);
 
     // 通知主进程已准备就绪
-    process.send && process.send('ready');
+    process.send && process.send("ready");
 });
 ```
 
@@ -220,17 +223,19 @@ pm2 reload my-app --update-env
 ```javascript
 // ecosystem.config.js
 module.exports = {
-  apps: [{
-    name: 'my-app',
-    script: './app.js',
-    error_file: './logs/error.log',
-    out_file: './logs/out.log',
-    log_file: './logs/combined.log',      // 合并日志
-    log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
-    merge_logs: true,                      // 多实例合并日志
-    enforce: false,                         // 一个实例失败不影响其他
-    instances: 4
-  }]
+    apps: [
+        {
+            name: "my-app",
+            script: "./app.js",
+            error_file: "./logs/error.log",
+            out_file: "./logs/out.log",
+            log_file: "./logs/combined.log", // 合并日志
+            log_date_format: "YYYY-MM-DD HH:mm:ss Z",
+            merge_logs: true, // 多实例合并日志
+            enforce: false, // 一个实例失败不影响其他
+            instances: 4,
+        },
+    ],
 };
 ```
 
@@ -324,26 +329,26 @@ module.exports = {
 
 ```javascript
 // 在应用中添加自定义指标
-const PMX = require('pmx');
+const PMX = require("pmx");
 
 const metrics = PMX.metrics();
 
 // 计数器
 const httpRequests = metrics.counter({
-    name: 'HTTP Requests',
-    agg_type: 'sum'
+    name: "HTTP Requests",
+    agg_type: "sum",
 });
 
 // Gauges
 const cpuUsage = metrics.gauge({
-    name: 'CPU Usage',
-    agg_type: 'avg'
+    name: "CPU Usage",
+    agg_type: "avg",
 });
 
 // Histogram
 const responseTime = metrics.histogram({
-    name: 'Response Time',
-    measurement: 'mean'
+    name: "Response Time",
+    measurement: "mean",
 });
 
 // 使用
@@ -351,7 +356,7 @@ app.use((req, res, next) => {
     httpRequests.inc();
     const start = Date.now();
 
-    res.on('finish', () => {
+    res.on("finish", () => {
         responseTime.observe(Date.now() - start);
     });
 
@@ -368,26 +373,28 @@ app.use((req, res, next) => {
 ```javascript
 // ecosystem.config.js
 module.exports = {
-  apps: [{
-    name: 'my-app',
-    script: './app.js',
+    apps: [
+        {
+            name: "my-app",
+            script: "./app.js",
 
-    // 自动重启配置
-    autorestart: true,              // 崩溃后自动重启
-    max_restarts: 10,               // 最大重启次数
-    min_uptime: '10s',              // 最小运行时间才算正常
-    restart_delay: 1000,            // 重启延迟(ms)
-    exp_backoff_restart_delay: 100, // 指数退避重启延迟
-    max_memory_restart: '500M',     // 内存超限重启
+            // 自动重启配置
+            autorestart: true, // 崩溃后自动重启
+            max_restarts: 10, // 最大重启次数
+            min_uptime: "10s", // 最小运行时间才算正常
+            restart_delay: 1000, // 重启延迟(ms)
+            exp_backoff_restart_delay: 100, // 指数退避重启延迟
+            max_memory_restart: "500M", // 内存超限重启
 
-    // 异常检测
-    watch: false,
-    max_pmem_restart: 200,         // 最大内存
-    max_cpu_restart: 50,            // 最大CPU使用率%
+            // 异常检测
+            watch: false,
+            max_pmem_restart: 200, // 最大内存
+            max_cpu_restart: 50, // 最大CPU使用率%
 
-    // 等待信号
-    shutdown_with_message: true
-  }]
+            // 等待信号
+            shutdown_with_message: true,
+        },
+    ],
 };
 ```
 
@@ -395,53 +402,53 @@ module.exports = {
 
 ```javascript
 // app.js
-const http = require('http');
+const http = require("http");
 
 const server = http.createServer((req, res) => {
-    res.end('Hello');
+    res.end("Hello");
 });
 
 server.listen(3000);
 
 // 优雅关闭处理
-process.on('SIGTERM', () => {
-    console.log('SIGTERM received, closing gracefully');
+process.on("SIGTERM", () => {
+    console.log("SIGTERM received, closing gracefully");
 
     server.close(() => {
-        console.log('HTTP server closed');
+        console.log("HTTP server closed");
         process.exit(0);
     });
 
     // 超时强制关闭
     setTimeout(() => {
-        console.log('Force shutdown');
+        console.log("Force shutdown");
         process.exit(1);
     }, 10000);
 });
 
-process.on('SIGINT', () => {
-    console.log('SIGINT received');
+process.on("SIGINT", () => {
+    console.log("SIGINT received");
     process.exit(0);
 });
 
 // PM2 优雅启动通知
-process.send('ready');
+process.send("ready");
 ```
 
 ### 6.3 异常处理
 
 ```javascript
 // 捕获未处理的异常
-process.on('uncaughtException', (error) => {
-    console.error('Uncaught Exception:', error);
+process.on("uncaughtException", (error) => {
+    console.error("Uncaught Exception:", error);
     // 记录日志
     // 发送告警
     // 优雅退出
     process.exit(1);
 });
 
-process.on('unhandledRejection', (reason, promise) => {
-    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+process.on("unhandledRejection", (reason, promise) => {
+    console.error("Unhandled Rejection at:", promise, "reason:", reason);
 });
 
 // 使用 domain 模块（已废弃，不推荐）
@@ -456,22 +463,24 @@ process.on('unhandledRejection', (reason, promise) => {
 ```javascript
 // ecosystem.config.js
 module.exports = {
-  apps: [{
-    name: 'api',
-    script: './src/server.js',
-    env: {
-      COMMON_VARIABLE: 'true',
-      NODE_ENV: 'development'
-    },
-    env_production: {
-      NODE_ENV: 'production',
-      PORT: 80
-    },
-    env_staging: {
-      NODE_ENV: 'staging',
-      PORT: 8080
-    }
-  }]
+    apps: [
+        {
+            name: "api",
+            script: "./src/server.js",
+            env: {
+                COMMON_VARIABLE: "true",
+                NODE_ENV: "development",
+            },
+            env_production: {
+                NODE_ENV: "production",
+                PORT: 80,
+            },
+            env_staging: {
+                NODE_ENV: "staging",
+                PORT: 8080,
+            },
+        },
+    ],
 };
 ```
 
@@ -486,29 +495,31 @@ pm2 start ecosystem.config.js --env staging
 ```javascript
 // deploy.config.js
 module.exports = {
-  apps: [{
-    name: 'my-app',
-    script: './src/server.js',
-    deploy: {
-      production: {
-        user: 'deploy',
-        host: 'server1.com',
-        ref: 'origin/master',
-        repo: 'git@github.com:user/repo.git',
-        path: '/var/www/my-app',
-        'pre-deploy-local': 'echo "Before deploy"',
-        'post-deploy': 'npm install && pm2 restart my-app --update-env',
-        'pre-setup': ''
-      },
-      staging: {
-        user: 'deploy',
-        host: 'staging-server.com',
-        ref: 'origin/develop',
-        repo: 'git@github.com:user/repo.git',
-        path: '/var/www/staging'
-      }
-    }
-  }]
+    apps: [
+        {
+            name: "my-app",
+            script: "./src/server.js",
+            deploy: {
+                production: {
+                    user: "deploy",
+                    host: "server1.com",
+                    ref: "origin/master",
+                    repo: "git@github.com:user/repo.git",
+                    path: "/var/www/my-app",
+                    "pre-deploy-local": 'echo "Before deploy"',
+                    "post-deploy": "npm install && pm2 restart my-app --update-env",
+                    "pre-setup": "",
+                },
+                staging: {
+                    user: "deploy",
+                    host: "staging-server.com",
+                    ref: "origin/develop",
+                    repo: "git@github.com:user/repo.git",
+                    path: "/var/www/staging",
+                },
+            },
+        },
+    ],
 };
 ```
 
@@ -593,11 +604,11 @@ npm install heapdump
 
 ```javascript
 // 在应用中添加 heapdump
-const heapdump = require('heapdump');
+const heapdump = require("heapdump");
 
-process.on('SIGUSR2', () => {
-    heapdump.writeSnapshot('./' + Date.now() + '.heapsnapshot', (err, filename) => {
-        console.log('dump written to', filename);
+process.on("SIGUSR2", () => {
+    heapdump.writeSnapshot("./" + Date.now() + ".heapsnapshot", (err, filename) => {
+        console.log("dump written to", filename);
     });
 });
 ```
@@ -627,30 +638,36 @@ pm2 flush
 PM2 是一个 Node.js 进程管理器，其核心功能包括：
 
 **1. 进程守护**
+
 - 自动重启崩溃的进程
 - 监控进程内存和CPU使用情况
 - 设置最大重启次数和重启延迟
 
 **2. 负载均衡**
+
 - 支持集群模式，在多核CPU上运行多个实例
 - 内置 round-robin 负载均衡算法
 - 支持动态扩展/缩减实例数量
 
 **3. 零停机重载**
+
 - 使用 `pm2 reload` 实现优雅重载
 - 保持请求连接，直到新实例准备就绪
 
 **4. 日志管理**
+
 - 统一管理 stdout 和 stderr 日志
 - 支持日志轮转
 - 实时查看日志输出
 
 **5. 监控**
+
 - 实时显示 CPU/内存使用情况
 - 支持 keymetrics 在线监控
 - 自定义指标收集
 
 **实际应用场景：**
+
 ```bash
 # 启动生产服务
 pm2 start ecosystem.config.js --env production
@@ -666,43 +683,50 @@ pm2 scale my-app +2
 
 **参考答案：**
 
-| 特性 | Fork 模式 | Cluster 模式 |
-|------|----------|--------------|
-| 进程数 | 1 | 多个 |
-| CPU 利用 | 单核 | 多核 |
-| 资源共享 | 不共享 | 共享（通过 IPC） |
-| 状态管理 | 简单 | 需考虑状态同步 |
-| 适用场景 | 后台任务、定时任务 | HTTP 服务器 |
-| 内存占用 | 独立 | 独立 |
-| 负载均衡 | 不支持 | round-robin |
+| 特性     | Fork 模式          | Cluster 模式     |
+| -------- | ------------------ | ---------------- |
+| 进程数   | 1                  | 多个             |
+| CPU 利用 | 单核               | 多核             |
+| 资源共享 | 不共享             | 共享（通过 IPC） |
+| 状态管理 | 简单               | 需考虑状态同步   |
+| 适用场景 | 后台任务、定时任务 | HTTP 服务器      |
+| 内存占用 | 独立               | 独立             |
+| 负载均衡 | 不支持             | round-robin      |
 
 **Fork 模式：**
+
 ```javascript
 // ecosystem.config.js
 module.exports = {
-  apps: [{
-    name: 'worker',
-    script: './worker.js',
-    exec_mode: 'fork',  // 默认
-    instances: 1
-  }]
+    apps: [
+        {
+            name: "worker",
+            script: "./worker.js",
+            exec_mode: "fork", // 默认
+            instances: 1,
+        },
+    ],
 };
 ```
 
 **Cluster 模式：**
+
 ```javascript
 // ecosystem.config.js
 module.exports = {
-  apps: [{
-    name: 'api',
-    script: './server.js',
-    exec_mode: 'cluster',
-    instances: 4  // CPU 核心数
-  }]
+    apps: [
+        {
+            name: "api",
+            script: "./server.js",
+            exec_mode: "cluster",
+            instances: 4, // CPU 核心数
+        },
+    ],
 };
 ```
 
 **选择建议：**
+
 - HTTP/TCP 服务器：使用 Cluster 模式
 - 后台任务/定时任务：使用 Fork 模式
 - 数据库连接池：每个实例独立连接
@@ -716,14 +740,16 @@ module.exports = {
 ```javascript
 // ecosystem.config.js
 module.exports = {
-  apps: [{
-    name: 'my-app',
-    script: './server.js',
-    exec_mode: 'cluster',
-    instances: 4,
-    listen_timeout: 5000,     // 等待启动超时
-    shutdown_with_message: true
-  }]
+    apps: [
+        {
+            name: "my-app",
+            script: "./server.js",
+            exec_mode: "cluster",
+            instances: 4,
+            listen_timeout: 5000, // 等待启动超时
+            shutdown_with_message: true,
+        },
+    ],
 };
 ```
 
@@ -731,21 +757,21 @@ module.exports = {
 
 ```javascript
 // server.js
-const http = require('http');
+const http = require("http");
 const server = http.createServer((req, res) => {
-    res.end('Hello');
+    res.end("Hello");
 });
 
 server.listen(3000, () => {
-    console.log('Server started');
+    console.log("Server started");
     // 通知 PM2 已就绪
-    process.send('ready');
+    process.send("ready");
 });
 
-process.on('SIGTERM', () => {
-    console.log('SIGTERM received');
+process.on("SIGTERM", () => {
+    console.log("SIGTERM received");
     server.close(() => {
-        console.log('Server closed');
+        console.log("Server closed");
         process.exit(0);
     });
 });
@@ -774,11 +800,11 @@ fi
 
 **重载 vs 重启：**
 
-| 操作 | 说明 | 停机时间 |
-|------|------|----------|
-| pm2 reload | 优雅重载，逐个替换实例 | 无 |
-| pm2 restart | 停止所有再启动 | 有 |
-| pm2 scale | 调整实例数量 | 最小 |
+| 操作        | 说明                   | 停机时间 |
+| ----------- | ---------------------- | -------- |
+| pm2 reload  | 优雅重载，逐个替换实例 | 无       |
+| pm2 restart | 停止所有再启动         | 有       |
+| pm2 scale   | 调整实例数量           | 最小     |
 
 ### 9.4 面试题4：PM2 的自动重启机制？
 
@@ -789,22 +815,24 @@ fi
 ```javascript
 // ecosystem.config.js
 module.exports = {
-  apps: [{
-    name: 'my-app',
-    script: './app.js',
+    apps: [
+        {
+            name: "my-app",
+            script: "./app.js",
 
-    // 内存超限重启
-    max_memory_restart: '500M',
+            // 内存超限重启
+            max_memory_restart: "500M",
 
-    // 异常重启
-    max_restarts: 10,           // 最大重启次数
-    min_uptime: '10s',          // 最小运行时间
-    exp_backoff_restart_delay: 100,  // 指数退避延迟
+            // 异常重启
+            max_restarts: 10, // 最大重启次数
+            min_uptime: "10s", // 最小运行时间
+            exp_backoff_restart_delay: 100, // 指数退避延迟
 
-    // 崩溃检测
-    autorestart: true,
-    watch: false
-  }]
+            // 崩溃检测
+            autorestart: true,
+            watch: false,
+        },
+    ],
 };
 ```
 
@@ -830,7 +858,7 @@ PM2 检测到进程退出
 
 ```javascript
 // 配置
-exp_backoff_restart_delay: 100  // 起始延迟 100ms
+exp_backoff_restart_delay: 100; // 起始延迟 100ms
 
 // 重启延迟计算：
 // 第1次: 100ms
@@ -860,26 +888,28 @@ min_uptime: '10s',      // 运行超过10秒才算成功
 ```javascript
 // ecosystem.config.js
 module.exports = {
-  apps: [{
-    name: 'production-api',
-    script: './src/index.js',
-    cwd: '/var/www/app',
-    instances: 0,  // 0 = CPU核心数
-    exec_mode: 'cluster',
-    env_production: {
-      NODE_ENV: 'production',
-      PORT: 3000
-    },
-    error_file: '/var/log/pm2/error.log',
-    out_file: '/var/log/pm2/out.log',
-    log_file: '/var/log/pm2/combined.log',
-    time: true,
-    autorestart: true,
-    max_memory_restart: '1G',
-    restart_delay: 4000,
-    max_restarts: 10,
-    min_uptime: '10s'
-  }]
+    apps: [
+        {
+            name: "production-api",
+            script: "./src/index.js",
+            cwd: "/var/www/app",
+            instances: 0, // 0 = CPU核心数
+            exec_mode: "cluster",
+            env_production: {
+                NODE_ENV: "production",
+                PORT: 3000,
+            },
+            error_file: "/var/log/pm2/error.log",
+            out_file: "/var/log/pm2/out.log",
+            log_file: "/var/log/pm2/combined.log",
+            time: true,
+            autorestart: true,
+            max_memory_restart: "1G",
+            restart_delay: 4000,
+            max_restarts: 10,
+            min_uptime: "10s",
+        },
+    ],
 };
 ```
 
@@ -900,11 +930,11 @@ pm2 flush  # 清空日志
 
 ```javascript
 // 使用 pm2-cloud 或自建监控
-const PMX = require('pmx');
+const PMX = require("pmx");
 
 const alert = PMX.alert({
-    message: 'High memory usage detected',
-    value: process.memoryUsage().heapUsed
+    message: "High memory usage detected",
+    value: process.memoryUsage().heapUsed,
 });
 ```
 

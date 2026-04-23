@@ -10,20 +10,20 @@ Canvas 是 HTML5 提供的绑定画布，通过 JavaScript 可以在 canvas 上�
 
 ### Canvas vs SVG
 
-| 特性 | Canvas | SVG |
-|------|--------|-----|
-| **渲染方式** | 位图（像素） | 矢量（DOM） |
-| **元素操作** | 像素级控制 | 可操作单个元素 |
-| **性能** | 大批量绘制快 | 小批量操作快 |
-| **内存** | 一次声明，多次绘制 | 每个图形是独立 DOM |
-| **适用场景** | 游戏、图表、图像处理 | UI 图表、图标 |
-| **事件绑定** | 整个画布 | 单个图形 |
+| 特性         | Canvas               | SVG                |
+| ------------ | -------------------- | ------------------ |
+| **渲染方式** | 位图（像素）         | 矢量（DOM）        |
+| **元素操作** | 像素级控制           | 可操作单个元素     |
+| **性能**     | 大批量绘制快         | 小批量操作快       |
+| **内存**     | 一次声明，多次绘制   | 每个图形是独立 DOM |
+| **适用场景** | 游戏、图表、图像处理 | UI 图表、图标      |
+| **事件绑定** | 整个画布             | 单个图形           |
 
 ### Canvas 2D 渲染上下文
 
 ```javascript
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
 ```
 
 ---
@@ -34,11 +34,11 @@ const ctx = canvas.getContext('2d');
 
 ```javascript
 // 填充矩形
-ctx.fillStyle = '#FF5733';
+ctx.fillStyle = "#FF5733";
 ctx.fillRect(x, y, width, height);
 
 // 描边矩形
-ctx.strokeStyle = '#FF5733';
+ctx.strokeStyle = "#FF5733";
 ctx.strokeRect(x, y, width, height);
 
 // 清除区域
@@ -53,9 +53,9 @@ ctx.moveTo(100, 100);
 ctx.lineTo(200, 200);
 ctx.lineTo(100, 200);
 ctx.closePath();
-ctx.fillStyle = 'blue';
+ctx.fillStyle = "blue";
 ctx.fill();
-ctx.strokeStyle = 'red';
+ctx.strokeStyle = "red";
 ctx.stroke();
 ```
 
@@ -65,7 +65,7 @@ ctx.stroke();
 // arc(x, y, radius, startAngle, endAngle, anticlockwise)
 ctx.beginPath();
 ctx.arc(100, 100, 50, 0, Math.PI * 2, false);
-ctx.fillStyle = 'green';
+ctx.fillStyle = "green";
 ctx.fill();
 
 // 绘制弧线
@@ -77,19 +77,19 @@ ctx.stroke();
 ### 绘制文本
 
 ```javascript
-ctx.font = '24px Arial';
-ctx.fillStyle = 'black';
-ctx.textAlign = 'center';
-ctx.fillText('Hello Canvas', 100, 100);
+ctx.font = "24px Arial";
+ctx.fillStyle = "black";
+ctx.textAlign = "center";
+ctx.fillText("Hello Canvas", 100, 100);
 
-ctx.strokeText('Hello Canvas', 100, 150);
+ctx.strokeText("Hello Canvas", 100, 150);
 ```
 
 ### 绘制图片
 
 ```javascript
 const img = new Image();
-img.src = '/path/to/image.png';
+img.src = "/path/to/image.png";
 img.onload = () => {
     ctx.drawImage(img, x, y);
     ctx.drawImage(img, x, y, width, height);
@@ -104,7 +104,7 @@ img.onload = () => {
 ### 颜色和透明度
 
 ```javascript
-ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
 ctx.globalAlpha = 0.5;
 ```
 
@@ -113,15 +113,15 @@ ctx.globalAlpha = 0.5;
 ```javascript
 // 线性渐变
 const linearGradient = ctx.createLinearGradient(x1, y1, x2, y2);
-linearGradient.addColorStop(0, 'red');
-linearGradient.addColorStop(1, 'blue');
+linearGradient.addColorStop(0, "red");
+linearGradient.addColorStop(1, "blue");
 ctx.fillStyle = linearGradient;
 ctx.fillRect(0, 0, 200, 200);
 
 // 径向渐变
 const radialGradient = ctx.createRadialGradient(x1, y1, r1, x2, y2, r2);
-radialGradient.addColorStop(0, 'red');
-radialGradient.addColorStop(1, 'blue');
+radialGradient.addColorStop(0, "red");
+radialGradient.addColorStop(1, "blue");
 ctx.fillStyle = radialGradient;
 ctx.fillRect(0, 0, 200, 200);
 ```
@@ -129,7 +129,7 @@ ctx.fillRect(0, 0, 200, 200);
 ### 阴影
 
 ```javascript
-ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
 ctx.shadowBlur = 10;
 ctx.shadowOffsetX = 5;
 ctx.shadowOffsetY = 5;
@@ -166,8 +166,8 @@ ctx.restore();
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    update();  // 更新状态
-    draw();    // 绘制画面
+    update(); // 更新状态
+    draw(); // 绘制画面
 
     requestAnimationFrame(animate);
 }
@@ -180,7 +180,7 @@ function update() {
 function draw() {
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = "red";
     ctx.fill();
 }
 
@@ -190,8 +190,8 @@ animate();
 ### 完整动画示例 - 弹跳球
 
 ```javascript
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
 const ball = {
     x: canvas.width / 2,
@@ -199,7 +199,7 @@ const ball = {
     vx: 5,
     vy: 3,
     radius: 20,
-    color: '#FF5733'
+    color: "#FF5733",
 };
 
 function drawBall() {
@@ -260,7 +260,7 @@ const data = imageData.data; // Uint8ClampedArray
 
 // 修改像素
 for (let i = 0; i < data.length; i += 4) {
-    data[i] = 255 - data[i];       // R
+    data[i] = 255 - data[i]; // R
     data[i + 1] = 255 - data[i + 1]; // G
     data[i + 2] = 255 - data[i + 2]; // B
 }
@@ -277,7 +277,7 @@ ctx.beginPath();
 ctx.arc(100, 100, 50, 0, Math.PI * 2);
 ctx.clip();
 
-ctx.fillStyle = 'red';
+ctx.fillStyle = "red";
 ctx.fillRect(0, 0, 200, 200);
 ctx.restore();
 ```
@@ -292,16 +292,16 @@ ctx.restore();
 // 不好：每帧创建渐变
 function draw() {
     const gradient = ctx.createLinearGradient(0, 0, 200, 0);
-    gradient.addColorStop(0, 'red');
-    gradient.addColorStop(1, 'blue');
+    gradient.addColorStop(0, "red");
+    gradient.addColorStop(1, "blue");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 200, 200);
 }
 
 // 好：预创建渐变
 const gradient = ctx.createLinearGradient(0, 0, 200, 0);
-gradient.addColorStop(0, 'red');
-gradient.addColorStop(1, 'blue');
+gradient.addColorStop(0, "red");
+gradient.addColorStop(1, "blue");
 
 function draw() {
     ctx.fillStyle = gradient;
@@ -312,28 +312,27 @@ function draw() {
 ### 2. 分层画布
 
 ```html
-<canvas id="bg" style="z-index: 1;"></canvas>
-<canvas id="fg" style="z-index: 2;"></canvas>
+<canvas id="bg" style="z-index: 1;"></canvas> <canvas id="fg" style="z-index: 2;"></canvas>
 ```
 
 ```javascript
-const bgCanvas = document.getElementById('bg');
-const bgCtx = bgCanvas.getContext('2d');
-const fgCanvas = document.getElementById('fg');
-const fgCtx = fgCanvas.getContext('2d');
+const bgCanvas = document.getElementById("bg");
+const bgCtx = bgCanvas.getContext("2d");
+const fgCanvas = document.getElementById("fg");
+const fgCtx = fgCanvas.getContext("2d");
 ```
 
 ### 3. 使用离屏 canvas
 
 ```javascript
-const offscreen = document.createElement('canvas');
+const offscreen = document.createElement("canvas");
 offscreen.width = 100;
 offscreen.height = 100;
-const offCtx = offscreen.getContext('2d');
+const offCtx = offscreen.getContext("2d");
 
 offCtx.beginPath();
 offCtx.arc(50, 50, 50, 0, Math.PI * 2);
-offCtx.fillStyle = 'red';
+offCtx.fillStyle = "red";
 offCtx.fill();
 
 // 每帧只需 drawImage
@@ -387,32 +386,32 @@ function roundRect(x, y, width, height, radius) {
 ### 2. 绘制虚线
 
 ```javascript
-ctx.setLineDash([10, 5]);  // [实线长度, 间隙长度]
-ctx.lineDashOffset = -offset;  // 动画效果
+ctx.setLineDash([10, 5]); // [实线长度, 间隙长度]
+ctx.lineDashOffset = -offset; // 动画效果
 ctx.strokeRect(0, 0, 200, 200);
 ```
 
 ### 3. 文字居中
 
 ```javascript
-ctx.font = '24px Arial';
-ctx.textAlign = 'center';
-ctx.textBaseline = 'middle';
-ctx.fillText('Center', canvas.width / 2, canvas.height / 2);
+ctx.font = "24px Arial";
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.fillText("Center", canvas.width / 2, canvas.height / 2);
 ```
 
 ### 4. 渐变文字
 
 ```javascript
-ctx.font = '48px Arial';
-ctx.fillText('Gradient', 100, 100);
+ctx.font = "48px Arial";
+ctx.fillText("Gradient", 100, 100);
 
-ctx.globalCompositeOperation = 'source-in';
+ctx.globalCompositeOperation = "source-in";
 const gradient = ctx.createLinearGradient(100, 0, 300, 0);
-gradient.addColorStop(0, 'red');
-gradient.addColorStop(1, 'blue');
+gradient.addColorStop(0, "red");
+gradient.addColorStop(1, "blue");
 ctx.fillStyle = gradient;
-ctx.fillText('Gradient', 100, 100);
+ctx.fillText("Gradient", 100, 100);
 ```
 
 ---
@@ -426,16 +425,19 @@ ctx.fillText('Gradient', 100, 100);
 Canvas 的渲染原理基于以下机制：
 
 **1. 立即模式渲染**
+
 - Canvas 采用立即模式（Immediate Mode）
 - 每帧绘制时，JavaScript 命令直接写入像素缓冲区
 - 绘制完成后，画布上只有位图数据，无法单独操作单个图形
 
 **2. 渲染流程**
+
 ```
 JavaScript API 调用 → Canvas 2D 上下文 → 命令解析 → GPU 绘制 → 像素缓冲区更新
 ```
 
 **3. 重绘机制**
+
 ```javascript
 // 每次绘制前需要清空画布
 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -445,6 +447,7 @@ ctx.clearRect(0, 0, canvas.width, canvas.height);
 ```
 
 **4. requestAnimationFrame**
+
 ```javascript
 function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -469,14 +472,14 @@ function render() {
 
 **核心区别：**
 
-| 维度 | Canvas | SVG |
-|------|--------|-----|
-| **渲染机制** | 位图，依赖 CPU | 矢量，依赖 DOM |
-| **单个元素操作** | 不支持 | 支持 |
-| **事件绑定** | 整个画布 | 单个图形 |
-| **渲染性能** | 大量元素时快 | 少量元素时快 |
-| **内存占用** | 恒定 | 元素越多越大 |
-| **缩放** | 失真/模糊 | 保持清晰 |
+| 维度             | Canvas         | SVG            |
+| ---------------- | -------------- | -------------- |
+| **渲染机制**     | 位图，依赖 CPU | 矢量，依赖 DOM |
+| **单个元素操作** | 不支持         | 支持           |
+| **事件绑定**     | 整个画布       | 单个图形       |
+| **渲染性能**     | 大量元素时快   | 少量元素时快   |
+| **内存占用**     | 恒定           | 元素越多越大   |
+| **缩放**         | 失真/模糊      | 保持清晰       |
 
 **性能对比场景：**
 
@@ -495,6 +498,7 @@ function drawManyCircles() {
 ```
 
 **选择建议：**
+
 - **用 Canvas**：游戏、图表（ECharts）、图像处理、数据可视化（大量数据点）
 - **用 SVG**：UI 组件、图标、地图、图表（少量元素需交互）
 
@@ -507,13 +511,14 @@ function drawManyCircles() {
 高清屏（Retina）下 Canvas 会出现模糊问题，因为屏幕像素比（dpr）大于 1。
 
 **问题原因：**
+
 - dpr = 2 时，1 个 CSS 像素对应 4 个物理像素
 - 如果 Canvas 宽 300px，实际需要 600px 才能清晰
 
 **解决方案：**
 
 ```javascript
-const canvas = document.getElementById('canvas');
+const canvas = document.getElementById("canvas");
 const dpr = window.devicePixelRatio || 1;
 const width = 300;
 const height = 200;
@@ -523,8 +528,8 @@ canvas.width = width * dpr;
 canvas.height = height * dpr;
 
 // 设置 CSS 尺寸
-canvas.style.width = width + 'px';
-canvas.style.height = height + 'px';
+canvas.style.width = width + "px";
+canvas.style.height = height + "px";
 
 // 缩放上下文
 ctx.scale(dpr, dpr);
@@ -534,15 +539,16 @@ ctx.fillRect(0, 0, width, height);
 ```
 
 **封装为工具函数：**
+
 ```javascript
 function setupCanvas(canvas, width, height) {
     const dpr = window.devicePixelRatio || 1;
     canvas.width = width * dpr;
     canvas.height = height * dpr;
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     ctx.scale(dpr, dpr);
 
     return ctx;
@@ -556,6 +562,7 @@ function setupCanvas(canvas, width, height) {
 **参考答案：**
 
 **1. 避免在绘制循环中创建对象**
+
 ```javascript
 // 不好
 function animate() {
@@ -571,6 +578,7 @@ function animate() {
 ```
 
 **2. 使用离屏 Canvas 缓存**
+
 ```javascript
 const offscreen = document.createElement('canvas');
 offscreen.width = 100;
@@ -586,14 +594,18 @@ function render() {
 ```
 
 **3. 分层渲染**
+
 ```html
 <div class="canvas-container">
-    <canvas id="static"></canvas>   <!-- 背景层 -->
-    <canvas id="dynamic"></canvas>  <!-- 前景层 -->
+    <canvas id="static"></canvas>
+    <!-- 背景层 -->
+    <canvas id="dynamic"></canvas>
+    <!-- 前景层 -->
 </div>
 ```
 
 **4. 批量绘制**
+
 ```javascript
 // 减少 beginPath 调用
 ctx.beginPath();
@@ -605,6 +617,7 @@ ctx.fill();
 ```
 
 **5. 使用 requestAnimationFrame**
+
 ```javascript
 // 好
 function render() {
@@ -622,6 +635,7 @@ setInterval(render, 16);
 **参考答案：**
 
 **基础压缩方法：**
+
 ```javascript
 function compressImage(file, quality = 0.8, maxWidth = 1920) {
     return new Promise((resolve) => {
@@ -633,7 +647,7 @@ function compressImage(file, quality = 0.8, maxWidth = 1920) {
         };
 
         img.onload = () => {
-            const canvas = document.createElement('canvas');
+            const canvas = document.createElement("canvas");
             let { width, height } = img;
 
             // 等比缩放
@@ -645,21 +659,18 @@ function compressImage(file, quality = 0.8, maxWidth = 1920) {
             canvas.width = width;
             canvas.height = height;
 
-            const ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, width, height);
 
             // 输出为 Blob
-            canvas.toBlob(
-                (blob) => resolve(blob),
-                'image/jpeg',
-                quality
-            );
+            canvas.toBlob((blob) => resolve(blob), "image/jpeg", quality);
         };
     });
 }
 ```
 
 **自定义压缩算法：**
+
 ```javascript
 function compressWithQuality(imageData, quality = 0.5) {
     const data = imageData.data;
@@ -708,10 +719,10 @@ function drawPieChart(data, labels, colors) {
         const textY = centerY + (radius / 2) * Math.sin(midAngle);
         const percentage = Math.round((value / total) * 100);
 
-        ctx.fillStyle = '#fff';
-        ctx.font = '14px Arial';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
+        ctx.fillStyle = "#fff";
+        ctx.font = "14px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
         ctx.fillText(`${percentage}%`, textX, textY);
 
         startAngle += sliceAngle;
@@ -719,11 +730,7 @@ function drawPieChart(data, labels, colors) {
 }
 
 // 使用示例
-drawPieChart(
-    [300, 150, 100, 50],
-    ['A', 'B', 'C', 'D'],
-    ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-);
+drawPieChart([300, 150, 100, 50], ["A", "B", "C", "D"], ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"]);
 ```
 
 ---
@@ -733,8 +740,8 @@ drawPieChart(
 **参考答案：**
 
 ```javascript
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
 let isDragging = false;
 let dragTarget = null;
@@ -742,8 +749,8 @@ let offsetX = 0;
 let offsetY = 0;
 
 const shapes = [
-    { x: 100, y: 100, width: 80, height: 80, color: 'red' },
-    { x: 200, y: 200, width: 80, height: 80, color: 'blue' }
+    { x: 100, y: 100, width: 80, height: 80, color: "red" },
+    { x: 200, y: 200, width: 80, height: 80, color: "blue" },
 ];
 
 function draw() {
@@ -757,15 +764,14 @@ function draw() {
 function getShape(x, y) {
     for (let i = shapes.length - 1; i >= 0; i--) {
         const s = shapes[i];
-        if (x >= s.x && x <= s.x + s.width &&
-            y >= s.y && y <= s.y + s.height) {
+        if (x >= s.x && x <= s.x + s.width && y >= s.y && y <= s.y + s.height) {
             return s;
         }
     }
     return null;
 }
 
-canvas.addEventListener('mousedown', (e) => {
+canvas.addEventListener("mousedown", (e) => {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -779,7 +785,7 @@ canvas.addEventListener('mousedown', (e) => {
     }
 });
 
-canvas.addEventListener('mousemove', (e) => {
+canvas.addEventListener("mousemove", (e) => {
     if (!isDragging) return;
 
     const rect = canvas.getBoundingClientRect();
@@ -791,7 +797,7 @@ canvas.addEventListener('mousemove', (e) => {
     draw();
 });
 
-canvas.addEventListener('mouseup', () => {
+canvas.addEventListener("mouseup", () => {
     isDragging = false;
     dragTarget = null;
 });
@@ -810,10 +816,10 @@ function addWatermark(text) {
     ctx.save();
 
     ctx.globalAlpha = 0.3;
-    ctx.fillStyle = '#000';
-    ctx.font = '24px Arial';
-    ctx.textAlign = 'right';
-    ctx.textBaseline = 'bottom';
+    ctx.fillStyle = "#000";
+    ctx.font = "24px Arial";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "bottom";
 
     // 右下角水印
     ctx.fillText(text, canvas.width - 20, canvas.height - 20);
@@ -837,12 +843,12 @@ function addWatermark(text) {
 }
 
 // 使用
-ctx.fillStyle = '#fff';
+ctx.fillStyle = "#fff";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
-ctx.fillStyle = '#333';
-ctx.font = '16px Arial';
-ctx.fillText('内容区域', 50, 50);
-addWatermark('仅供内测使用');
+ctx.fillStyle = "#333";
+ctx.font = "16px Arial";
+ctx.fillText("内容区域", 50, 50);
+addWatermark("仅供内测使用");
 ```
 
 ---
@@ -881,7 +887,7 @@ const img = new Image();
 img.onload = () => {
     drawCircleImage(img, 100, 100, 50);
 };
-img.src = '/avatar.jpg';
+img.src = "/avatar.jpg";
 ```
 
 ---
@@ -891,6 +897,7 @@ img.src = '/avatar.jpg';
 **参考答案：**
 
 **问题原因：**
+
 - Retina 屏幕的 devicePixelRatio 为 2 或更高
 - 如果 canvas 宽 200px，实际渲染 400 个物理像素
 - 图像被压缩到 200px 显示，造成模糊
@@ -904,25 +911,26 @@ function setupHighDPICanvas(canvas, width, height) {
     canvas.width = width * dpr;
     canvas.height = height * dpr;
 
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     ctx.scale(dpr, dpr);
 
     return ctx;
 }
 
 // 使用
-const canvas = document.getElementById('canvas');
+const canvas = document.getElementById("canvas");
 const ctx = setupHighDPICanvas(canvas, 400, 300);
 
 // 绘制将保持清晰
-ctx.fillStyle = 'red';
+ctx.fillStyle = "red";
 ctx.fillRect(0, 0, 400, 300);
 ```
 
 **图像绘制时额外注意：**
+
 ```javascript
 function drawImageHighDPI(img, x, y, width, height) {
     const dpr = window.devicePixelRatio || 1;

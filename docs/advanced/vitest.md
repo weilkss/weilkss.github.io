@@ -36,12 +36,12 @@ Vitest 是一个由 Vue 团队开发的下一代单元测试框架，基于 Vite
 
 **底层实现差异：**
 
-| 方面 | Jest | Vitest |
-|------|------|--------|
-| 构建工具 | 自有 transform | 基于 Vite |
-| 模块解析 | CommonJS 优先 | ESM 优先 |
-| 测试环境 | JSDOM/Node | 浏览器 API + Happy DOM |
-| HMR | 不支持 | 原生支持 |
+| 方面     | Jest           | Vitest                 |
+| -------- | -------------- | ---------------------- |
+| 构建工具 | 自有 transform | 基于 Vite              |
+| 模块解析 | CommonJS 优先  | ESM 优先               |
+| 测试环境 | JSDOM/Node     | 浏览器 API + Happy DOM |
+| HMR      | 不支持         | 原生支持               |
 
 ### 3. Vitest 的执行流程是怎样的？
 
@@ -70,20 +70,20 @@ Vitest 深度集成 Vite 的核心能力：
 
 ```typescript
 // vitest.config.ts
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  test: {
-    // 启用 HMR 支持
-    hot: true,
-    // 使用 Vite 的预构建能力
-    globals: true,
-    // 环境配置
-    environment: 'jsdom',
-    // 全局测试 DOM APIs
-    setupFiles: ['./src/test/setup.ts']
-  }
-})
+    test: {
+        // 启用 HMR 支持
+        hot: true,
+        // 使用 Vite 的预构建能力
+        globals: true,
+        // 环境配置
+        environment: "jsdom",
+        // 全局测试 DOM APIs
+        setupFiles: ["./src/test/setup.ts"],
+    },
+});
 ```
 
 **Vite 加速原理：**
@@ -99,30 +99,28 @@ export default defineConfig({
 
 ```typescript
 // describe: 分组测试用例
-describe('UserService', () => {
-  describe('createUser', () => {
-    it('should create user with valid data', async () => {
-      const user = await userService.create({ name: 'John' });
-      expect(user.name).toBe('John');
-    });
+describe("UserService", () => {
+    describe("createUser", () => {
+        it("should create user with valid data", async () => {
+            const user = await userService.create({ name: "John" });
+            expect(user.name).toBe("John");
+        });
 
-    it('should throw error with invalid email', async () => {
-      await expect(
-        userService.create({ email: 'invalid' })
-      ).rejects.toThrow('Invalid email');
+        it("should throw error with invalid email", async () => {
+            await expect(userService.create({ email: "invalid" })).rejects.toThrow("Invalid email");
+        });
     });
-  });
 });
 
 // test 是 it 的别名，完全等价
-test('sum should return correct result', () => {
-  expect(sum(1, 2)).toBe(3);
+test("sum should return correct result", () => {
+    expect(sum(1, 2)).toBe(3);
 });
 
 // 使用 async/await
-it('async test', async () => {
-  const data = await fetchData();
-  expect(data).toBeDefined();
+it("async test", async () => {
+    const data = await fetchData();
+    expect(data).toBeDefined();
 });
 ```
 
@@ -130,22 +128,22 @@ it('async test', async () => {
 
 ```typescript
 // 常用匹配器 (Jest 兼容)
-expect(value).toBe(expected);           // 精确相等 (===)
-expect(value).toEqual(expected);        // 深度相等
-expect(value).toBeNull();               // null
-expect(value).toBeUndefined();          // undefined
-expect(value).toBeTruthy();             // 真值
-expect(value).toBeFalsy();              // 假值
-expect(arr).toContain(item);            // 数组包含
-expect(str).toMatch(/pattern/);         // 正则匹配
-expect(obj).toHaveProperty('key');      // 对象属性存在
-expect(() => fn()).toThrow();           // 抛出异常
+expect(value).toBe(expected); // 精确相等 (===)
+expect(value).toEqual(expected); // 深度相等
+expect(value).toBeNull(); // null
+expect(value).toBeUndefined(); // undefined
+expect(value).toBeTruthy(); // 真值
+expect(value).toBeFalsy(); // 假值
+expect(arr).toContain(item); // 数组包含
+expect(str).toMatch(/pattern/); // 正则匹配
+expect(obj).toHaveProperty("key"); // 对象属性存在
+expect(() => fn()).toThrow(); // 抛出异常
 
 // Chai 风格 (Vitest 独有)
-expect(value).to.equal(expected);       // 严格相等
-expect(value).to.be.a('string');        // 类型检查
-expect(arr).to.have.lengthOf(3);        // 长度检查
-expect(fn).to.have.been.called();        // 调用检查
+expect(value).to.equal(expected); // 严格相等
+expect(value).to.be.a("string"); // 类型检查
+expect(arr).to.have.lengthOf(3); // 长度检查
+expect(fn).to.have.been.called(); // 调用检查
 expect(bigNum).to.be.closeTo(3.14, 0.01); // 浮点比较
 
 // 数值相关
@@ -153,21 +151,21 @@ expect(value).toBeGreaterThan(10);
 expect(value).toBeLessThanOrEqual(100);
 
 // Promise 相关
-await expect(fetchUser()).resolves.toEqual({ name: 'John' });
-await expect(fetchData()).rejects.toThrow('Error');
+await expect(fetchUser()).resolves.toEqual({ name: "John" });
+await expect(fetchData()).rejects.toThrow("Error");
 ```
 
 ### 7. beforeAll、beforeEach、afterAll、afterEach 的执行顺序
 
 ```typescript
-beforeAll(() => console.log('1 - beforeAll'));     // 所有测试开始前执行一次
-afterAll(() => console.log('1 - afterAll'));      // 所有测试结束后执行一次
+beforeAll(() => console.log("1 - beforeAll")); // 所有测试开始前执行一次
+afterAll(() => console.log("1 - afterAll")); // 所有测试结束后执行一次
 
-beforeEach(() => console.log('2 - beforeEach')); // 每个测试前执行
-afterEach(() => console.log('2 - afterEach'));    // 每个测试后执行
+beforeEach(() => console.log("2 - beforeEach")); // 每个测试前执行
+afterEach(() => console.log("2 - afterEach")); // 每个测试后执行
 
-test('test 1', () => console.log('3 - test 1'));
-test('test 2', () => console.log('3 - test 2'));
+test("test 1", () => console.log("3 - test 1"));
+test("test 2", () => console.log("3 - test 2"));
 
 // 执行顺序：
 // 1 - beforeAll
@@ -183,22 +181,22 @@ test('test 2', () => console.log('3 - test 2'));
 ### 8. 作用域与变量隔离
 
 ```typescript
-describe('outer', () => {
-  const outerValue = 'outer';
+describe("outer", () => {
+    const outerValue = "outer";
 
-  describe('inner', () => {
-    const innerValue = 'inner';
+    describe("inner", () => {
+        const innerValue = "inner";
 
-    test('has access to outer and inner', () => {
-      expect(outerValue).toBe('outer');
-      expect(innerValue).toBe('inner');
+        test("has access to outer and inner", () => {
+            expect(outerValue).toBe("outer");
+            expect(innerValue).toBe("inner");
+        });
     });
-  });
 
-  test('has access to outer only', () => {
-    expect(outerValue).toBe('outer');
-    // innerValue 在这里不可访问
-  });
+    test("has access to outer only", () => {
+        expect(outerValue).toBe("outer");
+        // innerValue 在这里不可访问
+    });
 });
 ```
 
@@ -207,29 +205,29 @@ describe('outer', () => {
 ### 9. 如何创建和使用 Mock 函数？
 
 ```typescript
-import { vi, describe, it, expect } from 'vitest';
+import { vi, describe, it, expect } from "vitest";
 
 // 方式一：vi.fn()
 const mockFn = vi.fn();
-mockFn.mockReturnValue('hello');
-mockFn.mockResolvedValue('hello');
-mockFn.mockRejectedValue(new Error('error'));
+mockFn.mockReturnValue("hello");
+mockFn.mockResolvedValue("hello");
+mockFn.mockRejectedValue(new Error("error"));
 
 console.log(mockFn()); // 'hello'
 
 // 方式二：vi.spyOn()
 const obj = {
-  getName: () => 'John'
+    getName: () => "John",
 };
-const spy = vi.spyOn(obj, 'getName');
+const spy = vi.spyOn(obj, "getName");
 obj.getName();
 console.log(spy.mock.calls.length); // 1
 
 // 方式三：vi.mock() 自动提升
-vi.mock('axios', () => ({
-  default: {
-    get: vi.fn().mockResolvedValue({ data: [] })
-  }
+vi.mock("axios", () => ({
+    default: {
+        get: vi.fn().mockResolvedValue({ data: [] }),
+    },
 }));
 ```
 
@@ -239,10 +237,7 @@ vi.mock('axios', () => ({
 const mockFn = vi.fn();
 
 // 链式调用模拟
-mockFn
-  .mockReturnValueOnce('first call')
-  .mockReturnValueOnce('second call')
-  .mockReturnValue('default');
+mockFn.mockReturnValueOnce("first call").mockReturnValueOnce("second call").mockReturnValue("default");
 
 console.log(mockFn()); // 'first call'
 console.log(mockFn()); // 'second call'
@@ -250,13 +245,13 @@ console.log(mockFn()); // 'default'
 
 // 模拟实现
 mockFn.mockImplementation((a: number, b: number) => {
-  return a + b;
+    return a + b;
 });
 
 // 模拟模块
-vi.mock('lodash', () => ({
-  debounce: vi.fn(() => () => {}),
-  cloneDeep: vi.fn((obj: unknown) => JSON.parse(JSON.stringify(obj)))
+vi.mock("lodash", () => ({
+    debounce: vi.fn(() => () => {}),
+    cloneDeep: vi.fn((obj: unknown) => JSON.parse(JSON.stringify(obj))),
 }));
 
 // 追踪调用
@@ -268,20 +263,20 @@ console.log(mockFn.mock.results); // [{ type: 'return', value: 3 }, { type: 'ret
 
 ### 11. vi.fn() 与 vi.spyOn() 的区别
 
-| 特性 | vi.fn() | vi.spyOn() |
-|------|---------|------------|
-| 创建方式 | 独立创建函数 | 包装已有对象的方法 |
-| 原方法调用 | 不会调用原方法 | 默认会调用原方法 |
-| 用途 | 模拟独立函数 | 监视+模拟对象方法 |
-| 恢复原状 | 无需恢复 | 需要 mockRestore() |
+| 特性       | vi.fn()        | vi.spyOn()         |
+| ---------- | -------------- | ------------------ |
+| 创建方式   | 独立创建函数   | 包装已有对象的方法 |
+| 原方法调用 | 不会调用原方法 | 默认会调用原方法   |
+| 用途       | 模拟独立函数   | 监视+模拟对象方法  |
+| 恢复原状   | 无需恢复       | 需要 mockRestore() |
 
 ```typescript
 // spyOn 可以追踪原方法调用
 const MathLib = {
-  add: (a: number, b: number) => a + b
+    add: (a: number, b: number) => a + b,
 };
 
-const spy = vi.spyOn(MathLib, 'add');
+const spy = vi.spyOn(MathLib, "add");
 MathLib.add(1, 2); // 实际调用了原方法
 MathLib.add(3, 4); // 实际调用了原方法
 
@@ -292,48 +287,48 @@ spy.mockRestore(); // 恢复原方法
 ### 12. 如何 Mock 定时器？
 
 ```typescript
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
 
 // 使用 fake timers
 beforeEach(() => {
-  vi.useFakeTimers();
+    vi.useFakeTimers();
 });
 
 afterEach(() => {
-  vi.useRealTimers();
+    vi.useRealTimers();
 });
 
-it('debounce should work', () => {
-  const fn = vi.fn();
-  const debounced = debounce(fn, 1000);
+it("debounce should work", () => {
+    const fn = vi.fn();
+    const debounced = debounce(fn, 1000);
 
-  debounced();
-  debounced();
-  debounced();
+    debounced();
+    debounced();
+    debounced();
 
-  // 快进所有定时器
-  vi.runAllTimers();
+    // 快进所有定时器
+    vi.runAllTimers();
 
-  expect(fn).toHaveBeenCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
 });
 
 // 测试特定的定时器
-it('setTimeout with specific time', () => {
-  vi.advanceTimersByTime(1000);
+it("setTimeout with specific time", () => {
+    vi.advanceTimersByTime(1000);
 });
 
 // 等待异步定时器
-it('async timer', async () => {
-  const promise = new Promise(resolve => setTimeout(resolve, 1000));
-  vi.advanceTimersByTime(1000);
-  await promise;
+it("async timer", async () => {
+    const promise = new Promise((resolve) => setTimeout(resolve, 1000));
+    vi.advanceTimersByTime(1000);
+    await promise;
 });
 
 // 使用 fake date
-it('date mocking', () => {
-  const date = new Date('2024-01-01');
-  vi.setSystemTime(date);
-  expect(new Date().toISOString()).toBe('2024-01-01T00:00:00.000Z');
+it("date mocking", () => {
+    const date = new Date("2024-01-01");
+    vi.setSystemTime(date);
+    expect(new Date().toISOString()).toBe("2024-01-01T00:00:00.000Z");
 });
 ```
 
@@ -343,30 +338,30 @@ it('date mocking', () => {
 
 ```typescript
 // 方式一：Promise
-test('fetch user', () => {
-  return fetchUser().then(data => {
-    expect(data.name).toBe('John');
-  });
+test("fetch user", () => {
+    return fetchUser().then((data) => {
+        expect(data.name).toBe("John");
+    });
 });
 
 // 方式二：async/await
-test('fetch user with async', async () => {
-  const data = await fetchUser();
-  expect(data.name).toBe('John');
+test("fetch user with async", async () => {
+    const data = await fetchUser();
+    expect(data.name).toBe("John");
 });
 
 // 方式三：resolves/rejects
-test('fetch user resolves', async () => {
-  await expect(fetchUser()).resolves.toEqual({ name: 'John' });
+test("fetch user resolves", async () => {
+    await expect(fetchUser()).resolves.toEqual({ name: "John" });
 });
 
 // 方式四：回调函数风格
-test('callback style', (done) => {
-  fetchUser((err, data) => {
-    expect(err).toBeNull();
-    expect(data.name).toBe('John');
-    done();
-  });
+test("callback style", (done) => {
+    fetchUser((err, data) => {
+        expect(err).toBeNull();
+        expect(data.name).toBe("John");
+        done();
+    });
 });
 ```
 
@@ -375,23 +370,27 @@ test('callback style', (done) => {
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // 启用并行执行
-    threads: true,
-    // 最大并行数
-    maxWorkers: 4,
-    // 或使用百分比
-    maxWorkers: '50%',
-    // 测试文件隔离
-    isolate: true
-  }
+    test: {
+        // 启用并行执行
+        threads: true,
+        // 最大并行数
+        maxWorkers: 4,
+        // 或使用百分比
+        maxWorkers: "50%",
+        // 测试文件隔离
+        isolate: true,
+    },
 });
 
 // 单个测试文件内顺序执行，但文件间并行
-describe('test suite', () => {
-  it('test 1', async () => { /* ... */ });
-  it('test 2', async () => { /* ... */ });
-  // 1 和 2 在同一 worker 中顺序执行
+describe("test suite", () => {
+    it("test 1", async () => {
+        /* ... */
+    });
+    it("test 2", async () => {
+        /* ... */
+    });
+    // 1 和 2 在同一 worker 中顺序执行
 });
 ```
 
@@ -400,34 +399,34 @@ describe('test suite', () => {
 ### 15. 如何测试 DOM 操作？
 
 ```typescript
-import { describe, it, expect } from 'vitest';
-import { JSDOM } from 'jsdom';
+import { describe, it, expect } from "vitest";
+import { JSDOM } from "jsdom";
 
 // 设置 DOM 环境
 const dom = new JSDOM('<!DOCTYPE html><div id="app"></div>');
 global.document = dom.window.document;
 global.window = dom.window;
 
-describe('DOM Test', () => {
-  it('should manipulate DOM', () => {
-    const app = document.getElementById('app');
-    app!.innerHTML = '<span>Hello</span>';
+describe("DOM Test", () => {
+    it("should manipulate DOM", () => {
+        const app = document.getElementById("app");
+        app!.innerHTML = "<span>Hello</span>";
 
-    const span = app!.querySelector('span');
-    expect(span?.textContent).toBe('Hello');
-  });
-
-  it('should handle events', () => {
-    const button = document.createElement('button');
-    let clicked = false;
-
-    button.addEventListener('click', () => {
-      clicked = true;
+        const span = app!.querySelector("span");
+        expect(span?.textContent).toBe("Hello");
     });
 
-    button.click();
-    expect(clicked).toBe(true);
-  });
+    it("should handle events", () => {
+        const button = document.createElement("button");
+        let clicked = false;
+
+        button.addEventListener("click", () => {
+            clicked = true;
+        });
+
+        button.click();
+        expect(clicked).toBe(true);
+    });
 });
 ```
 
@@ -436,18 +435,18 @@ describe('DOM Test', () => {
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // 环境选项
-    environment: 'jsdom',      // 默认: jsdom, happy-dom, node
-    globals: true,              // 全局 APIs (describe, it, expect)
-    setupFiles: ['./tests/setup.ts'], // 测试前运行的文件
+    test: {
+        // 环境选项
+        environment: "jsdom", // 默认: jsdom, happy-dom, node
+        globals: true, // 全局 APIs (describe, it, expect)
+        setupFiles: ["./tests/setup.ts"], // 测试前运行的文件
 
-    // DOM 配置
-    jsdom: {
-      // JSDOM 配置
-      url: 'http://localhost:3000'
-    }
-  }
+        // DOM 配置
+        jsdom: {
+            // JSDOM 配置
+            url: "http://localhost:3000",
+        },
+    },
 });
 ```
 
@@ -495,21 +494,21 @@ vitest --coverage
 **核心原因：**
 
 1. **基于 Vite 的预构建**：
-   - Jest 首次运行需要将所有依赖转为 CommonJS
-   - Vitest 复用 Vite 的 esbuild 预构建，只需转换一次
-   - esbuild 比 Babel 快 10-30 倍
+    - Jest 首次运行需要将所有依赖转为 CommonJS
+    - Vitest 复用 Vite 的 esbuild 预构建，只需转换一次
+    - esbuild 比 Babel 快 10-30 倍
 
 2. **原生 ESM 支持**：
-   - Jest 需要将 ESM 代码转译为 CommonJS
-   - Vitest 直接运行原生 ESM，减少转换开销
+    - Jest 需要将 ESM 代码转译为 CommonJS
+    - Vitest 直接运行原生 ESM，减少转换开销
 
 3. **懒编译策略**：
-   - Jest 启动时编译所有测试文件
-   - Vitest 只编译实际导入的模块
+    - Jest 启动时编译所有测试文件
+    - Vitest 只编译实际导入的模块
 
 4. ** Worker 池优化**：
-   - Jest 的 Worker 通信开销较大
-   - Vitest 使用更轻量的 Worker 实现
+    - Jest 的 Worker 通信开销较大
+    - Vitest 使用更轻量的 Worker 实现
 
 **实际测试对比**：
 
@@ -531,32 +530,32 @@ real 0m0.312s
 // Vitest 的 HMR 实现原理
 // 1. 监听文件变化
 const watcher = chokidar.watch(testFiles, {
-  ignoreInitial: true
+    ignoreInitial: true,
 });
 
 // 2. 计算受影响的测试
-watcher.on('change', (file) => {
-  const affectedTests = calculateAffectedTests(file);
-  // 3. 增量运行受影响的测试
-  runTests(affectedTests);
+watcher.on("change", (file) => {
+    const affectedTests = calculateAffectedTests(file);
+    // 3. 增量运行受影响的测试
+    runTests(affectedTests);
 });
 
 // 4. 利用 Vite 的 HMR API
 if (import.meta.hot) {
-  import.meta.hot.on('vite:beforeFullReload', () => {
-    // 清理状态，准备重载
-    cleanup();
-  });
+    import.meta.hot.on("vite:beforeFullReload", () => {
+        // 清理状态，准备重载
+        cleanup();
+    });
 }
 ```
 
 **与 Jest watch 模式的区别**：
 
-| 特性 | Vitest HMR | Jest watch |
-|------|------------|------------|
+| 特性     | Vitest HMR     | Jest watch   |
+| -------- | -------------- | ------------ |
 | 反馈速度 | 即时（毫秒级） | 较慢（秒级） |
-| 状态保持 | 保持 | 重新运行 |
-| 增量执行 | 精确计算 | 全量重跑 |
+| 状态保持 | 保持           | 重新运行     |
+| 增量执行 | 精确计算       | 全量重跑     |
 
 ### 问题三：Vitest 如何处理 Vue 组件测试？
 
@@ -564,47 +563,47 @@ if (import.meta.hot) {
 
 ```typescript
 // Vue Test Utils + Vitest
-import { mount } from '@vue/test-utils';
-import { defineComponent, ref } from 'vue';
-import { describe, it, expect } from 'vitest';
+import { mount } from "@vue/test-utils";
+import { defineComponent, ref } from "vue";
+import { describe, it, expect } from "vitest";
 
 const HelloWorld = defineComponent({
-  props: {
-    msg: String
-  },
-  setup(props) {
-    const count = ref(0);
-    const increment = () => count.value++;
-    return { count, increment };
-  },
-  template: `
+    props: {
+        msg: String,
+    },
+    setup(props) {
+        const count = ref(0);
+        const increment = () => count.value++;
+        return { count, increment };
+    },
+    template: `
     <div>
       <h1>{{ msg }}</h1>
       <button @click="increment">Count: {{ count }}</button>
     </div>
-  `
+  `,
 });
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const wrapper = mount(HelloWorld, {
-      props: { msg: 'new message' }
+describe("HelloWorld.vue", () => {
+    it("renders props.msg when passed", () => {
+        const wrapper = mount(HelloWorld, {
+            props: { msg: "new message" },
+        });
+        expect(wrapper.text()).toContain("new message");
     });
-    expect(wrapper.text()).toContain('new message');
-  });
 
-  it('emits event when button clicked', async () => {
-    const wrapper = mount(HelloWorld);
-    await wrapper.find('button').trigger('click');
-    expect(wrapper.find('button').text()).toContain('Count: 1');
-  });
-
-  it('updates reactively', async () => {
-    const wrapper = mount(HelloWorld, {
-      props: { msg: 'Hello' }
+    it("emits event when button clicked", async () => {
+        const wrapper = mount(HelloWorld);
+        await wrapper.find("button").trigger("click");
+        expect(wrapper.find("button").text()).toContain("Count: 1");
     });
-    expect(wrapper.props().msg).toBe('Hello');
-  });
+
+    it("updates reactively", async () => {
+        const wrapper = mount(HelloWorld, {
+            props: { msg: "Hello" },
+        });
+        expect(wrapper.props().msg).toBe("Hello");
+    });
 });
 ```
 
@@ -615,36 +614,29 @@ describe('HelloWorld.vue', () => {
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // 模块名称映射
-    alias: {
-      '@': '/src',
-      '~': '/src',
-      '@components': '/src/components'
+    test: {
+        // 模块名称映射
+        alias: {
+            "@": "/src",
+            "~": "/src",
+            "@components": "/src/components",
+        },
+
+        // 全局导入
+        globals: {
+            vi: true,
+            describe: true,
+            it: true,
+            expect: true,
+            beforeEach: true,
+        },
+
+        // 包含的测试文件
+        include: ["**/*.test.ts", "**/*.spec.ts", "**/__tests__/**/*.ts"],
+
+        // 排除的文件
+        exclude: ["**/node_modules/**", "**/dist/**"],
     },
-
-    // 全局导入
-    globals: {
-      vi: true,
-      describe: true,
-      it: true,
-      expect: true,
-      beforeEach: true
-    },
-
-    // 包含的测试文件
-    include: [
-      '**/*.test.ts',
-      '**/*.spec.ts',
-      '**/__tests__/**/*.ts'
-    ],
-
-    // 排除的文件
-    exclude: [
-      '**/node_modules/**',
-      '**/dist/**'
-    ]
-  }
 });
 ```
 
@@ -693,38 +685,38 @@ import {
 
 ```typescript
 // 单个测试文件中 Mock
-vi.mock('axios');
+vi.mock("axios");
 
-test('mock axios', () => {
-  const axios = require('axios');
-  (axios.get as ReturnType<typeof vi.fn>).mockResolvedValue({
-    data: { name: 'John' }
-  });
+test("mock axios", () => {
+    const axios = require("axios");
+    (axios.get as ReturnType<typeof vi.fn>).mockResolvedValue({
+        data: { name: "John" },
+    });
 });
 
 // 使用 vi.hoisted() 在模块级别保持变量
 const { mockAxios } = vi.hoisted(() => ({
-  mockAxios: vi.fn()
+    mockAxios: vi.fn(),
 }));
 
-vi.mock('axios', () => ({
-  default: mockAxios
+vi.mock("axios", () => ({
+    default: mockAxios,
 }));
 
 // 条件 Mock
-vi.mock('axios', async () => {
-  const actual = await vi.importActual('axios');
-  return {
-    ...actual,
-    get: vi.fn()
-  };
+vi.mock("axios", async () => {
+    const actual = await vi.importActual("axios");
+    return {
+        ...actual,
+        get: vi.fn(),
+    };
 });
 
 // Mock 第三方模块的复杂场景
-vi.mock('lodash', () => {
-  const debounce = vi.fn((fn: Function) => fn);
-  const cloneDeep = vi.fn((obj: unknown) => JSON.parse(JSON.stringify(obj)));
-  return { debounce, cloneDeep };
+vi.mock("lodash", () => {
+    const debounce = vi.fn((fn: Function) => fn);
+    const cloneDeep = vi.fn((obj: unknown) => JSON.parse(JSON.stringify(obj)));
+    return { debounce, cloneDeep };
 });
 ```
 
@@ -764,32 +756,32 @@ tests/
 
 ```typescript
 // 好的测试示例
-describe('Calculator', () => {
-  describe('add', () => {
-    it('should return 3 when adding 1 and 2', () => {
-      // Arrange
-      const calculator = new Calculator();
+describe("Calculator", () => {
+    describe("add", () => {
+        it("should return 3 when adding 1 and 2", () => {
+            // Arrange
+            const calculator = new Calculator();
 
-      // Act
-      const result = calculator.add(1, 2);
+            // Act
+            const result = calculator.add(1, 2);
 
-      // Assert
-      expect(result).toBe(3);
+            // Assert
+            expect(result).toBe(3);
+        });
+
+        it("should handle negative numbers", () => {
+            const calculator = new Calculator();
+            expect(calculator.add(-1, -2)).toBe(-3);
+        });
     });
-
-    it('should handle negative numbers', () => {
-      const calculator = new Calculator();
-      expect(calculator.add(-1, -2)).toBe(-3);
-    });
-  });
 });
 
 // 不好的测试示例
-it('test', () => {
-  const arr = [1, 2, 3];
-  const sum = arr.reduce((a, b) => a + b, 0);
-  expect(sum).toBe(6);
-  // 问题：测试名称不清晰，代码中有计算逻辑
+it("test", () => {
+    const arr = [1, 2, 3];
+    const sum = arr.reduce((a, b) => a + b, 0);
+    expect(sum).toBe(6);
+    // 问题：测试名称不清晰，代码中有计算逻辑
 });
 ```
 

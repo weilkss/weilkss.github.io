@@ -35,17 +35,17 @@ REST（Representational State Transfer，表述性状态转移）是一种软件
 
 ### 1.2 REST vs SOAP
 
-| 特性 | REST | SOAP |
-|------|------|------|
-| 架构风格 | 轻量级 | 重量级 |
-| 数据格式 | JSON, XML | XML |
-| 传输协议 | HTTP | HTTP, SMTP, TCP |
-| 学习曲线 | 低 | 高 |
-| 性能 | 高 | 一般 |
-| 缓存 | 支持 | 有限支持 |
-| 错误处理 | HTTP 状态码 | 详细错误信息 |
-| 安全性 | 基本认证/OAuth | WS-Security |
-| 适用场景 | Web API | 企业级应用 |
+| 特性     | REST           | SOAP            |
+| -------- | -------------- | --------------- |
+| 架构风格 | 轻量级         | 重量级          |
+| 数据格式 | JSON, XML      | XML             |
+| 传输协议 | HTTP           | HTTP, SMTP, TCP |
+| 学习曲线 | 低             | 高              |
+| 性能     | 高             | 一般            |
+| 缓存     | 支持           | 有限支持        |
+| 错误处理 | HTTP 状态码    | 详细错误信息    |
+| 安全性   | 基本认证/OAuth | WS-Security     |
+| 适用场景 | Web API        | 企业级应用      |
 
 ---
 
@@ -53,15 +53,15 @@ REST（Representational State Transfer，表述性状态转移）是一种软件
 
 ### 2.1 常用 HTTP 方法
 
-| 方法 | 语义 | 幂等性 | 安全性 | 说明 |
-|------|------|--------|--------|------|
-| GET | 获取资源 | 是 | 是 | 查询操作 |
-| POST | 创建资源 | 否 | 否 | 新增操作 |
-| PUT | 更新资源（完整） | 是 | 否 | 完整更新 |
-| PATCH | 部分更新资源 | 否 | 否 | 部分更新 |
-| DELETE | 删除资源 | 是 | 否 | 删除操作 |
-| HEAD | 获取资源元数据 | 是 | 是 | 与GET类似但无body |
-| OPTIONS | 获取支持的HTTP方法 | 是 | 是 | CORS预检 |
+| 方法    | 语义               | 幂等性 | 安全性 | 说明              |
+| ------- | ------------------ | ------ | ------ | ----------------- |
+| GET     | 获取资源           | 是     | 是     | 查询操作          |
+| POST    | 创建资源           | 否     | 否     | 新增操作          |
+| PUT     | 更新资源（完整）   | 是     | 否     | 完整更新          |
+| PATCH   | 部分更新资源       | 否     | 否     | 部分更新          |
+| DELETE  | 删除资源           | 是     | 否     | 删除操作          |
+| HEAD    | 获取资源元数据     | 是     | 是     | 与GET类似但无body |
+| OPTIONS | 获取支持的HTTP方法 | 是     | 是     | CORS预检          |
 
 ### 2.2 RESTful API 设计示例
 
@@ -189,13 +189,13 @@ HTTP/1.1 204 No Content
 
 ### 3.1 状态码分类
 
-| 分类 | 范围 | 说明 |
-|------|------|------|
-| 1xx | 100-199 | 信息性状态码 |
-| 2xx | 200-299 | 成功状态码 |
-| 3xx | 300-399 | 重定向状态码 |
-| 4xx | 400-499 | 客户端错误状态码 |
-| 5xx | 500-599 | 服务器错误状态码 |
+| 分类 | 范围    | 说明             |
+| ---- | ------- | ---------------- |
+| 1xx  | 100-199 | 信息性状态码     |
+| 2xx  | 200-299 | 成功状态码       |
+| 3xx  | 300-399 | 重定向状态码     |
+| 4xx  | 400-499 | 客户端错误状态码 |
+| 5xx  | 500-599 | 服务器错误状态码 |
 
 ### 3.2 常用状态码
 
@@ -328,15 +328,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3O
 
 ```javascript
 // JWT 生成（Node.js + Express）
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-app.post('/login', (req, res) => {
+app.post("/login", (req, res) => {
     const { username, password } = req.body;
 
     // 验证用户
     const user = validateUser(username, password);
     if (!user) {
-        return res.status(401).json({ error: 'Invalid credentials' });
+        return res.status(401).json({ error: "Invalid credentials" });
     }
 
     // 生成 Token
@@ -344,13 +344,13 @@ app.post('/login', (req, res) => {
         {
             userId: user.id,
             username: user.username,
-            role: user.role
+            role: user.role,
         },
         process.env.JWT_SECRET,
         {
-            expiresIn: '24h',
-            issuer: 'my-api'
-        }
+            expiresIn: "24h",
+            issuer: "my-api",
+        },
     );
 
     res.json({ token });
@@ -360,8 +360,8 @@ app.post('/login', (req, res) => {
 const authMiddleware = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ error: 'No token provided' });
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ error: "No token provided" });
     }
 
     const token = authHeader.substring(7);
@@ -371,15 +371,15 @@ const authMiddleware = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (error) {
-        if (error.name === 'TokenExpiredError') {
-            return res.status(401).json({ error: 'Token expired' });
+        if (error.name === "TokenExpiredError") {
+            return res.status(401).json({ error: "Token expired" });
         }
-        return res.status(401).json({ error: 'Invalid token' });
+        return res.status(401).json({ error: "Invalid token" });
     }
 };
 
 // 使用
-app.get('/api/users', authMiddleware, (req, res) => {
+app.get("/api/users", authMiddleware, (req, res) => {
     res.json({ users: [] });
 });
 ```
@@ -391,9 +391,9 @@ app.get('/api/users', authMiddleware, (req, res) => {
 
 // 定义角色和权限
 const permissions = {
-    admin: ['users:read', 'users:write', 'users:delete', 'orders:read', 'orders:write'],
-    manager: ['users:read', 'orders:read', 'orders:write'],
-    user: ['users:read', 'orders:read']
+    admin: ["users:read", "users:write", "users:delete", "orders:read", "orders:write"],
+    manager: ["users:read", "orders:read", "orders:write"],
+    user: ["users:read", "orders:read"],
 };
 
 // 权限检查中间件
@@ -404,8 +404,8 @@ const requirePermission = (permission) => {
 
         if (!rolePermissions.includes(permission)) {
             return res.status(403).json({
-                error: 'Forbidden',
-                message: 'You do not have permission to perform this action'
+                error: "Forbidden",
+                message: "You do not have permission to perform this action",
             });
         }
 
@@ -414,13 +414,9 @@ const requirePermission = (permission) => {
 };
 
 // 使用
-app.delete('/api/users/:id',
-    authMiddleware,
-    requirePermission('users:delete'),
-    (req, res) => {
-        // 删除用户逻辑
-    }
-);
+app.delete("/api/users/:id", authMiddleware, requirePermission("users:delete"), (req, res) => {
+    // 删除用户逻辑
+});
 ```
 
 ---
@@ -504,38 +500,35 @@ const buildQuery = (model) => {
 
     // 过滤
     if (req.query.category) {
-        query = query.where('category', req.query.category);
+        query = query.where("category", req.query.category);
     }
     if (req.query.price_min) {
-        query = query.where('price', '>=', req.query.price_min);
+        query = query.where("price", ">=", req.query.price_min);
     }
     if (req.query.price_max) {
-        query = query.where('price', '<=', req.query.price_max);
+        query = query.where("price", "<=", req.query.price_max);
     }
 
     // 排序
     if (req.query.sort) {
-        const sortField = req.query.sort.startsWith('-')
-            ? req.query.sort.substring(1)
-            : req.query.sort;
-        const sortOrder = req.query.sort.startsWith('-') ? 'desc' : 'asc';
+        const sortField = req.query.sort.startsWith("-") ? req.query.sort.substring(1) : req.query.sort;
+        const sortOrder = req.query.sort.startsWith("-") ? "desc" : "asc";
         query = query.orderBy(sortField, sortOrder);
     }
 
     // 分页
-    query = query.limit(req.pagination.perPage)
-                 .offset(req.pagination.offset);
+    query = query.limit(req.pagination.perPage).offset(req.pagination.offset);
 
     return query;
 };
 
 // API 路由
-app.get('/api/products', paginationMiddleware, async (req, res) => {
+app.get("/api/products", paginationMiddleware, async (req, res) => {
     const { page, perPage } = req.pagination;
 
     const [products, total] = await Promise.all([
         buildQuery(Product).fetchAll(),
-        Product.query().count('id as count').first()
+        Product.query().count("id as count").first(),
     ]);
 
     res.json({
@@ -544,8 +537,8 @@ app.get('/api/products', paginationMiddleware, async (req, res) => {
             page,
             per_page: perPage,
             total: total.count,
-            total_pages: Math.ceil(total.count / perPage)
-        }
+            total_pages: Math.ceil(total.count / perPage),
+        },
     });
 });
 ```
@@ -589,26 +582,26 @@ Cache-Control: no-store
 
 ```javascript
 // Node.js 缓存实现
-const etag = require('etag');
-const fresh = require('fresh');
+const etag = require("etag");
+const fresh = require("fresh");
 
-app.get('/api/users/:id', (req, res) => {
+app.get("/api/users/:id", (req, res) => {
     const user = getUser(req.params.id);
 
     // 生成 ETag
     const userEtag = etag(JSON.stringify(user));
 
     // 设置 ETag
-    res.set('ETag', userEtag);
+    res.set("ETag", userEtag);
 
     // 检查 If-None-Match
-    if (req.headers['if-none-match'] === userEtag) {
+    if (req.headers["if-none-match"] === userEtag) {
         return res.status(304).end();
     }
 
     // 检查 Last-Modified
-    if (req.headers['if-modified-since']) {
-        if (fresh(req.headers, { 'etag': userEtag })) {
+    if (req.headers["if-modified-since"]) {
+        if (fresh(req.headers, { etag: userEtag })) {
             return res.status(304).end();
         }
     }
@@ -632,53 +625,55 @@ Retry-After: 3600
 
 ```javascript
 // Node.js 速率限制实现
-const rateLimit = require('express-rate-limit');
-const RedisStore = require('rate-limit-redis');
+const rateLimit = require("express-rate-limit");
+const RedisStore = require("rate-limit-redis");
 
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,    // 15 分钟窗口
-    max: 100,                     // 100 次请求
+    windowMs: 15 * 60 * 1000, // 15 分钟窗口
+    max: 100, // 100 次请求
     message: {
-        error: 'Too many requests',
-        message: 'Please try again later',
-        retryAfter: 3600
+        error: "Too many requests",
+        message: "Please try again later",
+        retryAfter: 3600,
     },
-    standardHeaders: true,        // 返回标准头
+    standardHeaders: true, // 返回标准头
     legacyHeaders: false,
     store: new RedisStore({
         client: redisClient,
-        prefix: 'rate_limit:'
+        prefix: "rate_limit:",
     }),
     keyGenerator: (req) => {
-        return req.user?.id || req.ip;  // 基于用户或 IP
-    }
+        return req.user?.id || req.ip; // 基于用户或 IP
+    },
 });
 
-app.use('/api', limiter);
+app.use("/api", limiter);
 ```
 
 ### 7.3 CORS 配置
 
 ```javascript
 // Node.js CORS 配置
-const cors = require('cors');
+const cors = require("cors");
 
-app.use(cors({
-    origin: ['https://example.com', 'https://www.example.com'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key'],
-    exposedHeaders: ['X-Total-Count', 'X-Page-Count'],
-    credentials: true,
-    maxAge: 86400  // 预检请求缓存 24 小时
-}));
+app.use(
+    cors({
+        origin: ["https://example.com", "https://www.example.com"],
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+        allowedHeaders: ["Content-Type", "Authorization", "X-API-Key"],
+        exposedHeaders: ["X-Total-Count", "X-Page-Count"],
+        credentials: true,
+        maxAge: 86400, // 预检请求缓存 24 小时
+    }),
+);
 
 // 手动设置
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://example.com');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header("Access-Control-Allow-Origin", "https://example.com");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-    if (req.method === 'OPTIONS') {
+    if (req.method === "OPTIONS") {
         return res.status(204).end();
     }
 
@@ -696,133 +691,133 @@ app.use((req, res, next) => {
 # openapi.yaml
 openapi: 3.0.0
 info:
-  title: 用户管理系统 API
-  version: 1.0.0
-  description: 用户管理系统的 RESTful API
+    title: 用户管理系统 API
+    version: 1.0.0
+    description: 用户管理系统的 RESTful API
 
 servers:
-  - url: https://api.example.com/v1
-    description: 生产环境
-  - url: https://staging-api.example.com/v1
-    description: 测试环境
+    - url: https://api.example.com/v1
+      description: 生产环境
+    - url: https://staging-api.example.com/v1
+      description: 测试环境
 
 paths:
-  /users:
-    get:
-      summary: 获取用户列表
-      tags:
-        - Users
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 1
-        - name: per_page
-          in: query
-          schema:
-            type: integer
-            default: 20
-      responses:
-        '200':
-          description: 成功
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/User'
-                  pagination:
-                    $ref: '#/components/schemas/Pagination'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
+    /users:
+        get:
+            summary: 获取用户列表
+            tags:
+                - Users
+            parameters:
+                - name: page
+                  in: query
+                  schema:
+                      type: integer
+                      default: 1
+                - name: per_page
+                  in: query
+                  schema:
+                      type: integer
+                      default: 20
+            responses:
+                "200":
+                    description: 成功
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: "#/components/schemas/User"
+                                    pagination:
+                                        $ref: "#/components/schemas/Pagination"
+                "401":
+                    $ref: "#/components/responses/Unauthorized"
 
-    post:
-      summary: 创建用户
-      tags:
-        - Users
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateUserRequest'
-      responses:
-        '201':
-          description: 创建成功
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+        post:
+            summary: 创建用户
+            tags:
+                - Users
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateUserRequest"
+            responses:
+                "201":
+                    description: 创建成功
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/User"
+                "400":
+                    $ref: "#/components/responses/BadRequest"
 
-  /users/{id}:
-    get:
-      summary: 获取用户详情
-      tags:
-        - Users
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: 成功
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '404':
-          $ref: '#/components/responses/NotFound'
+    /users/{id}:
+        get:
+            summary: 获取用户详情
+            tags:
+                - Users
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+            responses:
+                "200":
+                    description: 成功
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/User"
+                "404":
+                    $ref: "#/components/responses/NotFound"
 
 components:
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        username:
-          type: string
-        email:
-          type: string
-          format: email
-        created_at:
-          type: string
-          format: date-time
+    schemas:
+        User:
+            type: object
+            properties:
+                id:
+                    type: integer
+                username:
+                    type: string
+                email:
+                    type: string
+                    format: email
+                created_at:
+                    type: string
+                    format: date-time
 
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total:
-          type: integer
-        total_pages:
-          type: integer
+        Pagination:
+            type: object
+            properties:
+                page:
+                    type: integer
+                per_page:
+                    type: integer
+                total:
+                    type: integer
+                total_pages:
+                    type: integer
 
-  responses:
-    Unauthorized:
-      description: 未认证
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    responses:
+        Unauthorized:
+            description: 未认证
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
 
-    NotFound:
-      description: 资源不存在
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        NotFound:
+            description: 资源不存在
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
 ```
 
 ---
@@ -834,6 +829,7 @@ components:
 **参考答案：**
 
 **核心原则：**
+
 1. **资源导向**：使用名词而非动词描述资源
 2. **HTTP 语义**：正确使用 HTTP 方法
 3. **无状态**：每个请求包含所有必要信息
@@ -857,6 +853,7 @@ POST   /api/deleteUser?id=123
 ```
 
 **URL 设计规范：**
+
 - 使用小写字母
 - 使用连字符 `-` 分隔单词（可选）
 - 不要使用下划线
@@ -875,13 +872,13 @@ GET /api/users/123/orders/456/items
 
 **参考答案：**
 
-| 特性 | POST | PUT |
-|------|------|-----|
-| 语义 | 创建资源 | 更新/替换资源 |
-| 幂等性 | 非幂等 | 幂等 |
-| URL | 集合资源 | 单个资源 |
-| 重复请求 | 可能创建多个资源 | 结果相同 |
-| 主体 | 客户端决定 URI | 客户端决定 URI |
+| 特性     | POST             | PUT            |
+| -------- | ---------------- | -------------- |
+| 语义     | 创建资源         | 更新/替换资源  |
+| 幂等性   | 非幂等           | 幂等           |
+| URL      | 集合资源         | 单个资源       |
+| 重复请求 | 可能创建多个资源 | 结果相同       |
+| 主体     | 客户端决定 URI   | 客户端决定 URI |
 
 **使用示例：**
 
@@ -913,6 +910,7 @@ PUT /api/users/123
 ```
 
 **PATCH vs PUT：**
+
 - PUT：完整替换资源
 - PATCH：部分更新资源
 
@@ -948,7 +946,7 @@ const authMiddleware = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (error) {
-        res.status(401).json({ error: 'Unauthorized' });
+        res.status(401).json({ error: "Unauthorized" });
     }
 };
 
@@ -956,7 +954,7 @@ const authMiddleware = (req, res, next) => {
 const requireRole = (roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {
-            return res.status(403).json({ error: 'Forbidden' });
+            return res.status(403).json({ error: "Forbidden" });
         }
         next();
     };
@@ -966,16 +964,19 @@ const requireRole = (roles) => {
 **2. 输入验证**
 
 ```javascript
-const Joi = require('joi');
+const Joi = require("joi");
 
 const createUserSchema = Joi.object({
     username: Joi.string().alphanum().min(3).max(30).required(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(8).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/).required(),
-    age: Joi.number().integer().min(0).max(150).optional()
+    password: Joi.string()
+        .min(8)
+        .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+        .required(),
+    age: Joi.number().integer().min(0).max(150).optional(),
 });
 
-app.post('/api/users', async (req, res) => {
+app.post("/api/users", async (req, res) => {
     const { error, value } = createUserSchema.validate(req.body);
     if (error) {
         return res.status(400).json({ error: error.details[0].message });
@@ -988,7 +989,7 @@ app.post('/api/users', async (req, res) => {
 
 ```javascript
 // 生产环境强制 HTTPS
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
     app.use((req, res, next) => {
         if (req.secure) {
             return next();
@@ -1004,24 +1005,26 @@ if (process.env.NODE_ENV === 'production') {
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 100,
-    message: { error: 'Too many requests' }
+    message: { error: "Too many requests" },
 });
-app.use('/api', limiter);
+app.use("/api", limiter);
 ```
 
 **5. CORS**
 
 ```javascript
-app.use(cors({
-    origin: ['https://example.com'],
-    credentials: true
-}));
+app.use(
+    cors({
+        origin: ["https://example.com"],
+        credentials: true,
+    }),
+);
 ```
 
 **6. 安全 Headers**
 
 ```javascript
-const helmet = require('helmet');
+const helmet = require("helmet");
 app.use(helmet());
 // 设置 CSP, X-Frame-Options, X-Content-Type-Options 等
 ```
@@ -1076,12 +1079,12 @@ GET /api/users?limit=20&cursor=eyJpZCI6MTB9
 // 基于游标的分页实现
 class CursorPagination {
     static encode(data) {
-        return Buffer.from(JSON.stringify(data)).toString('base64');
+        return Buffer.from(JSON.stringify(data)).toString("base64");
     }
 
     static decode(cursor) {
         try {
-            return JSON.parse(Buffer.from(cursor, 'base64').toString());
+            return JSON.parse(Buffer.from(cursor, "base64").toString());
         } catch {
             return null;
         }
@@ -1089,14 +1092,16 @@ class CursorPagination {
 }
 
 // 排序时使用游标字段
-app.get('/api/users', async (req, res) => {
+app.get("/api/users", async (req, res) => {
     const limit = Math.min(parseInt(req.query.limit) || 20, 100);
     const cursor = CursorPagination.decode(req.query.cursor);
 
-    let query = db('users').orderBy('id', 'asc').limit(limit + 1);
+    let query = db("users")
+        .orderBy("id", "asc")
+        .limit(limit + 1);
 
     if (cursor) {
-        query = query.where('id', '>', cursor.id);
+        query = query.where("id", ">", cursor.id);
     }
 
     const results = await query;
@@ -1106,11 +1111,9 @@ app.get('/api/users', async (req, res) => {
     res.json({
         data,
         pagination: {
-            next_cursor: hasMore
-                ? CursorPagination.encode({ id: data[data.length - 1].id })
-                : null,
-            has_more: hasMore
-        }
+            next_cursor: hasMore ? CursorPagination.encode({ id: data[data.length - 1].id }) : null,
+            has_more: hasMore,
+        },
     });
 });
 ```
@@ -1122,48 +1125,50 @@ app.get('/api/users', async (req, res) => {
 **优点：**
 
 1. **简单易用**
-   - 使用 HTTP 方法，语义清晰
-   - 学习成本低
+    - 使用 HTTP 方法，语义清晰
+    - 学习成本低
 
 2. **可读性好**
-   - URL 即资源，语义明确
-   - `GET /api/users/123` 一眼就知道是获取用户
+    - URL 即资源，语义明确
+    - `GET /api/users/123` 一眼就知道是获取用户
 
 3. **无状态**
-   - 便于水平扩展
-   - 负载均衡简单
+    - 便于水平扩展
+    - 负载均衡简单
 
 4. **缓存友好**
-   - 利用 HTTP 缓存机制
-   - Last-Modified, ETag, Cache-Control
+    - 利用 HTTP 缓存机制
+    - Last-Modified, ETag, Cache-Control
 
 5. **跨平台**
-   - 纯文本协议，任何客户端都能调用
-   - JSON 格式通用性好
+    - 纯文本协议，任何客户端都能调用
+    - JSON 格式通用性好
 
 **缺点：**
 
 1. **不支持推送**
-   - 客户端需要轮询或使用 WebSocket
+    - 客户端需要轮询或使用 WebSocket
 
 2. **URL 结构限制**
-   - 复杂查询 URL 可能很长
-   - 不适合二进制数据传输
+    - 复杂查询 URL 可能很长
+    - 不适合二进制数据传输
 
 3. **版本管理复杂**
-   - 需要维护多版本 API
-   - 资源关系复杂时 URL 可能很深
+    - 需要维护多版本 API
+    - 资源关系复杂时 URL 可能很深
 
 4. **安全性**
-   - 需要额外实现认证授权
-   - 无内置加密
+    - 需要额外实现认证授权
+    - 无内置加密
 
 **适用场景：**
+
 - 公开 API
 - 移动端后端
 - 微服务间通信
 
 **不适用场景：**
+
 - 实时性要求高的应用（使用 WebSocket）
 - 复杂的事务处理（考虑 GraphQL 或 gRPC）
 - 二进制文件传输（使用专门协议）

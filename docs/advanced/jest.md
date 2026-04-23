@@ -48,26 +48,27 @@ Jest 通过以下方式实现测试隔离：
 
 ```javascript
 // describe: 分组测试用例，提供逻辑封装和作用域控制
-describe('UserService', () => {
-  describe('createUser', () => {
-    // 嵌套 describe 可以进一步细分测试场景
-    it('should create user with valid data', () => {});
-    it('should throw error with invalid email', () => {});
-  });
+describe("UserService", () => {
+    describe("createUser", () => {
+        // 嵌套 describe 可以进一步细分测试场景
+        it("should create user with valid data", () => {});
+        it("should throw error with invalid email", () => {});
+    });
 });
 
 // test 和 it 是完全等价的别名关系
-test('sum should return correct result', () => {
-  expect(sum(1, 2)).toBe(3);
+test("sum should return correct result", () => {
+    expect(sum(1, 2)).toBe(3);
 });
 
-it('can use async/await', async () => {
-  const user = await fetchUser();
-  expect(user.name).toBe('John');
+it("can use async/await", async () => {
+    const user = await fetchUser();
+    expect(user.name).toBe("John");
 });
 ```
 
 **面试官可能问的延伸问题**：
+
 - `describe.skip` 和 `test.skip` 的区别？
 - 为什么 describe 块内的变量不会泄露到其他 describe 块？
 
@@ -75,16 +76,16 @@ it('can use async/await', async () => {
 
 ```javascript
 // 常用匹配器
-expect(value).toBe(expected);           // 精确相等（ === ）
-expect(value).toEqual(expected);        // 深度相等（适合对象/数组）
-expect(value).toBeNull();               // null
-expect(value).toBeUndefined();          // undefined
-expect(value).toBeTruthy();             // 真值
-expect(value).toBeFalsy();              // 假值
-expect(() => fn()).toThrow();           // 抛出异常
-expect(arr).toContain(item);            // 数组包含元素
-expect(str).toMatch(/pattern/);         // 正则匹配
-expect(obj).toHaveProperty('key');      // 对象属性存在
+expect(value).toBe(expected); // 精确相等（ === ）
+expect(value).toEqual(expected); // 深度相等（适合对象/数组）
+expect(value).toBeNull(); // null
+expect(value).toBeUndefined(); // undefined
+expect(value).toBeTruthy(); // 真值
+expect(value).toBeFalsy(); // 假值
+expect(() => fn()).toThrow(); // 抛出异常
+expect(arr).toContain(item); // 数组包含元素
+expect(str).toMatch(/pattern/); // 正则匹配
+expect(obj).toHaveProperty("key"); // 对象属性存在
 
 // 数值相关
 expect(value).toBeGreaterThan(10);
@@ -98,14 +99,14 @@ expect(Promise).rejects.toThrow();
 ### 6. beforeAll、beforeEach、afterAll、afterEach 的执行顺序
 
 ```javascript
-beforeAll(() => console.log('1 - beforeAll'));      // 所有测试开始前执行一次
-afterAll(() => console.log('1 - afterAll'));       // 所有测试结束后执行一次
+beforeAll(() => console.log("1 - beforeAll")); // 所有测试开始前执行一次
+afterAll(() => console.log("1 - afterAll")); // 所有测试结束后执行一次
 
-beforeEach(() => console.log('2 - beforeEach'));   // 每个测试前执行
-afterEach(() => console.log('2 - afterEach'));      // 每个测试后执行
+beforeEach(() => console.log("2 - beforeEach")); // 每个测试前执行
+afterEach(() => console.log("2 - afterEach")); // 每个测试后执行
 
-test('test 1', () => console.log('3 - test 1'));
-test('test 2', () => console.log('3 - test 2'));
+test("test 1", () => console.log("3 - test 1"));
+test("test 2", () => console.log("3 - test 2"));
 
 // 执行顺序：
 // 1 - beforeAll
@@ -125,20 +126,20 @@ test('test 2', () => console.log('3 - test 2'));
 ```javascript
 // 方式一：jest.fn()
 const mockFn = jest.fn();
-mockFn.mockReturnValue('hello');
+mockFn.mockReturnValue("hello");
 console.log(mockFn()); // 'hello'
 
 // 方式二：jest.spyOn()
 const obj = {
-  getName: () => 'John'
+    getName: () => "John",
 };
-const spy = jest.spyOn(obj, 'getName');
+const spy = jest.spyOn(obj, "getName");
 obj.getName();
 console.log(spy.mock.calls.length); // 1
 
 // 方式三：jest.mock() 自动提升
-jest.mock('axios');
-import axios from 'axios';
+jest.mock("axios");
+import axios from "axios";
 axios.get.mockResolvedValue({ data: [] });
 ```
 
@@ -148,10 +149,7 @@ axios.get.mockResolvedValue({ data: [] });
 const mockFn = jest.fn();
 
 // 链式调用模拟
-mockFn
-  .mockReturnValueOnce('first call')
-  .mockReturnValueOnce('second call')
-  .mockReturnValue('default');
+mockFn.mockReturnValueOnce("first call").mockReturnValueOnce("second call").mockReturnValue("default");
 
 console.log(mockFn()); // 'first call'
 console.log(mockFn()); // 'second call'
@@ -159,32 +157,32 @@ console.log(mockFn()); // 'default'
 
 // 模拟实现
 mockFn.mockImplementation((a, b) => {
-  return a + b;
+    return a + b;
 });
 
 // 模拟模块
-jest.mock('lodash', () => ({
-  debounce: jest.fn(() => () => {}),
-  cloneDeep: jest.fn(obj => JSON.parse(JSON.stringify(obj)))
+jest.mock("lodash", () => ({
+    debounce: jest.fn(() => () => {}),
+    cloneDeep: jest.fn((obj) => JSON.parse(JSON.stringify(obj))),
 }));
 ```
 
 ### 9. jest.spyOn 和 jest.fn 的区别
 
-| 特性 | jest.fn() | jest.spyOn() |
-|------|-----------|--------------|
-| 创建方式 | 独立创建函数 | 包装已有对象的方法 |
-| 原方法调用 | 不会调用原方法 | 默认会调用原方法 |
-| 用途 | 模拟独立函数 | 监视+模拟对象方法 |
-| 恢复原状 | 无需恢复 | 需要 restore() |
+| 特性       | jest.fn()      | jest.spyOn()       |
+| ---------- | -------------- | ------------------ |
+| 创建方式   | 独立创建函数   | 包装已有对象的方法 |
+| 原方法调用 | 不会调用原方法 | 默认会调用原方法   |
+| 用途       | 模拟独立函数   | 监视+模拟对象方法  |
+| 恢复原状   | 无需恢复       | 需要 restore()     |
 
 ```javascript
 // spyOn 可以追踪原方法调用
 const MathLib = {
-  add: (a, b) => a + b
+    add: (a, b) => a + b,
 };
 
-const spy = jest.spyOn(MathLib, 'add');
+const spy = jest.spyOn(MathLib, "add");
 MathLib.add(1, 2); // 实际调用了原方法
 MathLib.add(3, 4); // 实际调用了原方法
 
@@ -198,59 +196,59 @@ spy.mockRestore(); // 恢复原方法
 
 ```javascript
 // 方式一：Promise
-test('fetch user', () => {
-  return fetchUser().then(data => {
-    expect(data.name).toBe('John');
-  });
+test("fetch user", () => {
+    return fetchUser().then((data) => {
+        expect(data.name).toBe("John");
+    });
 });
 
 // 方式二：async/await
-test('fetch user with async', async () => {
-  const data = await fetchUser();
-  expect(data.name).toBe('John');
+test("fetch user with async", async () => {
+    const data = await fetchUser();
+    expect(data.name).toBe("John");
 });
 
 // 方式三：resolves/rejects
-test('fetch user resolves', async () => {
-  await expect(fetchUser()).resolves.toEqual({ name: 'John' });
+test("fetch user resolves", async () => {
+    await expect(fetchUser()).resolves.toEqual({ name: "John" });
 });
 
 // 方式四：回调函数风格
-test('callback style', done => {
-  fetchUser((err, data) => {
-    expect(err).toBeNull();
-    expect(data.name).toBe('John');
-    done();
-  });
+test("callback style", (done) => {
+    fetchUser((err, data) => {
+        expect(err).toBeNull();
+        expect(data.name).toBe("John");
+        done();
+    });
 });
 ```
 
 ### 11. 测试异步错误处理的正确方式
 
 ```javascript
-test('async error handling', async () => {
-  try {
-    await expect(fetchData()).rejects.toThrow('Network error');
-  } catch (err) {
-    // 这种写法是错误的！
-    // 因为 expect(...).rejects.toThrow() 已经处理了 Promise
-  }
+test("async error handling", async () => {
+    try {
+        await expect(fetchData()).rejects.toThrow("Network error");
+    } catch (err) {
+        // 这种写法是错误的！
+        // 因为 expect(...).rejects.toThrow() 已经处理了 Promise
+    }
 });
 
 // 正确写法
-test('async error handling - correct', async () => {
-  await expect(fetchData()).rejects.toThrow('Network error');
+test("async error handling - correct", async () => {
+    await expect(fetchData()).rejects.toThrow("Network error");
 });
 
 // 或者使用 try-catch
-test('async error handling with try-catch', async () => {
-  let error;
-  try {
-    await fetchData();
-  } catch (e) {
-    error = e;
-  }
-  expect(error.message).toBe('Network error');
+test("async error handling with try-catch", async () => {
+    let error;
+    try {
+        await fetchData();
+    } catch (e) {
+        error = e;
+    }
+    expect(error.message).toBe("Network error");
 });
 ```
 
@@ -260,15 +258,15 @@ test('async error handling with try-catch', async () => {
 
 ```javascript
 // 组件快照
-test('Button renders correctly', () => {
-  const tree = renderer.create(<Button>Click</Button>).toJSON();
-  expect(tree).toMatchSnapshot();
+test("Button renders correctly", () => {
+    const tree = renderer.create(<Button>Click</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
 });
 
 // 内联快照
-test('renders correctly', () => {
-  const output = renderComponent();
-  expect(output).toMatchInlineSnapshot(`
+test("renders correctly", () => {
+    const output = renderComponent();
+    expect(output).toMatchInlineSnapshot(`
     <div>
       <span>Hello</span>
     </div>
@@ -280,11 +278,13 @@ test('renders correctly', () => {
 ```
 
 **适用场景**：
+
 - UI 组件渲染结果验证
 - JSON 数据结构验证
 - 配置文件内容验证
 
 **不适合场景**：
+
 - 频繁变动的数据
 - 动态计算的结果
 
@@ -302,17 +302,20 @@ test('renders correctly', () => {
 **答案要点**：
 
 **优点**：
+
 - 零配置，开箱即用
 - 内置 Mock、Coverage、Snapshot 功能
 - 并行执行，测试速度快
 - 更好的 TypeScript 支持
 
 **缺点**：
+
 - 隔离性过强，不适合需要共享状态的场景
 - 全局变量污染（describe、test 等）
 - 复杂配置不如 Mocha 灵活
 
 **实际应用建议**：
+
 - React 项目首选 Jest
 - 需要高度自定义的测试环境可选 Mocha
 - Vue 项目常用 Vue Test Utils + Jest/Vitest
@@ -355,35 +358,35 @@ jest --changedFilesSince=origin/master;
 ```javascript
 // 使用 fake timers 控制时间
 beforeEach(() => {
-  jest.useFakeTimers();
+    jest.useFakeTimers();
 });
 
 afterEach(() => {
-  jest.useRealTimers();
+    jest.useRealTimers();
 });
 
-test('debounce should work', () => {
-  const fn = jest.fn();
-  const debounced = debounce(fn, 1000);
+test("debounce should work", () => {
+    const fn = jest.fn();
+    const debounced = debounce(fn, 1000);
 
-  debounced();
-  debounced();
-  debounced();
+    debounced();
+    debounced();
+    debounced();
 
-  // 快进时间
-  jest.runAllTimers();
+    // 快进时间
+    jest.runAllTimers();
 
-  expect(fn).toHaveBeenCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
 });
 
 // 测试特定的定时器
 jest.advanceTimersByTime(1000);
 
 // 等待异步定时器
-test('async timer', async () => {
-  const promise = new Promise(resolve => setTimeout(resolve, 1000));
-  jest.advanceTimersByTime(1000);
-  await promise;
+test("async timer", async () => {
+    const promise = new Promise((resolve) => setTimeout(resolve, 1000));
+    jest.advanceTimersByTime(1000);
+    await promise;
 });
 ```
 
@@ -391,21 +394,21 @@ test('async timer', async () => {
 
 ```javascript
 // 在单个测试文件中 mock
-jest.mock('axios');
+jest.mock("axios");
 
-test('mock axios in this file', () => {
-  axios.get.mockResolvedValue({ data: { name: 'John' } });
-  // 测试代码
+test("mock axios in this file", () => {
+    axios.get.mockResolvedValue({ data: { name: "John" } });
+    // 测试代码
 });
 
 // 配合 beforeEach 重置
 beforeEach(() => {
-  jest.clearAllMocks();
+    jest.clearAllMocks();
 });
 
 // 使用 doMock 实现条件 mock
-jest.doMock('axios', () => ({
-  get: jest.fn()
+jest.doMock("axios", () => ({
+    get: jest.fn(),
 }));
 ```
 
@@ -414,21 +417,19 @@ jest.doMock('axios', () => ({
 ```javascript
 // jest.config.js
 module.exports = {
-  // 模块名称映射
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-    '\\.css$': 'identity-obj-proxy',
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js'
-  },
+    // 模块名称映射
+    moduleNameMapper: {
+        "^@/(.*)$": "<rootDir>/src/$1",
+        "\\.css$": "identity-obj-proxy",
+        "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+            "<rootDir>/__mocks__/fileMock.js",
+    },
 
-  // 模块目录解析顺序
-  roots: ['<rootDir>/src'],
+    // 模块目录解析顺序
+    roots: ["<rootDir>/src"],
 
-  // 测试文件匹配模式
-  testMatch: [
-    '**/__tests__/**/*.[jt]s?(x)',
-    '**/?(*.)+(spec|test).[jt]s?(x)'
-  ]
+    // 测试文件匹配模式
+    testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
 };
 ```
 
@@ -436,28 +437,28 @@ module.exports = {
 
 ```javascript
 // Vue Test Utils + Jest
-import { mount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld.vue';
+import { mount } from "@vue/test-utils";
+import HelloWorld from "@/components/HelloWorld.vue";
 
-describe('HelloWorld.vue', () => {
-  test('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = mount(HelloWorld, {
-      props: { msg }
+describe("HelloWorld.vue", () => {
+    test("renders props.msg when passed", () => {
+        const msg = "new message";
+        const wrapper = mount(HelloWorld, {
+            props: { msg },
+        });
+        expect(wrapper.text()).toMatch(msg);
     });
-    expect(wrapper.text()).toMatch(msg);
-  });
 
-  test('emits event when button clicked', () => {
-    const wrapper = mount(HelloWorld);
-    wrapper.find('button').trigger('click');
-    expect(wrapper.emitted().click).toBeTruthy();
-  });
+    test("emits event when button clicked", () => {
+        const wrapper = mount(HelloWorld);
+        wrapper.find("button").trigger("click");
+        expect(wrapper.emitted().click).toBeTruthy();
+    });
 
-  test('matches snapshot', () => {
-    const wrapper = mount(HelloWorld);
-    expect(wrapper).toMatchSnapshot();
-  });
+    test("matches snapshot", () => {
+        const wrapper = mount(HelloWorld);
+        expect(wrapper).toMatchSnapshot();
+    });
 });
 ```
 
@@ -490,24 +491,24 @@ src/
 
 ```javascript
 // 好的测试示例
-describe('Calculator', () => {
-  describe('add', () => {
-    it('should return 3 when adding 1 and 2', () => {
-      // Arrange
-      const calculator = new Calculator();
+describe("Calculator", () => {
+    describe("add", () => {
+        it("should return 3 when adding 1 and 2", () => {
+            // Arrange
+            const calculator = new Calculator();
 
-      // Act
-      const result = calculator.add(1, 2);
+            // Act
+            const result = calculator.add(1, 2);
 
-      // Assert
-      expect(result).toBe(3);
+            // Assert
+            expect(result).toBe(3);
+        });
+
+        it("should handle negative numbers", () => {
+            const calculator = new Calculator();
+            expect(calculator.add(-1, -2)).toBe(-3);
+        });
     });
-
-    it('should handle negative numbers', () => {
-      const calculator = new Calculator();
-      expect(calculator.add(-1, -2)).toBe(-3);
-    });
-  });
 });
 ```
 
@@ -516,14 +517,13 @@ describe('Calculator', () => {
 ```javascript
 // jest.config.js
 module.exports = {
-  // CI 环境使用顺序执行，避免资源竞争
-  maxWorkers: process.env.CI ? 1 : '50%',
+    // CI 环境使用顺序执行，避免资源竞争
+    maxWorkers: process.env.CI ? 1 : "50%",
 
-  // CI 环境启用详细输出
-  verbose: !!process.env.CI,
+    // CI 环境启用详细输出
+    verbose: !!process.env.CI,
 
-  // 启用报告器
-  reporters: process.env.CI
-    ? ['default', 'jest-junit']
-    : ['default']
+    // 启用报告器
+    reporters: process.env.CI ? ["default", "jest-junit"] : ["default"],
 };
+```

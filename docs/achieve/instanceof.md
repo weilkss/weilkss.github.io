@@ -6,19 +6,19 @@
 
 **实现思路：**
 
--   首先检查 obj 是否为 null 或 undefined，因为这两种情况不符合 instanceof 的定义
--   循环通过查找 obj 的`__proto__`是否等于对象的原型即 `target.prototype`
+- 首先检查 obj 是否为 null 或 undefined，因为这两种情况不符合 instanceof 的定义
+- 循环通过查找 obj 的`__proto__`是否等于对象的原型即 `target.prototype`
 
 **代码实现：**
 
 ```js
 function myInstanceof(obj, target) {
-	if (typeof obj === "undefined" || obj === null) return false;
-	let proto = Object.getPrototypeOf(obj);
-	while (true) {
-		if (proto === target.prototype) return true;
-		if (proto === null) return false;
-		proto = Object.getPrototypeOf(proto);
-	}
+    if (typeof obj === "undefined" || obj === null) return false;
+    let proto = Object.getPrototypeOf(obj);
+    while (true) {
+        if (proto === target.prototype) return true;
+        if (proto === null) return false;
+        proto = Object.getPrototypeOf(proto);
+    }
 }
 ```

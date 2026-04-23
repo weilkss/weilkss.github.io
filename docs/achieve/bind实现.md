@@ -2,14 +2,15 @@
 
 ## 三者区别
 
-| 特性 | call | apply | bind |
-|------|------|-------|------|
-| **调用方式** | 立即执行 | 立即执行 | 返回新函数 |
+| 特性         | call                          | apply                            | bind                          |
+| ------------ | ----------------------------- | -------------------------------- | ----------------------------- |
+| **调用方式** | 立即执行                      | 立即执行                         | 返回新函数                    |
 | **参数形式** | 逐个传递 `fn.call(obj, a, b)` | 数组形式 `fn.apply(obj, [a, b])` | 逐个传递 `fn.bind(obj, a, b)` |
-| **返回值** | 函数执行结果 | 函数执行结果 | 新函数 |
-| **用途** | 临时改变 this，调用继承方法 | 临时改变 this，处理数组参数 | 永久绑定 this，预设参数 |
+| **返回值**   | 函数执行结果                  | 函数执行结果                     | 新函数                        |
+| **用途**     | 临时改变 this，调用继承方法   | 临时改变 this，处理数组参数      | 永久绑定 this，预设参数       |
 
 **核心区别**：
+
 - **call/apply**：立即调用原函数，调用后 this 不再改变
 - **bind**：返回新函数，新函数的 this 永久绑定，不会因调用方式改变
 
@@ -26,12 +27,12 @@
 ### 实现代码
 
 ```js
-Function.prototype.myCall = function(context, ...args) {
+Function.prototype.myCall = function (context, ...args) {
     // context 为 null 或 undefined 时，指向 window
     context = context || window;
 
     // 使用 Symbol 确保属性名唯一
-    const fn = Symbol('fn');
+    const fn = Symbol("fn");
 
     // 将函数设为对象的临时方法
     context[fn] = this;
@@ -50,15 +51,15 @@ Function.prototype.myCall = function(context, ...args) {
 
 ```js
 const obj = {
-    name: '张三'
+    name: "张三",
 };
 
 function greet(greeting, punctuation) {
-    return greeting + ', ' + this.name + punctuation;
+    return greeting + ", " + this.name + punctuation;
 }
 
-console.log(greet.myCall(obj, 'Hello', '!')); // 'Hello, 张三!'
-console.log(greet.call(obj, 'Hi', '~'));      // 'Hi, 张三~'
+console.log(greet.myCall(obj, "Hello", "!")); // 'Hello, 张三!'
+console.log(greet.call(obj, "Hi", "~")); // 'Hi, 张三~'
 ```
 
 ---
@@ -72,12 +73,12 @@ console.log(greet.call(obj, 'Hi', '~'));      // 'Hi, 张三~'
 ### 实现代码
 
 ```js
-Function.prototype.myApply = function(context, args) {
+Function.prototype.myApply = function (context, args) {
     // context 为 null 或 undefined 时，指向 window
     context = context || window;
 
     // 使用 Symbol 确保属性名唯一
-    const fn = Symbol('fn');
+    const fn = Symbol("fn");
 
     // 将函数设为对象的临时方法
     context[fn] = this;
@@ -96,15 +97,15 @@ Function.prototype.myApply = function(context, args) {
 
 ```js
 const obj = {
-    name: '张三'
+    name: "张三",
 };
 
 function greet(greeting, punctuation) {
-    return greeting + ', ' + this.name + punctuation;
+    return greeting + ", " + this.name + punctuation;
 }
 
-console.log(greet.myApply(obj, ['Hello', '!'])); // 'Hello, 张三!'
-console.log(greet.apply(obj, ['Hi', '~']));      // 'Hi, 张三~'
+console.log(greet.myApply(obj, ["Hello", "!"])); // 'Hello, 张三!'
+console.log(greet.apply(obj, ["Hi", "~"])); // 'Hi, 张三~'
 
 // 数组最大值
 const numbers = [1, 5, 3, 8, 2];
@@ -131,9 +132,9 @@ console.log(Math.max.apply(null, numbers)); // 8
 #### 基础版本
 
 ```js
-Function.prototype.myBind = function(context, ...args) {
+Function.prototype.myBind = function (context, ...args) {
     const fn = this;
-    return function(...args2) {
+    return function (...args2) {
         return fn.apply(context, [...args, ...args2]);
     };
 };
@@ -142,16 +143,13 @@ Function.prototype.myBind = function(context, ...args) {
 #### 完整版本（支持 new 调用）
 
 ```js
-Function.prototype.myBind = function(context, ...args) {
+Function.prototype.myBind = function (context, ...args) {
     const fn = this;
 
-    const bound = function(...args2) {
+    const bound = function (...args2) {
         // 当作为构造函数调用时，忽略 context
         // 通过 instanceof 检查是否是通过 new 调用的
-        return fn.apply(
-            this instanceof bound ? this : context,
-            [...args, ...args2]
-        );
+        return fn.apply(this instanceof bound ? this : context, [...args, ...args2]);
     };
 
     // 维护原型链
@@ -165,25 +163,25 @@ Function.prototype.myBind = function(context, ...args) {
 
 ```js
 const obj = {
-    name: '张三',
-    greet: function(greeting) {
+    name: "张三",
+    greet: function (greeting) {
         return `${greeting}, ${this.name}`;
-    }
+    },
 };
 
-const sayHello = obj.greet.myBind(obj, 'Hello');
+const sayHello = obj.greet.myBind(obj, "Hello");
 console.log(sayHello()); // 'Hello, 张三'
 
 // 预设参数
 const sayHi = obj.greet.myBind(obj);
-console.log(sayHi('Hi')); // 'Hi, 张三'
+console.log(sayHi("Hi")); // 'Hi, 张三'
 
 // 作为构造函数调用
 function Person(name) {
     this.name = name;
 }
 
-const BoundPerson = Person.myBind(null, '默认名字');
+const BoundPerson = Person.myBind(null, "默认名字");
 const person = new BoundPerson();
 console.log(person.name); // '默认名字'
 ```
@@ -194,12 +192,12 @@ console.log(person.name); // '默认名字'
 
 ### 三者选择场景
 
-| 场景 | 推荐方法 | 原因 |
-|------|---------|------|
-| 临时改变 this，立即执行 | call / apply | 立即调用 |
-| 需要处理数组参数 | apply | 参数天然是数组 |
-| 需要预设参数 | bind | 返回新函数，可预设 |
-| 事件处理函数 | bind | 确保 this 稳定 |
+| 场景                    | 推荐方法     | 原因               |
+| ----------------------- | ------------ | ------------------ |
+| 临时改变 this，立即执行 | call / apply | 立即调用           |
+| 需要处理数组参数        | apply        | 参数天然是数组     |
+| 需要预设参数            | bind         | 返回新函数，可预设 |
+| 事件处理函数            | bind         | 确保 this 稳定     |
 
 ### 性能考虑
 
@@ -213,9 +211,9 @@ console.log(person.name); // '默认名字'
 
 ```js
 const obj = {
-    name: '张三',
+    name: "张三",
     greet: () => {
         return `Hello, ${this.name}`; // this 不会是 obj
-    }
+    },
 };
 ```

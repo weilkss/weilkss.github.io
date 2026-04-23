@@ -18,9 +18,7 @@
 function flat(arr, depth = 1) {
     if (depth <= 0) return arr;
     return arr.reduce((prev, cur) => {
-        return prev.concat(
-            Array.isArray(cur) ? flat(cur, depth - 1) : cur
-        );
+        return prev.concat(Array.isArray(cur) ? flat(cur, depth - 1) : cur);
     }, []);
 }
 ```
@@ -46,15 +44,14 @@ function flat(arr, depth = Infinity) {
 ```js
 // 使用 toString（仅适用于纯数字数组）
 const arr = [1, [2, [3, [4]]]];
-arr.toString().split(',').map(Number); // [1, 2, 3, 4]
+arr.toString().split(",").map(Number); // [1, 2, 3, 4]
 
 // 使用 join（仅适用于纯数字数组）
-arr.join(',').split(',').map(Number);
+arr.join(",").split(",").map(Number);
 
 // 使用 spread 运算符简化
-const flatten = (arr) => arr.reduce((acc, val) =>
-    Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val), []
-);
+const flatten = (arr) =>
+    arr.reduce((acc, val) => (Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val)), []);
 ```
 
 ## 使用示例
@@ -62,14 +59,14 @@ const flatten = (arr) => arr.reduce((acc, val) =>
 ```js
 const arr = [1, [2, [3, [4]]]];
 
-flat(arr);        // [1, 2, [3, [4]]] - 默认深度1
-flat(arr, 2);     // [1, 2, 3, [4]] - 深度2
+flat(arr); // [1, 2, [3, [4]]] - 默认深度1
+flat(arr, 2); // [1, 2, 3, [4]] - 深度2
 flat(arr, Infinity); // [1, 2, 3, 4] - 全部展开
 ```
 
 ## 内置方法对比
 
-| 方法 | 说明 |
-|------|------|
-| flat() | ES2019 内置方法，默认深度1 |
+| 方法      | 说明                                     |
+| --------- | ---------------------------------------- |
+| flat()    | ES2019 内置方法，默认深度1               |
 | flatMap() | 先 map 再 flat，常用于映射和展开一步完成 |
