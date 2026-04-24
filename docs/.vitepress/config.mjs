@@ -201,20 +201,32 @@ export default defineConfig({
             "/vue": {
                 items: [
                     {
-                        text: "Vue3知识",
+                        text: "Vue3基础知识",
                         link: "/vue/vue3",
                     },
                     {
-                        text: "Vue2知识",
+                        text: "Vue2基础知识",
                         link: "/vue/vue2",
                     },
                     {
+                        text: "Vue3高频面试",
+                        link: "/vue/vue3high",
+                    },
+                    {
+                        text: "Vue2高频面试",
+                        link: "/vue/vue2high",
+                    },
+                    {
                         text: "手撕Vue3",
-                        link: "/vue/prei3",
+                        link: "/vue/mini3",
                     },
                     {
                         text: "手撕Vue2",
-                        link: "/vue/prei2",
+                        link: "/vue/mini2",
+                    },
+                    {
+                        text: "Vue技术周边",
+                        link: "/vue/prei",
                     },
                 ],
             },
@@ -234,7 +246,7 @@ export default defineConfig({
                     },
                     {
                         text: "技术周边",
-                        link: "/react/periphery",
+                        link: "/react/peri",
                     },
                 ],
             },
