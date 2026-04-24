@@ -246,7 +246,7 @@ export default defineConfig({
                     },
                     {
                         text: "技术周边",
-                        link: "/react/peri",
+                        link: "/react/prei",
                     },
                 ],
             },
