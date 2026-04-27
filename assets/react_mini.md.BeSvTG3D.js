@@ -1,1 +1,0 @@
-import{_ as e,o as t,c as a}from"./chunks/framework.RRduUuAx.js";const d=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"react/mini.md","filePath":"react/mini.md"}'),r={name:"react/mini.md"};function n(c,i,o,s,m,p){return t(),a("div")}const f=e(r,[["render",n]]);export{d as __pageData,f as default};
