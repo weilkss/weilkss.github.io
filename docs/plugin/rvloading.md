@@ -223,4 +223,4 @@ function App() {
 ## 官方资源
 
 - **npm**: https://www.npmjs.com/package/react-vue-loading
-- **GitHub**: https://github.com/zhpeng811/react-vue-loading
+- **GitHub**: https://github.com/weilkss/react-vue-loading
