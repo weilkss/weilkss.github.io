@@ -1,10 +1,11 @@
 import DefaultTheme from "vitepress/theme";
 import "./style.scss";
+import RVLoading from "./components/RVLoading.vue";
 
 export default {
     ...DefaultTheme,
-    enhanceApp() {
-        if (typeof window === "undefined") return;
+    enhanceApp({ app }) {
+        app.component("RVLoading", RVLoading);
 
         setTimeout(() => {
             const outlineContainer = document.querySelector(".aside-container");
@@ -29,7 +30,7 @@ export default {
                 observer.observe(link, { attributes: true });
             });
 
-            document.querySelector(".outline-link.active").scrollIntoView({
+            document.querySelector(".outline-link.active")?.scrollIntoView({
                 behavior: "smooth",
                 block: "center",
             });

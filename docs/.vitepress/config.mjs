@@ -256,6 +256,10 @@ export default defineConfig({
                         text: "前端轮子",
                         link: "/plugin/",
                     },
+                    {
+                        text: "React-Vue-Loading",
+                        link: "/plugin/rvloading",
+                    },
                 ],
             },
         },
