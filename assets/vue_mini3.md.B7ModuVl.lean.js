@@ -1,1 +1,0 @@
-import{_ as e,o as t,c as a}from"./chunks/framework.pktO3uVY.js";const d=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"vue/mini3.md","filePath":"vue/mini3.md"}'),n={name:"vue/mini3.md"};function i(r,o,s,c,m,p){return t(),a("div")}const f=e(n,[["render",i]]);export{d as __pageData,f as default};
